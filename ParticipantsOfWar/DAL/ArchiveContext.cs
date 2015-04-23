@@ -15,6 +15,8 @@ namespace ParticipantsOfWar.DAL
         public DbSet<Participant> Participants { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Document> Documents { get; set; }
+        public DbSet<ParticipantType> ParticipantTypes { get; set; }
+        public DbSet<DocumentType> DocumentTypes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
