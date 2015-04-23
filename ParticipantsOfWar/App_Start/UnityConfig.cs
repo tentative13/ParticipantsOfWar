@@ -13,9 +13,9 @@ namespace ParticipantsOfWar
             
             // register all your components with the container here
             // it is NOT necessary to register your controllers
-
-            container.RegisterType<IArchiveRepository, ArchiveRepository>();
             
+            // e.g. container.RegisterType<ITestService, TestService>();
+            container.RegisterType<IArchiveRepository, ArchiveRepository>();
             GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
         }
     }
