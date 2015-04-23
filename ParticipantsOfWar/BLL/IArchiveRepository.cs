@@ -9,5 +9,6 @@ namespace ParticipantsOfWar.BLL
     public interface IArchiveRepository
     {
         IEnumerable<Participant> GetAll();
+        IEnumerable<ParticipantType> GetAllTypes();
     }   
 }

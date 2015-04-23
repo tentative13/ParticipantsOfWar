@@ -21,5 +21,10 @@ namespace ParticipantsOfWar.Controllers
         {
             return _archiveRepo.GetAll();
         }
+        [Route("GetTypes")]
+        public IEnumerable<ParticipantType> GetAllTypes()
+        {
+            return _archiveRepo.GetAllTypes();
+        }
     }
 }

@@ -16,6 +16,11 @@ namespace ParticipantsOfWar.BLL
             return db.Participants;
         }
 
+        public IEnumerable<ParticipantType> GetAllTypes()
+        {
+            return db.ParticipantTypes;
+        }
+
         protected void Dispose(bool disposing)
         {
             if (disposing)
