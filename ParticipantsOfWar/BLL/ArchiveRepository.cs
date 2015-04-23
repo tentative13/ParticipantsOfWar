@@ -23,6 +23,12 @@ namespace ParticipantsOfWar.BLL
             return db.Participants;
         }
 
+        public IEnumerable<ParticipantType> GetAllTypes()
+        {
+            return db.ParticipantTypes;
+        }
+
+
         public void Add<T>(T entity) where T : class
         {
             var dbEntityEntry = db.Entry(entity);

@@ -12,6 +12,8 @@ namespace ParticipantsOfWar.BLL
     {
         IEnumerable<Participant> GetAll();
 
+        IEnumerable<ParticipantType> GetAllTypes();
+
         ArchiveContext DbContext { get; }
 
         void Add<T>(T entity) where T : class;
