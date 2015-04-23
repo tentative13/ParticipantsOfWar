@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
 
 namespace ParticipantsOfWar.BLL
 {
@@ -14,11 +13,13 @@ namespace ParticipantsOfWar.BLL
 
         IEnumerable<ParticipantType> GetAllTypes();
 
-        ArchiveContext DbContext { get; }
+        ArchiveContext Dbcontext();
 
         void Add<T>(T entity) where T : class;
 
         T Get<T>(decimal id) where T : class;
+
+        T Get<T>(Guid id) where T : class;
 
         void Update<T>(T entity) where T : class;
 

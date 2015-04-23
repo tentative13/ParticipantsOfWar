@@ -2,15 +2,10 @@
 using ParticipantsOfWar.Models;
 using System;
 using System.Collections.Generic;
-using System.Collections;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Linq.Expressions;
-using System.Web;
-using System.Data;
-using System.Data.Entity.Infrastructure;
-using ParticipantsOfWar.Models;
 
 namespace ParticipantsOfWar.BLL
 {
@@ -26,6 +21,11 @@ namespace ParticipantsOfWar.BLL
         public IEnumerable<ParticipantType> GetAllTypes()
         {
             return db.ParticipantTypes;
+        }
+
+        public ArchiveContext Dbcontext()
+        {
+            return db;
         }
 
 
@@ -70,6 +70,11 @@ namespace ParticipantsOfWar.BLL
         /// <param name="id"></param>
         /// <returns></returns>
         public T Get<T>(decimal id) where T : class
+        {
+            return db.Set<T>().Find(id);
+        }
+
+        public T Get<T>(Guid id) where T : class
         {
             return db.Set<T>().Find(id);
         }
