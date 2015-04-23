@@ -12,14 +12,14 @@ namespace ParticipantsOfWar.Controllers
     [RoutePrefix("api/Participants")]
     public class ParticipantsController : ApiController
     {
-        public IArchiveRepository archiveRepo;
-        public ParticipantsController(IArchiveRepository _archiveRepo)
+        public IArchiveRepository _archiveRepo;
+        public ParticipantsController(IArchiveRepository archiveRepo)
         {
-            archiveRepo = _archiveRepo;
+            _archiveRepo = archiveRepo;
         }
         public IEnumerable<Participant> GetAllParticipants()
         {
-            return archiveRepo.GetAll();
+            return _archiveRepo.GetAll();
         }
     }
 }
