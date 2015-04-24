@@ -104,14 +104,14 @@ namespace ParticipantsOfWar.BLL
         {
             if (include == null) return query;
 
-            return include.Aggregate(query,(current, includes) => current.Include(includes));
+            return include.Aggregate(query, (current, includes) => current.Include(includes));
         }
 
         public IQueryable<T> Include<T>(IQueryable<T> query, params string[] include) where T : class
         {
-            if (include == null)return query;
+            if (include == null) return query;
 
-            return include.Aggregate(query,(current, includes) => current.Include(includes));
+            return include.Aggregate(query, (current, includes) => current.Include(includes));
         }
 
 
@@ -124,7 +124,6 @@ namespace ParticipantsOfWar.BLL
         {
             return List(filters, sorting, new Expression<Func<T, object>>[0]);
         }
-
 
         public virtual List<T> List<T>(
             Expression<Func<T, bool>> filters,

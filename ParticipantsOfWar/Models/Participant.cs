@@ -23,7 +23,7 @@ namespace ParticipantsOfWar.Models
 
         public virtual ParticipantType type { get; set; }
 
-        //public virtual ICollection<Photo> Photos {get;set;}
-        //public virtual ICollection<Document> Documents { get; set; }
+        public virtual ICollection<Photo> Photos {get;set;}
+        public virtual ICollection<Document> Documents { get; set; }
     }
 }
