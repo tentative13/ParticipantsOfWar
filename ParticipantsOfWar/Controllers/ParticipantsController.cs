@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Data.Entity.Infrastructure;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ParticipantsOfWar.Models;
 using ParticipantsOfWar.BLL;
+using ParticipantsOfWar.Dto;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ParticipantsOfWar.Controllers
 {
@@ -18,16 +25,34 @@ namespace ParticipantsOfWar.Controllers
             _archiveRepo = archiveRepo;
         }
 
-        [Route("Participants")]
-        public IHttpActionResult GetAllParticipants()
+        [Route("All")]
+        public HttpResponseMessage GetAllParticipants()
         {
-            return Ok(_archiveRepo.GetAll());
+            List<ParticipantsDto> response = new List<ParticipantsDto>();
+            var all_prtc = _archiveRepo.GetAll();
+            foreach(var item in all_prtc)
+            {
+                response.Add(new ParticipantsDto(item));
+            }
+
+            return response.Any()
+                ? Request.CreateResponse(HttpStatusCode.OK, response)
+                : Request.CreateResponse(HttpStatusCode.NotFound);
         }
 
         [Route("GetTypes")]
-        public IHttpActionResult GetAllTypes()
+        public HttpResponseMessage GetAllTypes()
         {
-            return Ok(_archiveRepo.GetAllTypes());
+            List<ParticipantTypeDto> response = new List<ParticipantTypeDto>();
+            var all_prtc = _archiveRepo.GetAllTypes();
+            foreach(var item in all_prtc)
+            {
+                response.Add(new ParticipantTypeDto(item));
+            }
+
+            return response.Any()
+                ? Request.CreateResponse(HttpStatusCode.OK, response)
+                : Request.CreateResponse(HttpStatusCode.NotFound);
         }
 
         // GET: api/Participants/5
