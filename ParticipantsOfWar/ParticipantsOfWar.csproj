@@ -233,6 +233,22 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\participantPhotos\0008-007-Borodin-Nikolaj-Timofeevich-uchastnik-Velikoj-Otechestvennoj-Vojny.jpg" />
+    <Content Include="Content\participantPhotos\01_1.jpg" />
+    <Content Include="Content\participantPhotos\1297756284_antonov.jpg" />
+    <Content Include="Content\participantPhotos\1398360571_4.png" />
+    <Content Include="Content\participantPhotos\160ae2d2bdcbf5208b3edcf548eb7e3f.jpg" />
+    <Content Include="Content\participantPhotos\2.jpg" />
+    <Content Include="Content\participantPhotos\390376c4dcd575f9f290ac8a5e58d84d.jpg" />
+    <Content Include="Content\participantPhotos\706a96e7049015650979fadbe8097d20.jpg" />
+    <Content Include="Content\participantPhotos\78357bc66a4b72e586dedb1c6dcc33c7.jpg" />
+    <Content Include="Content\participantPhotos\9d619d252fefb9bff203a27013df7a7e.jpg" />
+    <Content Include="Content\participantPhotos\dce97de3a93ddcbbe39bb63d6ed4792d.jpg" />
+    <Content Include="Content\participantPhotos\dementiev3.jpg" />
+    <Content Include="Content\participantPhotos\foto71.jpg" />
+    <Content Include="Content\participantPhotos\Image2.jpg" />
+    <Content Include="Content\participantPhotos\sotskov_10.jpg" />
+    <Content Include="Content\participantPhotos\VolkovK_vov.JPG" />
     <Content Include="App_Front\controllers\pow_controller.js" />
     <Content Include="App_Front\filters\participants_filter.js" />
     <Content Include="App_Front\pow_app.js" />

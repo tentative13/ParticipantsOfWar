@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -468,8 +470,24 @@ namespace ParticipantsOfWar.DAL
 
             p.ForEach(s => context.Participants.Add(s));
             context.SaveChanges();
+            DirectoryInfo directory = new DirectoryInfo(HttpContext.Current.Server.MapPath("/Content/participantPhotos"));
+            var photos = directory.GetFiles();
 
+            var participants = context.Participants.ToArray();
+            for (int i = 0; i < participants.Length; i++)
+            {
+                FileInfo fI = photos[i % photos.Length];
+                long numBytes = fI.Length;
+                FileStream fStream = new FileStream(fI.FullName, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fStream);
+                byte[] data = br.ReadBytes((int)numBytes);
 
+                participants[i].Photos = new List<Photo>();
+                participants[i].Photos.Add(new Photo { PhotoBytes = data, Description = "", Extension = fI.Extension });
+                context.Set<Participant>().Attach(participants[i]);
+                context.SaveChanges();
+
+            }
         }
     }
 }
