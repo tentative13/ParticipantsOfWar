@@ -1,4 +1,10 @@
-﻿using System.Web;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Text;
+using System.Web;
 using System.Web.Optimization;
 
 namespace ParticipantsOfWar
@@ -48,6 +54,70 @@ namespace ParticipantsOfWar
                       "~/Content/bootstrap.css",
                       "~/Content/angular-material/angular-material.css",
                       "~/Content/site.css"));
+
+            // Enable optimisation based on web.config setting
+            BundleTable.EnableOptimizations = bool.Parse(ConfigurationManager.AppSettings["BundleOptimisation"]);
+
+            bundles.Add(new PartialsBundle("pow_app", "~/bundles/partials")
+            .IncludeDirectory("~/App_Front/views", "*.html", true));
+
+        }
+    }
+
+
+    public class PartialsTransform : IBundleTransform
+    {
+        private readonly string _moduleName;
+
+        public PartialsTransform(string moduleName)
+        {
+            _moduleName = moduleName;
+        }
+
+        public void Process(BundleContext context, BundleResponse response)
+        {
+            if (context == null)
+                throw new ArgumentNullException("context");
+            if (response == null)
+                throw new ArgumentNullException("response");
+
+            if (string.IsNullOrWhiteSpace(_moduleName))
+            {
+                response.Content = "// No or wrong app name defined";
+                response.ContentType = "text/javascript";
+                return;
+            }
+
+            var strBundleResponse = new StringBuilder();
+            // Javascript module for Angular that uses templateCache
+            strBundleResponse.Append("(function(){");
+            strBundleResponse.AppendFormat(
+                @"angular.module('{0}').run(['$templateCache',function(t){{",
+                _moduleName);
+
+            foreach (var file in response.Files)
+            {
+                string fileId = VirtualPathUtility.ToAbsolute(file.IncludedVirtualPath);
+                string filePath = HttpContext.Current.Server.MapPath(file.IncludedVirtualPath);
+                string fileContent = File.ReadAllText(filePath);
+                strBundleResponse.AppendFormat("t.put({0},{1});",
+                        JsonConvert.SerializeObject(fileId),
+                        JsonConvert.SerializeObject(fileContent));
+            }
+            strBundleResponse.Append(@"}]);");
+            strBundleResponse.Append("})();");
+
+            response.Files = new BundleFile[] { };
+            response.Content = strBundleResponse.ToString();
+            response.ContentType = "text/javascript";
+        }
+    }
+
+    public class PartialsBundle : Bundle
+    {
+        public PartialsBundle(string moduleName, string virtualPath)
+            : base(virtualPath, new[] { (IBundleTransform)new PartialsTransform(moduleName) })
+        {
         }
     }
 }

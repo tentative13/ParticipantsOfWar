@@ -8,13 +8,6 @@
     padding-right: 15px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
 /* styles for validation helpers */
 .field-validation-error {
     color: #b94a48;
@@ -39,3 +32,201 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+.tableDiv {
+    width: 100%;
+    min-width: 1024px;
+    background-color: #ffffff;
+    overflow-y: auto;
+}
+.objList {
+    height: auto;
+    width: 100%;
+}
+/*цвета для таблиц*/
+.td-dark-grey
+{
+    background-color:#dddddd !important;
+}
+.td-white
+{
+    background-color:#ffffff !important;
+}
+.td-light-grey
+{
+    background-color:#ffffff !important;
+}
+.block-dark-grey
+{
+    background-color:#bbbbbb !important;
+}
+.td-light-grey-div
+{
+    background-color:#f3f3f3 !important;
+    font-size:13px;
+    border-left: 2px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
+}
+.input-filter {
+    width: calc(100% - 32px);
+    height: 32px;
+    border: 1px solid #d0d0d0;
+    border-right: 0px;
+    font-size: 14px;
+    color: #282828;
+    background-color: #ffffff;
+    padding: 2px;
+}
+.icon-delete {
+    width: 32px;
+    height: 32px;
+    background-color:rgb(63,81,181);
+    font-size: 20pt;
+    color: white;
+    text-align: center;
+}
+.row-block {
+    float:right;
+    height:20px;
+    width:60px;
+    padding-right:7px;
+}
+.row-down
+{
+    background: url('images/row_down.png') no-repeat;
+    height:12px;
+    width:12px;
+    cursor:pointer;
+    float:right
+}
+.row-up
+{
+    background: url('images/row_down.png') no-repeat;
+    height:12px;
+    width:12px;
+    cursor:pointer;
+    float:right ;
+    -webkit-transform: rotate(180deg);     /* Chrome and other webkit browsers */
+      -moz-transform: rotate(180deg);        /* FF */
+      -o-transform: rotate(180deg);          /* Opera */
+      -ms-transform: rotate(180deg);         /* IE9 */
+      transform: rotate(180deg);             /* W3C complaint browsers */
+
+      /* IE8 and below */
+      filter: progid:DXImageTransform.Microsoft.Matrix(M11=-1, M12=0, M21=0, M22=-1, DX=0, DY=0, SizingMethod='auto expand');
+
+}
+.row-up.selected{
+    display: inline-block;
+    transform: rotate(180deg);
+    background: url('images/row_down_selected.png') no-repeat;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+}
+
+.row-down.selected{
+    display: inline-block;
+    background: url('images/row_down_selected.png') no-repeat;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+}
+.mainContainer {
+  /*  margin-top: 30px;*/
+}
+.mainContainer button {
+  outline: none !important;
+  border: 0;
+  border-radius: 0;
+}
+.mainContainer.documents {
+  padding: 20px 30px;
+}
+.mainContainer .controlPanel table {
+  width: 100%;
+}
+.mainContainer .controlPanel table td {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.mainContainer .controlPanel table td .filePath {
+  width: calc(100% - 150px);
+}
+.mainContainer .controlPanel table input {
+  width: 100%;
+}
+.mainContainer .controlPanel .fields {
+  margin-bottom: 10px;
+}
+.mainContainer .controlPanel .btns1 {
+  clear: both;
+}
+.mainContainer .controlPanel button.save {
+  margin-right: 10px;
+}
+
+.mainContainer .objList .td-light-grey td {
+  padding: 20px 0 10px 0;
+}
+.mainContainer .objList .td-light-grey td div.icon-delete,
+.mainContainer .objList .td-light-grey td input.input-filter
+{
+  float: left !important;
+}
+.mainContainer .objList .td-light-grey td.actions > div
+{
+  top: 5px;
+}
+.mainContainer .objList .td-light-grey td .import-png
+{
+  margin-left: 18px;
+}
+.mainContainer .objList .td-light-grey td .download-png
+{
+  margin-left: 0;
+}
+.mainContainer .objList .td-dark-grey td:first-child,
+.mainContainer .objList .td-light-grey td:first-child
+{
+  border-left: hidden !important;
+}
+table.objList tr td {
+    padding: 10px;
+    border-bottom: 2px solid #ffffff;
+}
+
+table.objList tr td + td {
+        padding: 10px;
+        border-left: 2px solid #ffffff;
+}
+input {
+    text-indent: 5px;
+}
+
+input[type=date] {
+        text-indent: 5px;
+}
+
+input[type=date]::-webkit-inner-spin-button,
+input[type=date]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+.selectpicker {
+    max-width: 100%;
+    width: 100%;
+    height: 32px;
+    border: 1px solid #d0d0d0;
+    font-size: 14px;
+    background-color: #ffffff;
+    padding: 5px;
+    min-width: 150px;
+}
+.part_selected {
+    background-color: #F7D02A;
+}
+.showMoreBtn {
+    margin: 10px auto 0;
+    text-align: center;
+}
+

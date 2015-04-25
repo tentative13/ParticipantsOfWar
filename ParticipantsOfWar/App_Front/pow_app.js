@@ -1,32 +1,33 @@
 ﻿(function () {
 
-    var app = angular.module('pow_app',
-        [
+   var app = angular.module('pow_app',
+       [
             'ui.router',
             'ngMaterial'
-        ])
-        .config(
-        [
+       ])
+       .config(
+       [
             '$stateProvider',
             '$urlRouterProvider',
             '$compileProvider',
             function ($stateProvider, $urlRouterProvider, $compileProvider) {
 
-                //   $urlRouterProvider.otherwise("/realizationAIP/titles");
+                $urlRouterProvider.otherwise("/Participants");
 
-                //$stateProvider.state('message', {
-                //    url: "/message",
-                //    templateUrl: "/App_Front/view/message.html",
-                //    controller: 'messageCtrl'
-                //});
+                $stateProvider.state('Participants', {
+                    url: "/Participants",
+                    templateUrl: "/App_Front/views/Participants_table.html",
+                    controller: 'powCtrl'
+                });
 
                 $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|unsafe|ftp|mailto|file):/);
                 $compileProvider.aHrefSanitizationWhitelist(/^\s*(|unsafe|http|blob|):/);
             }
-        ])
-        .run(['$log', function ($log) {
+       ])
+       .run(['$log', function ($log) {
 
             $log.log('starting angularjs app...');
-            }
-        ]);
+
+        }
+       ]);
 })();

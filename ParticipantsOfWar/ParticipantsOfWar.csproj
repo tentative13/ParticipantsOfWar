@@ -234,9 +234,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Front\controllers\pow_controller.js" />
+    <Content Include="App_Front\filters\participants_filter.js" />
     <Content Include="App_Front\pow_app.js" />
     <Content Include="App_Front\services\pow_services.js" />
     <Content Include="App_Front\viewmodels\participantsVM.js" />
+    <Content Include="App_Front\views\Participants_table.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\angular-material\angular-material.css" />
     <Content Include="Content\angular-material\angular-material.min.css" />
@@ -1082,8 +1084,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="App_Front\directives\" />
-    <Folder Include="App_Front\filters\" />
-    <Folder Include="App_Front\views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

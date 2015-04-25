@@ -5,10 +5,15 @@
         function ($rootScope, $log, $scope, participantsService, participantsVM) {
 
             $scope.participantsVM = participantsVM;
-
+            $scope.predicate = 'birthday';
+            $scope.idSelectedRow = null;
 
             $scope.handlers = {
-                LoadPage: function () {}
+                LoadPage: function () { },
+                expandRow: function (item, index) {
+                    $log.log(item, index);
+                    $scope.idSelectedRow = item.guid;
+                },
             };
 
 

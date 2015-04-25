@@ -25,14 +25,16 @@ namespace ParticipantsOfWar.Dto
         public string ShortName { get; set; }
 
         [JsonProperty(PropertyName = "birthday")]
-        public string Birthday { get; set; }
+        public DateTime Birthday { get; set; }
         
         [JsonProperty(PropertyName = "deathday")]
-        public string Deathday { get; set; }
+        public DateTime Deathday { get; set; }
 
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
 
+        [JsonProperty(PropertyName = "type")]
+        public string Type { get; set; }
 
 
         public ParticipantsDto(Participant prtc)
@@ -42,9 +44,15 @@ namespace ParticipantsOfWar.Dto
             this.Firstname = String.IsNullOrEmpty(prtc.Firstname) ? "" : prtc.Firstname;
             this.Middlename = String.IsNullOrEmpty(prtc.Middlename) ? "" : prtc.Middlename;
             this.ShortName = String.IsNullOrEmpty(prtc.ShortName) ? "" : prtc.ShortName;
-            this.Birthday = prtc.Birthday == null ? "" : prtc.Birthday.ToString("dd.MM.yyyy");
-            this.Deathday = prtc.Deathday == null ? "" : prtc.Deathday.Value.ToString("dd.MM.yyyy");
             this.Description = String.IsNullOrEmpty(prtc.Description) ? "" : prtc.Description;
+            this.Type = String.IsNullOrEmpty(prtc.type.Name) ? "" : prtc.type.Name;
+
+
+            if (prtc.Birthday != null)
+                this.Birthday = prtc.Birthday;
+
+            if (prtc.Deathday != null)
+                this.Deathday =  prtc.Deathday.Value;
         }
 
     }

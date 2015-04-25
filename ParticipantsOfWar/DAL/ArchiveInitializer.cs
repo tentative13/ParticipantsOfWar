@@ -11,14 +11,6 @@ namespace ParticipantsOfWar.DAL
     {
         protected override void Seed(ArchiveContext context)
         {
-            var p = new List<Participant>
-            {
-            new Participant{ParticipantId=Guid.NewGuid(), Firstname="Александр",Surname="Волк", Birthday = DateTime.Parse("2005-09-01"), Middlename="Викторович"}
-            };
-
-            p.ForEach(s => context.Participants.Add(s));
-            context.SaveChanges();
-
             var types = new List<ParticipantType>
             {
                 new ParticipantType{Name = "Участники ВОВ", ParticipantTypeId=Guid.NewGuid()},
@@ -29,6 +21,18 @@ namespace ParticipantsOfWar.DAL
             };
             types.ForEach(s => context.ParticipantTypes.Add(s));
             context.SaveChanges();
+
+            var p = new List<Participant>
+            {
+            new Participant{ParticipantId=Guid.NewGuid(), Firstname="Александр",Surname="Волк", Birthday = DateTime.Parse("2015-04-01"), Middlename="Викторович", type = types.FirstOrDefault()},
+            new Participant{ParticipantId=Guid.NewGuid(), Firstname="Олег",Surname="Тарасенко", Birthday = DateTime.Parse("2015-04-02"), Middlename="Владимирович", type = types.LastOrDefault()}
+
+            };
+
+            p.ForEach(s => context.Participants.Add(s));
+            context.SaveChanges();
+
+
         }
     }
 }
