@@ -106,9 +106,18 @@
                 </tr>
                 <tr ng-show="grid.showData($index)">
                     <td colspan="5" style="border-bottom: 10px solid #f3f3f3;">
-                        <div layout="row" layout-wrap>
-                            <div flex="30"> Фото: </div>
-                            <div flex="70">История: {{ item.description }}</div>
+                        <div layout="column">
+                            <div layout="row" layout-wrap>
+                                <div flex="30"> Фото: </div>
+                                <div flex="70">История: {{ item.description }}</div>
+                            </div>
+                            <div>&nbsp;</div>
+                            <div layout="row" layout-wrap>
+                                <div flex="90"></div>
+                                <div flex="10">
+                                    <md-button class="md-raised md-primary">&nbsp;&nbsp;Документы&nbsp;&nbsp;</md-button>
+                                </div>
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -121,7 +130,7 @@
                     Показано записей {{filtered.length}} из {{participantsVM.TotalParticipants}}
                 </span>
                 <md-button class="md-raised md-primary" ng-show="participantsVM.TotalParticipants > filtered.length" ng-click="paging.showMore(filter, remains)">
-                    Показать ещё {{remains = (paging.getLastCount(filter, filtered.length) || participantsVM.TotalParticipants - filtered.length || '')}}
+                    &nbsp;&nbsp; Показать ещё {{remains = (paging.getLastCount(filter, filtered.length) || participantsVM.TotalParticipants - filtered.length || '')}} &nbsp;&nbsp;
                 </md-button>
                 <a ng-show="participantsVM.TotalParticipants > filtered.length" ng-click="paging.showAll(filter)" style="cursor: pointer;">
                     Показать все

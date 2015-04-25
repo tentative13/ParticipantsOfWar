@@ -18,6 +18,11 @@
                     url: "/Participants",
                     templateUrl: "/App_Front/views/Participants_table.html",
                     controller: 'powCtrl'
+                })
+                .state('Participants', {
+                    url: "/Participants",
+                    templateUrl: "/App_Front/views/Participants_table.html",
+                    controller: 'powCtrl'
                 });
 
                 $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|unsafe|ftp|mailto|file):/);
