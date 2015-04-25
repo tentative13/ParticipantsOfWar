@@ -49,7 +49,7 @@ namespace ParticipantsOfWar.Dto
 
 
             if (prtc.Birthday != null)
-                this.Birthday = prtc.Birthday;
+                this.Birthday = (DateTime)prtc.Birthday;
 
             if (prtc.Deathday != null)
                 this.Deathday =  prtc.Deathday.Value;

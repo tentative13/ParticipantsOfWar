@@ -19,7 +19,7 @@ namespace ParticipantsOfWar.Models
         public string Firstname { get; set; }
         public string Middlename { get; set; }
         public string ShortName { get; set; }
-        public DateTime Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
         public DateTime? Deathday { get; set; }
         [MaxLength]
         public string Description { get; set; }
