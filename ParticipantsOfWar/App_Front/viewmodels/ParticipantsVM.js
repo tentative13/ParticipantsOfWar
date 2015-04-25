@@ -9,6 +9,7 @@
         self.ParticipantsTypes.push({ name: "Все", value: 0 });
         self.TotalParticipants = 0;
 
+        $rootScope.table_loader = false;
         participantsService.getTypes(function (data) {
             var i = 1;
             angular.forEach(data, function (item) {
@@ -30,11 +31,7 @@
                 });
                 self.TotalParticipants = self.Participants.length;
             });
-
-
-
-
-
+            $rootScope.table_loader = true;
         });
 
         self.paging = {

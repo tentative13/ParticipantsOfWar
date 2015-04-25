@@ -70,14 +70,22 @@
             </tr>
         </table>
 
+        <div ng-hide="table_loader">
+            &nbsp;
+            <div layout="row" layout-sm="column" layout-align="space-around">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+            &nbsp;
+        </div>
+
         <table class="objList">
             <col width="12%" />
             <col width="12%" />
             <col width="26%" />
             <col width="25%" />
             <col width="25%" />
-
             <tbody ng-repeat="item in filtered = ( participantsVM.Participants | participantsTableFilter:filter | orderBy : predicate : true)">
+
                 <tr ng-click="handlers.expandRow(item, $index)" ng-class="{part_selected: item.guid === idSelectedRow}">
                     <td>
                         {{item.birthday | date:'dd.MM.yyyy' }}
@@ -93,6 +101,11 @@
                     </td>
                     <td>
                         {{ item.middlename }}
+                    </td>
+                </tr>
+                <tr ng-show="handlers.showData($index)">
+                    <td colspan="5" style="border-bottom: 10px solid #f3f3f3;">
+                        {{ item.description }}
                     </td>
                 </tr>
             </tbody>

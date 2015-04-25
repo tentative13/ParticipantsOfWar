@@ -14,6 +14,10 @@
                     $log.log(item, index);
                     $scope.idSelectedRow = item.guid;
                 },
+                showData: function (index) { },
+                loader: function () {
+                    return participantsVM.Participants.lenght > 0;
+                }
             };
 
 
