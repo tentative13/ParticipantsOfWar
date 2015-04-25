@@ -1,0 +1,133 @@
+﻿<div class="mainContainer" style="top:50px;">
+    <div class="tableDiv tableDiv-header">
+        <table class="objList">
+            <col width="12%" />
+            <col width="12%" />
+            <col width="26%" />
+            <col width="25%" />
+            <col width="25%" />
+
+            <tr class="td-light-grey">
+                <td>
+                    <input class="input-filter" type="date" ng-model="filter.birthday" />
+                    <div class="icon-delete" title="Очистить поле" ng-click="filter.birthday=undefined">&times;</div>
+                </td>
+                <td>
+                    <select class="selectpicker" ng-model="filter.ParticipantsTypes" ng-init="filter.ParticipantsTypes = filter.ParticipantsTypes  || participantsVM.ParticipantsTypes[0].value"
+                            ng-options="option.value as option.name for option in participantsVM.ParticipantsTypes"></select>
+                </td>
+                <td>
+                    <input class="input-filter" type="text" ng-model="filter.surname" />
+                    <div class="icon-delete" title="Очистить поле" ng-click="filter.surname=''">&times;</div>
+                </td>
+                <td>
+                    <input class="input-filter" type="text" ng-model="filter.firstname" />
+                    <div class="icon-delete" title="Очистить поле" ng-click="filter.firstname=''">&times;</div>
+                </td>
+                <td>
+                    <input class="input-filter" type="text" ng-model="filter.middlename" />
+                    <div class="icon-delete" title="Очистить поле" ng-click="filter.middlename=''">&times;</div>
+                </td>
+                &nbsp;
+            </tr>
+
+            <tr class="td-dark-grey">
+                <td>
+                    Дата рождения
+                    <div class="row-block">
+                        <div class="row-up" ng-class="{'selected': predicate == '-birthday'}" title="Сортировать по возрастанию" ng-click="predicate = '-birthday'"></div>
+                        <div class="row-down" ng-class="{'selected': predicate == 'birthday'}" title="Сортировать по убыванию" ng-click="predicate = 'birthday'"></div>
+                    </div>
+                </td>
+                <td>
+                    Тип участника
+                    <div class="row-block">
+                        <div ng-class="{'selected': predicate == 'type'}" title="Сортировать по возрастанию" class="row-up" ng-click="predicate = 'type'"></div>
+                        <div ng-class="{'selected': predicate == '-type'}" title="Сортировать по убыванию" class="row-down" ng-click="predicate = '-type'"></div>
+                    </div>
+                </td>
+                <td>
+                    Фамилия
+                    <div class="row-block">
+                        <div ng-class="{'selected': predicate == 'surname'}" title="Сортировать по возрастанию" class="row-up" ng-click="predicate = 'surname'"></div>
+                        <div ng-class="{'selected': predicate == '-surname'}" title="Сортировать по убыванию" class="row-down" ng-click="predicate = '-surname'"></div>
+                    </div>
+                </td>
+                <td>
+                    Имя
+                    <div class="row-block">
+                        <div ng-class="{'selected': predicate == '-firstname'}" title="Сортировать по возрастанию" class="row-up" ng-click="predicate = '-firstname'"></div>
+                        <div ng-class="{'selected': predicate == 'firstname'}" title="Сортировать по убыванию" class="row-down" ng-click="predicate = 'firstname'"></div>
+                    </div>
+                </td>
+                <td>
+                    Отчество
+                    <div class="row-block">
+                        <div ng-class="{'selected': predicate == '-middlename'}" title="Сортировать по возрастанию" class="row-up" ng-click="predicate = '-middlename'"></div>
+                        <div ng-class="{'selected': predicate == 'middlename'}" title="Сортировать по убыванию" class="row-down" ng-click="predicate = 'middlename'"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div ng-hide="table_loader">
+            &nbsp;
+            <div layout="row" layout-sm="column" layout-align="space-around">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+            &nbsp;
+        </div>
+
+        <table class="objList">
+            <col width="12%" />
+            <col width="12%" />
+            <col width="26%" />
+            <col width="25%" />
+            <col width="25%" />
+            <tbody ng-repeat="item in filtered = ( participantsVM.Participants | participantsTableFilter:filter | orderBy : predicate : true)">
+
+                <tr ng-click="handlers.expandRow(item, $index)" ng-class="{part_selected: item.guid === idSelectedRow}">
+                    <td>
+                        {{item.birthday | date:'dd.MM.yyyy' }}
+                    </td>
+                    <td>
+                        {{ item.type }}
+                    </td>
+                    <td>
+                        {{item.surname}}
+                    </td>
+                    <td>
+                        {{ item.firstname }}
+                    </td>
+                    <td>
+                        {{ item.middlename }}
+                    </td>
+                </tr>
+                <tr ng-show="handlers.showData($index)">
+                    <td colspan="5" style="border-bottom: 10px solid #f3f3f3;">
+                        {{ item.description }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="paging" ng-show="participantsVM.Participants.length">
+            <div class="showMoreBtn">
+                <span>
+                    Показано записей {{filtered.length}} из {{participantsVM.TotalParticipants}}
+                </span>
+                <md-button class="md-raised md-primary"
+                           ng-show="participantsVM.TotalParticipants > filtered.length"
+                           ng-click="participantsVM.paging.showMore(filter, remains)">
+                    Показать ещё {{remains = (messageVM.paging.getLastCount(filter, filtered.length) || participantsVM.TotalParticipants - filtered.length || '')}}
+                </md-button>
+                <a ng-show="participantsVM.TotalParticipants > filtered.length" ng-click="messageVM.paging.showAll(filter);" class="">
+                    Показать все
+                </a>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

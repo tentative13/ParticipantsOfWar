@@ -214,6 +214,8 @@
     <Compile Include="Controllers\ParticipantsController.cs" />
     <Compile Include="DAL\ArchiveContext.cs" />
     <Compile Include="DAL\ArchiveInitializer.cs" />
+    <Compile Include="Dto\ParticipantsDto.cs" />
+    <Compile Include="Dto\ParticipantTypeDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -231,10 +233,12 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\ArchiveContext.mdf" />
-    <Content Include="App_Data\ArchiveContext_log.ldf">
-      <DependentUpon>ArchiveContext.mdf</DependentUpon>
-    </Content>
+    <Content Include="App_Front\controllers\pow_controller.js" />
+    <Content Include="App_Front\filters\participants_filter.js" />
+    <Content Include="App_Front\pow_app.js" />
+    <Content Include="App_Front\services\pow_services.js" />
+    <Content Include="App_Front\viewmodels\participantsVM.js" />
+    <Content Include="App_Front\views\Participants_table.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\angular-material\angular-material.css" />
     <Content Include="Content\angular-material\angular-material.min.css" />
@@ -1072,14 +1076,15 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Scripts\version.json" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="App_Front\directives\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />

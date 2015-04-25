@@ -15,12 +15,13 @@ namespace ParticipantsOfWar.BLL
 
         public IEnumerable<Participant> GetAll()
         {
-            return db.Participants;
+            return db.Set<Participant>().Include(x=>x.type);
+           
         }
 
         public IEnumerable<ParticipantType> GetAllTypes()
         {
-            return db.ParticipantTypes;
+            return db.Set<ParticipantType>();
         }
 
         public ArchiveContext Dbcontext()
