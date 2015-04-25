@@ -233,6 +233,15 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\images\blazon.png" />
+    <Content Include="Content\images\Download.gif" />
+    <Content Include="Content\images\ico_docx.png" />
+    <Content Include="Content\images\ico_pdf.png" />
+    <Content Include="Content\images\ico_xlsx.png" />
+    <Content Include="Content\images\ico_xml.png" />
+    <Content Include="Content\images\Print.gif" />
+    <Content Include="Content\images\row_down.png" />
+    <Content Include="Content\images\row_down_selected.png" />
     <Content Include="Content\participantPhotos\0008-007-Borodin-Nikolaj-Timofeevich-uchastnik-Velikoj-Otechestvennoj-Vojny.jpg" />
     <Content Include="Content\participantPhotos\01_1.jpg" />
     <Content Include="Content\participantPhotos\1297756284_antonov.jpg" />

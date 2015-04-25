@@ -201,3 +201,7 @@ input[type=date]::-webkit-outer-spin-button {
     text-align: center;
 }
 
+.logo{
+    margin:5px;
+    padding:5px;
+}

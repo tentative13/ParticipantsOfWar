@@ -6444,8 +6444,8 @@ md-toolbar {
       -ms-flex-direction: row;
           flex-direction: row;
   width: 100%;
-  height: 64px;
-  max-height: 64px;
+  height: 128px;
+  max-height: 128px;
   font-size: inherit;
   font-weight: normal;
   padding: 0 16px;
