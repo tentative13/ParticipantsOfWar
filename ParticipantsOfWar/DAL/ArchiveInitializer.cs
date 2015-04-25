@@ -24,8 +24,8 @@ namespace ParticipantsOfWar.DAL
 
             var p = new List<Participant>
             {
-            new Participant{ParticipantId=Guid.NewGuid(), Firstname="Александр",Surname="Волк", Birthday = DateTime.Parse("2015-04-01"), Middlename="Викторович", type = types.FirstOrDefault()},
-            new Participant{ParticipantId=Guid.NewGuid(), Firstname="Олег",Surname="Тарасенко", Birthday = DateTime.Parse("2015-04-02"), Middlename="Владимирович", type = types.LastOrDefault()}
+            new Participant{ParticipantId=Guid.NewGuid(), Firstname="Александр",Surname="Волк", Birthday = DateTime.Parse("2015-04-01"), Middlename="Викторович", type = types.FirstOrDefault(), Description = "NJKnjkNjkvlsnlkdnvclksndlknvlksnlkndslkvnlksnlkvndlkn"},
+            new Participant{ParticipantId=Guid.NewGuid(), Firstname="Олег",Surname="Тарасенко", Birthday = DateTime.Parse("2015-04-02"), Middlename="Владимирович", type = types.LastOrDefault(), Description = "dskbc   ,mmnlknrjkfvbjkbkjBKJBJKBDJKBKJB<MS  Vm smd,nv,snd"}
 
             };
 

@@ -86,7 +86,7 @@
             <col width="25%" />
             <tbody ng-repeat="item in filtered = ( participantsVM.Participants | participantsTableFilter:filter | orderBy : predicate : true)">
 
-                <tr ng-click="handlers.expandRow(item, $index)" ng-class="{part_selected: item.guid === idSelectedRow}">
+                <tr ng-click="grid.expandRow(item, $index)" ng-class="{part_selected: item.guid === idSelectedRow}">
                     <td>
                         {{item.birthday | date:'dd.MM.yyyy' }}
                     </td>
@@ -103,9 +103,12 @@
                         {{ item.middlename }}
                     </td>
                 </tr>
-                <tr ng-show="handlers.showData($index)">
+                <tr ng-show="grid.showData($index)">
                     <td colspan="5" style="border-bottom: 10px solid #f3f3f3;">
-                        {{ item.description }}
+                        <div layout="row" layout-wrap>
+                            <div flex="30"> Фото: </div>
+                            <div flex="70">История: {{ item.description }}</div>
+                        </div>
                     </td>
                 </tr>
             </tbody>
