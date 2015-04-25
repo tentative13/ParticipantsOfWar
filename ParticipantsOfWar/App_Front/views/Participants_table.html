@@ -129,10 +129,10 @@
                 <span>
                     Показано записей {{filtered.length}} из {{participantsVM.TotalParticipants}}
                 </span>
-                <md-button class="md-raised md-primary" ng-show="participantsVM.TotalParticipants > filtered.length" ng-click="paging.showMore(filter, remains)">
+                <md-button class="md-raised md-primary" ng-show="participantsVM.TotalParticipants > Participants.length" ng-click="paging.showMore(filter, remains)">
                     &nbsp;&nbsp; Показать ещё {{remains = (paging.getLastCount(filter, filtered.length) || participantsVM.TotalParticipants - filtered.length || '')}} &nbsp;&nbsp;
                 </md-button>
-                <a ng-show="participantsVM.TotalParticipants > filtered.length" ng-click="paging.showAll(filter)" style="cursor: pointer;">
+                <a ng-show="participantsVM.TotalParticipants > Participants.length" ng-click="paging.showAll(filter)" style="cursor: pointer;">
                     Показать все
                 </a>
 

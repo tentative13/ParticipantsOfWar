@@ -47,7 +47,7 @@
                 pageSize: 10,
                 currpage: 1,
                 getLastCount: function (filter, tablelength) {
-                    var lastLength = participantsVM.TotalParticipants - tablelength;
+                    var lastLength = participantsVM.TotalParticipants - $scope.Participants.length;// tablelength;
                     return lastLength < 0 ? null : lastLength >= this.pageSize ? this.pageSize : lastLength;
                 },
                 showMore: function (filter, remains) {
