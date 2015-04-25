@@ -42,6 +42,10 @@ input[type="checkbox"].input-validation-error {
     height: auto;
     width: 100%;
 }
+.Repeater {
+    height: auto;
+    width: 100%;
+}
 /*цвета для таблиц*/
 .td-dark-grey
 {
@@ -134,38 +138,8 @@ input[type="checkbox"].input-validation-error {
 .mainContainer {
   /*  margin-top: 30px;*/
 }
-.mainContainer button {
-  outline: none !important;
-  border: 0;
-  border-radius: 0;
-}
-.mainContainer.documents {
-  padding: 20px 30px;
-}
-.mainContainer .controlPanel table {
-  width: 100%;
-}
-.mainContainer .controlPanel table td {
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-.mainContainer .controlPanel table td .filePath {
-  width: calc(100% - 150px);
-}
-.mainContainer .controlPanel table input {
-  width: 100%;
-}
-.mainContainer .controlPanel .fields {
-  margin-bottom: 10px;
-}
-.mainContainer .controlPanel .btns1 {
-  clear: both;
-}
-.mainContainer .controlPanel button.save {
-  margin-right: 10px;
-}
-
-.mainContainer .objList .td-light-grey td {
+.mainContainer .objList .td-light-grey td
+ {
   padding: 20px 0 10px 0;
 }
 .mainContainer .objList .td-light-grey td div.icon-delete,
@@ -173,23 +147,7 @@ input[type="checkbox"].input-validation-error {
 {
   float: left !important;
 }
-.mainContainer .objList .td-light-grey td.actions > div
-{
-  top: 5px;
-}
-.mainContainer .objList .td-light-grey td .import-png
-{
-  margin-left: 18px;
-}
-.mainContainer .objList .td-light-grey td .download-png
-{
-  margin-left: 0;
-}
-.mainContainer .objList .td-dark-grey td:first-child,
-.mainContainer .objList .td-light-grey td:first-child
-{
-  border-left: hidden !important;
-}
+
 table.objList tr td {
     padding: 10px;
     border-bottom: 2px solid #ffffff;
@@ -199,19 +157,32 @@ table.objList tr td + td {
         padding: 10px;
         border-left: 2px solid #ffffff;
 }
+
+table.Repeater tr td {
+    padding: 10px;
+    border-bottom: 1px solid #dddddd;
+}
+
+
+table.Repeater tr td + td {
+        padding: 10px;
+        border-left: 2px solid #ffffff;
+}
+
+
+
 input {
     text-indent: 5px;
 }
-
 input[type=date] {
         text-indent: 5px;
 }
-
 input[type=date]::-webkit-inner-spin-button,
 input[type=date]::-webkit-outer-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
+
 .selectpicker {
     max-width: 100%;
     width: 100%;
@@ -223,7 +194,7 @@ input[type=date]::-webkit-outer-spin-button {
     min-width: 150px;
 }
 .part_selected {
-    background-color: #F7D02A;
+    background-color: lemonchiffon;
 }
 .showMoreBtn {
     margin: 10px auto 0;

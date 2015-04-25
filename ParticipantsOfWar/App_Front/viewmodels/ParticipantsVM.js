@@ -11,10 +11,10 @@
 
         $rootScope.table_loader = false;
         participantsService.getTypes(function (data) {
-            var i = 1;
+            //var i = 1;
             angular.forEach(data, function (item) {
-                self.ParticipantsTypes.push({ name: item["name"], value: i });
-                i++;
+                self.ParticipantsTypes.push({ name: item["name"], value: item["priority"] });
+             //   i++;
             });
             
             participantsService.getAllParticipants(function (data) {
@@ -30,22 +30,12 @@
                     self.Participants.push(item);
                 });
                 self.TotalParticipants = self.Participants.length;
+
+                $rootScope.table_loader = true;
+                $rootScope.$emit('ParticipantsLoaded');
             });
-            $rootScope.table_loader = true;
+
         });
-
-        self.paging = {
-            pageSize: 10,
-            getLastCount: function (filter, tablelength) {
-                var lastLength = self.TotalParticipants - tablelength;
-                return lastLength < 0 ? null : lastLength >= this.pageSize ? this.pageSize : lastLength;
-            },
-            showMore: function (filter, remains) {
-            },
-            showAll: function (filter) {
-            }
-        }
-
 
         return self;
     }]);
