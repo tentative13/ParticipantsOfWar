@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ParticipantsOfWar.Models
 {
@@ -12,6 +13,7 @@ namespace ParticipantsOfWar.Models
     public class Participant
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid ParticipantId { get; set; }
         public string Surname { get; set; }
         public string Firstname { get; set; }
@@ -19,11 +21,12 @@ namespace ParticipantsOfWar.Models
         public string ShortName { get; set; }
         public DateTime Birthday { get; set; }
         public DateTime? Deathday { get; set; }
+        [MaxLength]
         public string Description { get; set; }
 
         public virtual ParticipantType type { get; set; }
 
-        public virtual ICollection<Photo> Photos {get;set;}
+        public virtual ICollection<Photo> Photos { get; set; }
         public virtual ICollection<Document> Documents { get; set; }
     }
 }

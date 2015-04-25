@@ -25,7 +25,7 @@ namespace ParticipantsOfWar.DAL
                 new ParticipantType{Name = "Труженники тыла", ParticipantTypeId=Guid.NewGuid()},   
                 new ParticipantType{Name = "Дети войны", ParticipantTypeId=Guid.NewGuid()},
                 new ParticipantType{Name = "Участники горячих точек", ParticipantTypeId=Guid.NewGuid()},
-                new ParticipantType{Name="Репрессированные", ParticipantTypeId=Guid.NewGuid()}
+                new ParticipantType{Name= "Репрессированные", ParticipantTypeId=Guid.NewGuid()}
             };
             types.ForEach(s => context.ParticipantTypes.Add(s));
             context.SaveChanges();
