@@ -49,7 +49,7 @@ input[type="checkbox"].input-validation-error {
 /*цвета для таблиц*/
 .td-dark-grey
 {
-    background-color:#dddddd !important;
+    background-color:#EFEBE9 !important;
 }
 .td-white
 {
@@ -83,8 +83,8 @@ input[type="checkbox"].input-validation-error {
 .icon-delete {
     width: 32px;
     height: 32px;
-    background-color:rgb(63,81,181);
-    font-size: 20pt;
+    background-color:rgb(141,110,99);
+    font-size: 18pt;
     color: white;
     text-align: center;
 }
@@ -194,7 +194,7 @@ input[type=date]::-webkit-outer-spin-button {
     min-width: 150px;
 }
 .part_selected {
-    background-color: lemonchiffon;
+    background-color: #D7CCC8;
 }
 .showMoreBtn {
     margin: 10px auto 0;
