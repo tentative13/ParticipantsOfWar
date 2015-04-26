@@ -9,16 +9,16 @@
                       md-row-height-gt-md="1:1" md-row-height="2:2"
                       md-gutter="12px" md-gutter-gt-sm="8px">
 
-            <md-grid-tile class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
+            <md-grid-tile class="md-primary" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
 
-                <img ng-show="delayshow" ng-src="api/Documents/GetPhoto/{{participant.photos[0].photoId}}" style="width:auto; height:100%;"/>
+                <img ng-show="delayshow" ng-src="api/Documents/GetPhoto/{{participant.photos[0].photoId}}" style="width:auto; height:100%;" />
 
                 <md-grid-tile-footer>
                     <h3>Фотография</h3>
                 </md-grid-tile-footer>
             </md-grid-tile>
 
-            <md-grid-tile class="gray" md-colspan="5" md-colspan-sm="1" md-colspan-md="2">
+            <md-grid-tile class="md-primary" md-colspan="5" md-colspan-sm="1" md-colspan-md="2">
                 <md-grid-tile-header>
                     <h3>Персональные данные:</h3>
                 </md-grid-tile-header>
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </md-grid-tile>
-            <md-grid-tile class="green" md-colspan="6" md-rowspan="1" md-colspan-sm="1" md-colspan-md="2">
+            <md-grid-tile class="md-primary" md-colspan="6" md-rowspan="1" md-colspan-sm="1" md-colspan-md="2">
                 <md-grid-tile-header>
                     <h3>Документы:</h3>
                 </md-grid-tile-header>
@@ -49,7 +49,7 @@
                     <div layout="row" layout-wrap>
                         <div flex="5">&nbsp;</div>
                         <div flex="95">
-                            <table class="Docsuments">
+                            <table class="Documents">
                                 <col width="5%" />
                                 <col width="95%" />
                                 <tbody>
@@ -69,7 +69,7 @@
                     </div>
                 </div>
 
-</md-grid-tile>
+            </md-grid-tile>
         </md-grid-list>
     </div>
 </div>

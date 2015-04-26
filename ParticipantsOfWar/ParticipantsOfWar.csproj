@@ -339,6 +339,9 @@
     <Content Include="fonts\ui-grid.woff" />
     <Content Include="fonts\ui-grid.ttf" />
     <Content Include="fonts\ui-grid.eot" />
+    <Content Include="Content\participantDocuments\Биография.docx" />
+    <Content Include="Content\participantDocuments\Паспорт.pdf" />
+    <Content Include="Content\participantDocuments\Справка.docx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-er.js" />
