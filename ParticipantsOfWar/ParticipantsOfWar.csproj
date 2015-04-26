@@ -238,7 +238,6 @@
     <Content Include="Content\images\1416897610_5695844.png" />
     <Content Include="Content\images\blazon.png" />
     <Content Include="Content\images\Download.gif" />
-    <Content Include="Content\images\georgievskaya-lenta_7.gif" />
     <Content Include="Content\images\ico_docx.png" />
     <Content Include="Content\images\ico_pdf.png" />
     <Content Include="Content\images\ico_xlsx.png" />
@@ -273,7 +272,6 @@
     <Content Include="Content\angular-material\angular-material.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\images\logo.jpg" />
     <Content Include="Content\ui-grid-unstable.css" />
     <Content Include="Content\ui-grid-unstable.min.css" />
     <Content Include="favicon.ico" />
