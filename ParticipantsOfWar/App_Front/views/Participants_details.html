@@ -10,6 +10,9 @@
                       md-gutter="12px" md-gutter-gt-sm="8px">
 
             <md-grid-tile class="gray" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
+
+                <img ng-show="delayshow" ng-src="api/Documents/GetPhoto/{{participant.photos[0].photoId}}" style="width:auto; height:100%;"/>
+
                 <md-grid-tile-footer>
                     <h3>Фотография</h3>
                 </md-grid-tile-footer>
@@ -31,7 +34,7 @@
                     </div>
                     <div layout="row" layout-wrap>
                         <div flex="100">
-                                <b>История:</b>&nbsp;{{ participant.description }}
+                            <b>История:</b>&nbsp;{{ participant.description }}
                         </div>
                     </div>
                 </div>
@@ -40,7 +43,33 @@
                 <md-grid-tile-header>
                     <h3>Документы:</h3>
                 </md-grid-tile-header>
-            </md-grid-tile>
+
+                <div layout="column">
+                    <div>&nbsp;</div>
+                    <div layout="row" layout-wrap>
+                        <div flex="5">&nbsp;</div>
+                        <div flex="95">
+                            <table class="Docsuments">
+                                <col width="5%" />
+                                <col width="95%" />
+                                <tbody>
+                                    <tr ng-repeat="item in participant.documents">
+                                        <td>
+                                            <b>{{item.type}}</b>
+                                        </td>
+                                        <td>
+                                            <div ng-show="item.extension == '.docx'" title="Сохранить в .docx" class="BtnWord" ng-click="handlers.GetDocument(item.documentId)"></div>
+                                            <div ng-show="item.extension == '.pdf'" title="Сохранить в .pdf" class="BtnPdf" ng-click="handlers.GetDocument(item.documentId)"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div flex="5"></div>
+                    </div>
+                </div>
+
+</md-grid-tile>
         </md-grid-list>
     </div>
 </div>

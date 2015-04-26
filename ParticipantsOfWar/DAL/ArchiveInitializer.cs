@@ -494,9 +494,8 @@ namespace ParticipantsOfWar.DAL
                 FileStream fStream = new FileStream(fI.FullName, FileMode.Open, FileAccess.Read);
                 BinaryReader br = new BinaryReader(fStream);
                 byte[] data = br.ReadBytes((int)numBytes);
-
                 participants[i].Photos = new List<Photo>();
-                participants[i].Photos.Add(new Photo { PhotoBytes = data, Description = "", Extension = fI.Extension });
+                participants[i].Photos.Add(new Photo { PhotoBytes = data, Description = "Фотография", Extension = fI.Extension });
                 context.Set<Participant>().Attach(participants[i]);
                 context.SaveChanges();
 

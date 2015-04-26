@@ -11,7 +11,6 @@
                 url: url + '/GetTypes'
             }).
             success(function (data, status, headers, config) {
-                $log.info('GetTypes', status, data);
                 callback(data);
             }).
             error(function (data, status, headers, config) {
@@ -25,7 +24,6 @@
                 url: url + '/All'
             }).
             success(function (data, status, headers, config) {
-                $log.info('GetAllParticipants', status, data);
                 callback(data);
             }).
             error(function (data, status, headers, config) {
@@ -33,5 +31,8 @@
             });
         };
 
+        this.getDocument = function (documentid) {
+            window.location.href = 'api/Documents/GetDocument/' + documentid;
+        };
     }]);
 })();
