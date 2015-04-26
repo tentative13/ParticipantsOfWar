@@ -24,6 +24,17 @@ namespace ParticipantsOfWar.DAL
             types.ForEach(s => context.ParticipantTypes.Add(s));
             context.SaveChanges();
 
+            var doctypes = new List<DocumentType>
+            {
+                new DocumentType{Name = "Биография"},
+                new DocumentType{Name = "Паспорт"},   
+                new DocumentType{Name = "Военный билет"},
+                new DocumentType{Name = "Справка"}
+            };
+            doctypes.ForEach(s => context.DocumentTypes.Add(s));
+            context.SaveChanges();
+
+
             var p = new List<Participant>
             {
             new Participant
@@ -470,6 +481,8 @@ namespace ParticipantsOfWar.DAL
 
             p.ForEach(s => context.Participants.Add(s));
             context.SaveChanges();
+
+
             DirectoryInfo directory = new DirectoryInfo(HttpContext.Current.Server.MapPath("/Content/participantPhotos"));
             var photos = directory.GetFiles();
 
@@ -488,6 +501,33 @@ namespace ParticipantsOfWar.DAL
                 context.SaveChanges();
 
             }
+
+
+
+            DirectoryInfo docdirectory = new DirectoryInfo(HttpContext.Current.Server.MapPath("/Content/participantDocuments"));
+            var docs = docdirectory.GetFiles();
+
+            participants = context.Participants.ToArray();
+            for (int i = 0; i < participants.Length; i++)
+            {
+                participants[i].Documents = new List<Document>();
+                foreach(var file in docs)
+                {
+                    FileInfo fI = file;
+                    long numBytes = fI.Length;
+                    FileStream fStream = new FileStream(fI.FullName, FileMode.Open, FileAccess.Read);
+                    BinaryReader br = new BinaryReader(fStream);
+                    byte[] data = br.ReadBytes((int)numBytes);
+                    string name = string.Empty;
+                    if (fI.Extension.Length == 5) name = fI.Name.Substring(0, fI.Name.Length - 5);
+                    if (fI.Extension.Length == 4) name = fI.Name.Substring(0, fI.Name.Length - 4);
+                    participants[i].Documents.Add(new Document { DocumentBytes = data, Extension = fI.Extension, type = doctypes.Where(x => x.Name == name).FirstOrDefault() });
+                }
+                context.Set<Participant>().Attach(participants[i]);
+                context.SaveChanges();
+
+            }
+
         }
     }
 }
