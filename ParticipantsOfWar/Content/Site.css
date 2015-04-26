@@ -32,44 +32,47 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
 .tableDiv {
     width: 100%;
     min-width: 1024px;
     background-color: #ffffff;
     overflow-y: auto;
 }
+
 .objList {
     height: auto;
     width: 100%;
 }
+
 .Repeater {
     height: auto;
     width: 100%;
 }
 /*цвета для таблиц*/
-.td-dark-grey
-{
-    background-color:#EFEBE9 !important;
+.td-dark-grey {
+    background-color: #EFEBE9 !important;
 }
-.td-white
-{
-    background-color:#ffffff !important;
+
+.td-white {
+    background-color: #ffffff !important;
 }
-.td-light-grey
-{
-    background-color:#ffffff !important;
+
+.td-light-grey {
+    background-color: #ffffff !important;
 }
-.block-dark-grey
-{
-    background-color:#bbbbbb !important;
+
+.block-dark-grey {
+    background-color: #bbbbbb !important;
 }
-.td-light-grey-div
-{
-    background-color:#f3f3f3 !important;
-    font-size:13px;
+
+.td-light-grey-div {
+    background-color: #f3f3f3 !important;
+    font-size: 13px;
     border-left: 2px solid #ffffff;
     border-bottom: 2px solid #ffffff;
 }
+
 .input-filter {
     width: calc(100% - 32px);
     height: 32px;
@@ -80,83 +83,85 @@ input[type="checkbox"].input-validation-error {
     background-color: #ffffff;
     padding: 2px;
 }
+
 .icon-delete {
     width: 32px;
     height: 32px;
-    background-color:rgb(141,110,99);
+    background-color: rgb(141,110,99);
     font-size: 18pt;
     color: white;
     text-align: center;
 }
+
 .row-block {
-    float:right;
-    height:20px;
-    width:60px;
-    padding-right:7px;
+    float: right;
+    height: 20px;
+    width: 60px;
+    padding-right: 7px;
 }
-.row-down
-{
-    background: url('images/row_down.png') no-repeat;
-    height:12px;
-    width:12px;
-    cursor:pointer;
-    float:right
-}
-.row-up
-{
-    background: url('images/row_down.png') no-repeat;
-    height:12px;
-    width:12px;
-    cursor:pointer;
-    float:right ;
-    -webkit-transform: rotate(180deg);     /* Chrome and other webkit browsers */
-      -moz-transform: rotate(180deg);        /* FF */
-      -o-transform: rotate(180deg);          /* Opera */
-      -ms-transform: rotate(180deg);         /* IE9 */
-      transform: rotate(180deg);             /* W3C complaint browsers */
 
-      /* IE8 and below */
-      filter: progid:DXImageTransform.Microsoft.Matrix(M11=-1, M12=0, M21=0, M22=-1, DX=0, DY=0, SizingMethod='auto expand');
-
+.row-down {
+    background: url('images/row_down.png') no-repeat;
+    height: 12px;
+    width: 12px;
+    cursor: pointer;
+    float: right;
 }
-.row-up.selected{
+
+.row-up {
+    background: url('images/row_down.png') no-repeat;
+    height: 12px;
+    width: 12px;
+    cursor: pointer;
+    float: right;
+    -webkit-transform: rotate(180deg); /* Chrome and other webkit browsers */
+    -moz-transform: rotate(180deg); /* FF */
+    -o-transform: rotate(180deg); /* Opera */
+    -ms-transform: rotate(180deg); /* IE9 */
+    transform: rotate(180deg); /* W3C complaint browsers */
+    /* IE8 and below */
+    filter: progid:DXImageTransform.Microsoft.Matrix(M11=-1, M12=0, M21=0, M22=-1, DX=0, DY=0, SizingMethod='auto expand');
+}
+
+    .row-up.selected {
+        display: inline-block;
+        transform: rotate(180deg);
+        background: url('images/row_down_selected.png') no-repeat;
+        width: 12px;
+        height: 12px;
+        cursor: pointer;
+    }
+
+.row-down.selected {
     display: inline-block;
-    transform: rotate(180deg);
     background: url('images/row_down_selected.png') no-repeat;
     width: 12px;
     height: 12px;
     cursor: pointer;
 }
 
-.row-down.selected{
-    display: inline-block;
-    background: url('images/row_down_selected.png') no-repeat;
-    width: 12px;
-    height: 12px;
-    cursor: pointer;
-}
 .mainContainer {
-  /*  margin-top: 30px;*/
+    /*  margin-top: 30px;*/
 }
-.mainContainer .objList .td-light-grey td
- {
-  padding: 20px 0 10px 0;
-}
-.mainContainer .objList .td-light-grey td div.icon-delete,
-.mainContainer .objList .td-light-grey td input.input-filter
-{
-  float: left !important;
-}
+
+    .mainContainer .objList .td-light-grey td {
+        padding: 20px 0 10px 0;
+    }
+
+        .mainContainer .objList .td-light-grey td div.icon-delete,
+        .mainContainer .objList .td-light-grey td input.input-filter {
+            float: left !important;
+        }
 
 table.objList tr td {
     padding: 10px;
     border-bottom: 2px solid #ffffff;
 }
 
-table.objList tr td + td {
+    table.objList tr td + td {
         padding: 10px;
         border-left: 2px solid #ffffff;
-}
+    }
 
 table.Repeater tr td {
     padding: 10px;
@@ -164,21 +169,23 @@ table.Repeater tr td {
 }
 
 
-table.Repeater tr td + td {
+    table.Repeater tr td + td {
         padding: 10px;
         border-left: 2px solid #ffffff;
-}
+    }
 
 
 
 input {
     text-indent: 5px;
 }
-input[type=date] {
+
+    input[type=date] {
         text-indent: 5px;
-}
-input[type=date]::-webkit-inner-spin-button,
-input[type=date]::-webkit-outer-spin-button {
+    }
+
+        input[type=date]::-webkit-inner-spin-button,
+        input[type=date]::-webkit-outer-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
@@ -193,33 +200,56 @@ input[type=date]::-webkit-outer-spin-button {
     padding: 5px;
     min-width: 150px;
 }
+
 .part_selected {
     background-color: #D7CCC8;
 }
+
 .showMoreBtn {
     margin: 10px auto 0;
     text-align: center;
 }
 
-.logo{
-    margin:5px;
-    padding:5px;
+.logo {
+    margin: 5px;
+    padding: 5px;
 }
 
 
 md-grid-list {
-  margin: 8px; }
+    margin: 8px;
+}
+
 .gray {
-  background: #f5f5f5; }
- .green {
-  background: #b9f6ca; }
- .yellow {
-  background: #ffff8d; }
- .blue {
-  background: #84ffff; }
- .purple {
-  background: #b388ff; }
- .red {
-  background: #ff8a80; }
- md-grid-tile {
-  transition: all 400ms ease-out 50ms; }
+    background: #f5f5f5;
+}
+
+.green {
+    background: #b9f6ca;
+}
+
+.yellow {
+    background: #ffff8d;
+}
+
+.blue {
+    background: #84ffff;
+}
+
+.purple {
+    background: #b388ff;
+}
+
+.red {
+    background: #ff8a80;
+}
+
+md-grid-tile {
+    transition: all 400ms ease-out 50ms;
+}
+
+.lenta {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
