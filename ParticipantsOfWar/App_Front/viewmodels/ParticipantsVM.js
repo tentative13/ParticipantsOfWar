@@ -11,10 +11,8 @@
 
         $rootScope.table_loader = false;
         participantsService.getTypes(function (data) {
-            //var i = 1;
             angular.forEach(data, function (item) {
                 self.ParticipantsTypes.push({ name: item["name"], value: item["priority"] });
-             //   i++;
             });
             
             participantsService.getAllParticipants(function (data) {

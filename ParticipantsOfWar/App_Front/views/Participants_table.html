@@ -123,6 +123,12 @@
                 </tr>
             </tbody>
         </table>
+        
+        <div layout="row">
+            <p style="width:100%; text-align:center; margin:0 auto;">
+                <a ng-href="" ng-repeat="letter in alphabet" ng-click="handlers.letterFilter(letter)">&nbsp;<b>{{letter}}</b>&nbsp;</a>
+            </p>
+        </div>
 
         <div class="paging" ng-show="Participants.length">
             <div class="showMoreBtn">

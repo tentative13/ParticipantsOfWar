@@ -26,14 +26,15 @@
 
                     if (typeof searchTerm.firstname != 'undefined')
                     {
-                        if (item.firstname.toLowerCase().indexOf(searchTerm.firstname.toLowerCase()) > -1) check_firstname = true;
+                        if (item.firstname.toLowerCase().substring(0, searchTerm.firstname.toString().length) == searchTerm.firstname.toLowerCase()) check_firstname = true;
                     }
-                    if (typeof searchTerm.middlename != 'undefined') {
-                        if (item.middlename.toLowerCase().indexOf(searchTerm.middlename.toLowerCase()) > -1) check_middlename = true;
+                    if (typeof searchTerm.middlename != 'undefined')
+                    {
+                        if (item.middlename.toLowerCase().substring(0, searchTerm.middlename.toString().length) == searchTerm.middlename.toLowerCase()) check_middlename = true;
                     }
                     if (typeof searchTerm.surname != 'undefined')
                     {
-                        if (item.surname.toLowerCase().indexOf(searchTerm.surname.toLowerCase()) > -1) check_surname = true;
+                        if (item.surname.toLowerCase().substring(0, searchTerm.surname.toString().length) == searchTerm.surname.toString().toLowerCase()) check_surname = true;
                     }
                     if (searchTerm.ParticipantsTypes != 0) {
                         check_type = false;
