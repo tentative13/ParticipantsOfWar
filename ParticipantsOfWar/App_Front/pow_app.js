@@ -12,18 +12,18 @@
             '$compileProvider',
             function ($stateProvider, $urlRouterProvider, $compileProvider) {
 
-                $urlRouterProvider.otherwise("/Participants");
+                $urlRouterProvider.otherwise("/participants");
 
-                $stateProvider.state('Participants', {
-                    url: "/Participants",
+                $stateProvider.state('participants', {
+                    url: "/participants",
                     templateUrl: "/App_Front/views/Participants_table.html",
                     controller: 'powCtrl'
                 })
-                //.state('Participants', {
-                //    url: "/Participants",
-                //    templateUrl: "/App_Front/views/Participants_table.html",
-                //    controller: 'powCtrl'
-                //});
+                .state('participants.details', {
+                    url: "/details",
+                    templateUrl: "/App_Front/views/Participants_details.html",
+                    controller: 'powDetailsCtrl'
+                });
 
                 $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|unsafe|ftp|mailto|file):/);
                 $compileProvider.aHrefSanitizationWhitelist(/^\s*(|unsafe|http|blob|):/);

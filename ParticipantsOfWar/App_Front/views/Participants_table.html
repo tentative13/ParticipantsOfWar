@@ -1,4 +1,4 @@
-﻿<div class="mainContainer" style="top:50px;">
+﻿<div class="mainContainer" style="top:50px;" ui-view>
     <div class="tableDiv tableDiv-header">
         <table class="objList">
             <col width="12%" />
@@ -115,7 +115,7 @@
                             <div layout="row" layout-wrap>
                                 <div flex="90"></div>
                                 <div flex="10">
-                                    <md-button class="md-raised md-primary">&nbsp;&nbsp;Документы&nbsp;&nbsp;</md-button>
+                                    <md-button class="md-raised md-primary" ng-click="handlers.onDocumentClick(item)">&nbsp;&nbsp;Документы&nbsp;&nbsp;</md-button>
                                 </div>
                             </div>
                         </div>

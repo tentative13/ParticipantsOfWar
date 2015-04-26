@@ -1,8 +1,8 @@
 ﻿(function () {
     var app = angular.module('pow_app');
 
-    app.controller('powCtrl', ['$rootScope', '$log', '$scope', 'ParticipantsService', 'participantsVM',
-        function ($rootScope, $log, $scope, participantsService, participantsVM) {
+    app.controller('powCtrl', ['$rootScope', '$log', '$scope', 'ParticipantsService', 'participantsVM', '$state',
+        function ($rootScope, $log, $scope, participantsService, participantsVM, $state) {
 
             $scope.participantsVM = participantsVM;
             $scope.predicate = '-type_value';
@@ -10,7 +10,11 @@
             $scope.Participants = [];
 
             $scope.handlers = {
-                LoadPage: function () { }
+                LoadPage: function () { },
+                onDocumentClick: function (item) {
+                    $rootScope.pow_details = item;
+                    $state.go("participants.details");
+                }
             };
 
             $scope.grid = {
@@ -22,9 +26,7 @@
                     return false;
                 },
                 expandRow: function (item, index) {
-                    $log.log(item, index);
                     $scope.idSelectedRow = item.guid;
-
                     if (this.openMessages.indexOf(index) === -1)
                         this.openMessages.push(index);
                     else
