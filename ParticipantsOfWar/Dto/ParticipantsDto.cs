@@ -36,6 +36,11 @@ namespace ParticipantsOfWar.Dto
         [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
 
+        [JsonProperty(PropertyName = "photos")]
+        public List<PhotoDto> Photos { get; set; }
+
+        [JsonProperty(PropertyName = "documents")]
+        public List<DocumentsDto> Documents { get; set; }
 
         public ParticipantsDto(Participant prtc)
         {
@@ -47,12 +52,30 @@ namespace ParticipantsOfWar.Dto
             this.Description = String.IsNullOrEmpty(prtc.Description) ? "" : prtc.Description;
             this.Type = String.IsNullOrEmpty(prtc.type.Name) ? "" : prtc.type.Name;
 
-
             if (prtc.Birthday != null)
                 this.Birthday = (DateTime)prtc.Birthday;
 
             if (prtc.Deathday != null)
-                this.Deathday =  prtc.Deathday.Value;
+                this.Deathday = prtc.Deathday.Value;
+
+            Photos = new List<PhotoDto>();
+            if(prtc.Photos.Any())
+            {
+                foreach(var item in prtc.Photos)
+                {
+                    Photos.Add(new PhotoDto(item));
+                }
+            }
+
+            Documents = new List<DocumentsDto>();
+            if(prtc.Documents.Any())
+            {
+                foreach (var item in prtc.Documents)
+                {
+                    Documents.Add(new DocumentsDto(item));
+                }
+            }
+            
         }
 
     }

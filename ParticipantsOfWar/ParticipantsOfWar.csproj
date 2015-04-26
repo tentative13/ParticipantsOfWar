@@ -210,12 +210,15 @@
     <Compile Include="BLL\IArchiveRepository.cs" />
     <Compile Include="Challenge\ChallengeResult.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParticipantsController.cs" />
     <Compile Include="DAL\ArchiveContext.cs" />
     <Compile Include="DAL\ArchiveInitializer.cs" />
+    <Compile Include="Dto\DocumentsDto.cs" />
     <Compile Include="Dto\ParticipantsDto.cs" />
     <Compile Include="Dto\ParticipantTypeDto.cs" />
+    <Compile Include="Dto\PhotoDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

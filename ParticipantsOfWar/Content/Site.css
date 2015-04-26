@@ -46,6 +46,10 @@ input[type="checkbox"].input-validation-error {
     height: auto;
     width: 100%;
 }
+.Docsuments {
+    height: auto;
+    width: 100%;
+}
 /*цвета для таблиц*/
 .td-dark-grey
 {
@@ -223,3 +227,36 @@ md-grid-list {
   background: #ff8a80; }
  md-grid-tile {
   transition: all 400ms ease-out 50ms; }
+
+
+ .BtnWord{
+    width:30px;
+    height:30px;
+    float:left;
+    margin-left:10px;
+    background: url("../Content/images/ico_docx.png") no-repeat;
+}
+
+.BtnXml{
+    width:30px;
+    height:30px;
+    float:left;
+    margin-left:10px;
+    background: url("../Content/images/ico_xml.png") no-repeat;
+}
+
+.BtnExel{
+    width:30px;
+    height:30px;
+    float:left;
+    margin-left:10px;
+    background: url("../Content/images/ico_xlsx.png") no-repeat;
+}
+
+.BtnPdf{
+    width:30px;
+    height:30px;
+    float:left;
+    margin-left:10px;
+    background: url("../Content/images/ico_pdf.png") no-repeat;
+}
