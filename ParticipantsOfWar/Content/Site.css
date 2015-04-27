@@ -215,10 +215,17 @@ input {
 }
 
 .logo {
-    margin: 5px;
-    margin-left: 70px;
+    margin: 10px;
     float:left;
-    vertical-align: middle;
+    vertical-align: middle; 
+}
+.header{
+       margin:0 auto;
+       text-align:center;
+}
+.md-display-2{
+    white-space:nowrap;
+    padding:15px;
 }
 
 .centered-header{
