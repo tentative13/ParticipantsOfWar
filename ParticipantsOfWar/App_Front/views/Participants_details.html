@@ -55,11 +55,11 @@
                                 <tbody>
                                     <tr ng-repeat="item in participant.documents">
                                         <td>
-                                            <b>{{item.type}}</b>
-                                        </td>
-                                        <td>
                                             <div ng-show="item.extension == '.docx'" title="Сохранить в .docx" class="BtnWord" ng-click="handlers.GetDocument(item.documentId)"></div>
                                             <div ng-show="item.extension == '.pdf'" title="Сохранить в .pdf" class="BtnPdf" ng-click="handlers.GetDocument(item.documentId)"></div>
+                                        </td>
+                                        <td>
+                                            <b>{{item.type}}</b>
                                         </td>
                                     </tr>
                                 </tbody>
