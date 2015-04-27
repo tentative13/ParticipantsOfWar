@@ -40,14 +40,15 @@ namespace ParticipantsOfWar
                 "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
                 "~/Scripts/angular-ui/ui-bootstrap.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/pow_app").Include(
-                "~/App_Front/pow_app.js")
-                .IncludeDirectory("~/App_Front/controllers", "*.js")
-                .IncludeDirectory("~/App_Front/services", "*.js")
-                .IncludeDirectory("~/App_Front/directives", "*.js")
-                .IncludeDirectory("~/App_Front/filters", "*.js")
-                .IncludeDirectory("~/App_Front/viewmodels", "*.js")
-                );
+            bundles.Add(new ScriptBundle("~/bundles/pow_app")
+                //.Include(
+                //"~/App_Front/pow_app.js")
+              .IncludeDirectory("~/App_Front", "*.js", true)
+                //.IncludeDirectory("~/App_Front/services", "*.js")
+                //.IncludeDirectory("~/App_Front/directives", "*.js")
+                //.IncludeDirectory("~/App_Front/filters", "*.js")
+                //.IncludeDirectory("~/App_Front/viewmodels", "*.js")
+              );
 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

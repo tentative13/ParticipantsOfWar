@@ -7,9 +7,8 @@ namespace ParticipantsOfWar.DAL
     public class ArchiveContext: DbContext
     {
         public ArchiveContext()
-            : base("ArchiveContext")
+            : base("DefaultConnection")
         {
-            Database.SetInitializer<ArchiveContext>(new CreateDatabaseIfNotExists<ArchiveContext>());
         }
 
         public DbSet<Participant> Participants { get; set; }
