@@ -30,11 +30,7 @@
                         }
                     });
 
-                    $scope.$apply(
                         $scope.filter.surname = letter
-                    );
-                    
-
                 }
             };
 
@@ -77,8 +73,12 @@
                     var j = 0;
                     for (var i = this.pageSize*this.currpage; i < participantsVM.TotalParticipants; i++) {
 
-                        $scope.Participants.push(participantsVM.Participants[i]);
-                        j++;
+                        var check = $.grep($scope.Participants, function (f) { return f.guid == participantsVM.Participants[i].guid; });
+                        if (check.length === 0) {
+                            $scope.Participants.push(participantsVM.Participants[i]);
+                            j++;
+                        }
+
                         if (j == this.pageSize) break;
                     }
                     this.currpage++;
@@ -86,7 +86,11 @@
                 },
                 showAll: function (filter) {
                     for (var i = this.pageSize * this.currpage; i < participantsVM.TotalParticipants; i++) {
-                        $scope.Participants.push(participantsVM.Participants[i]);
+                        var check = $.grep($scope.Participants, function (f) { return f.guid == participantsVM.Participants[i].guid; });
+                        if (check.length === 0) {
+                            $scope.Participants.push(participantsVM.Participants[i]);
+                        }
+
                     }
                 }
             }
