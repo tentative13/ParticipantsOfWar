@@ -32,7 +32,7 @@
         };
 
         this.getDocument = function (documentid) {
-            window.location.href = 'api/Documents/GetDocument/' + documentid;
+           window.location.href = 'api/Documents/GetDocument/' + documentid;
         };
     }]);
 })();

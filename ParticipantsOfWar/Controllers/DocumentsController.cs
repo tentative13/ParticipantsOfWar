@@ -60,6 +60,7 @@ namespace ParticipantsOfWar.Controllers
                 response.Content = new StreamContent(new MemoryStream(doc.DocumentBytes));
                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
                 response.Content.Headers.ContentDisposition.FileName = doc.type.Name+doc.Extension;
+
             }
             catch (FileNotFoundException)
             {
