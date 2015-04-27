@@ -217,8 +217,14 @@ input {
 .logo {
     margin: 5px;
     margin-left: 70px;
+    float:left;
+    vertical-align: middle;
 }
 
+.centered-header{
+    vertical-align:middle;
+    margin: 0 auto;
+}
 
 md-grid-list {
     margin: 8px;
@@ -291,3 +297,4 @@ md-grid-tile {
     margin-left:10px;
     background: url("../Content/images/ico_pdf.png") no-repeat;
 }
+

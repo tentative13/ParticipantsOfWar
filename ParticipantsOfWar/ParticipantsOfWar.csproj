@@ -238,7 +238,6 @@
   <ItemGroup>
     <Content Include="App_Front\controllers\pow_detail_controller.js" />
     <Content Include="App_Front\views\Participants_details.html" />
-    <Content Include="Content\images\1416897610_5695844.png" />
     <Content Include="Content\images\blazon.png" />
     <Content Include="Content\images\Download.gif" />
     <Content Include="Content\images\ico_docx.png" />
