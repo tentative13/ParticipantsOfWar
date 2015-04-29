@@ -59,7 +59,7 @@
                                             <div ng-show="item.extension == '.pdf'" title="Сохранить в .pdf" class="BtnPdf" ng-click="handlers.GetDocument(item.documentId)"></div>
                                         </td>
                                         <td>
-                                            <b>{{item.type}}</b>
+                                            <a ng-click="handlers.GetDocument(item.documentId)">{{item.type}}</a>
                                         </td>
                                     </tr>
                                 </tbody>
