@@ -76,6 +76,8 @@
     <Reference Include="System.Linq.Dynamic">
       <HintPath>..\packages\System.Linq.Dynamic.1.0.4\lib\net40\System.Linq.Dynamic.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -217,7 +219,6 @@
     <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParticipantsController.cs" />
-    <Compile Include="DAL\ArchiveContext.cs" />
     <Compile Include="Dto\DocumentsDto.cs" />
     <Compile Include="Dto\ParticipantsDto.cs" />
     <Compile Include="Dto\ParticipantTypeDto.cs" />
@@ -225,13 +226,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504271917399_initial.cs" />
-    <Compile Include="Migrations\201504271917399_initial.Designer.cs">
-      <DependentUpon>201504271917399_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201504292124183_Initial.cs" />
+    <Compile Include="Migrations\201504292124183_Initial.Designer.cs">
+      <DependentUpon>201504292124183_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504292126039_Second.cs" />
+    <Compile Include="Migrations\201504292126039_Second.Designer.cs">
+      <DependentUpon>201504292126039_Second.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="DAL\ArchiveContext.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\DocumentType.cs" />
     <Compile Include="Models\Extensions.cs" />
@@ -252,6 +258,7 @@
     <Content Include="Content\images\ico_pdf.png" />
     <Content Include="Content\images\ico_xlsx.png" />
     <Content Include="Content\images\ico_xml.png" />
+    <Content Include="Content\images\klogo.png" />
     <Content Include="Content\images\Print.gif" />
     <Content Include="Content\images\row_down.png" />
     <Content Include="Content\images\row_down_selected.png" />
@@ -1136,8 +1143,14 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504271917399_initial.resx">
-      <DependentUpon>201504271917399_initial.cs</DependentUpon>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201504292124183_Initial.resx">
+      <DependentUpon>201504292124183_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504292126039_Second.resx">
+      <DependentUpon>201504292126039_Second.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,13 +1,14 @@
-﻿using ParticipantsOfWar.Models;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
-
 namespace ParticipantsOfWar.DAL
 {
-    public class ArchiveContext: DbContext
+    using ParticipantsOfWar.Models;
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+
+    public class ArchiveContext : DbContext
     {
         public ArchiveContext()
-            : base("DefaultConnection")
+            : base("name=Archive")
         {
         }
 
@@ -17,9 +18,5 @@ namespace ParticipantsOfWar.DAL
         public DbSet<ParticipantType> ParticipantTypes { get; set; }
         public DbSet<DocumentType> DocumentTypes { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-        }
     }
 }

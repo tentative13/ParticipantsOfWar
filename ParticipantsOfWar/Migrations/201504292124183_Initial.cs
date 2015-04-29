@@ -3,12 +3,12 @@ namespace ParticipantsOfWar.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.Document",
+                "dbo.Documents",
                 c => new
                     {
                         DocumentId = c.Guid(nullable: false, identity: true),
@@ -18,13 +18,13 @@ namespace ParticipantsOfWar.Migrations
                         Participant_ParticipantId = c.Guid(),
                     })
                 .PrimaryKey(t => t.DocumentId)
-                .ForeignKey("dbo.DocumentType", t => t.type_DocumentTypeId)
-                .ForeignKey("dbo.Participant", t => t.Participant_ParticipantId)
+                .ForeignKey("dbo.DocumentTypes", t => t.type_DocumentTypeId)
+                .ForeignKey("dbo.Participants", t => t.Participant_ParticipantId)
                 .Index(t => t.type_DocumentTypeId)
                 .Index(t => t.Participant_ParticipantId);
             
             CreateTable(
-                "dbo.DocumentType",
+                "dbo.DocumentTypes",
                 c => new
                     {
                         DocumentTypeId = c.Guid(nullable: false, identity: true),
@@ -33,7 +33,7 @@ namespace ParticipantsOfWar.Migrations
                 .PrimaryKey(t => t.DocumentTypeId);
             
             CreateTable(
-                "dbo.Participant",
+                "dbo.Participants",
                 c => new
                     {
                         ParticipantId = c.Guid(nullable: false, identity: true),
@@ -47,11 +47,11 @@ namespace ParticipantsOfWar.Migrations
                         type_ParticipantTypeId = c.Guid(),
                     })
                 .PrimaryKey(t => t.ParticipantId)
-                .ForeignKey("dbo.ParticipantType", t => t.type_ParticipantTypeId)
+                .ForeignKey("dbo.ParticipantTypes", t => t.type_ParticipantTypeId)
                 .Index(t => t.type_ParticipantTypeId);
             
             CreateTable(
-                "dbo.Photo",
+                "dbo.Photos",
                 c => new
                     {
                         PhotoId = c.Guid(nullable: false, identity: true),
@@ -61,11 +61,11 @@ namespace ParticipantsOfWar.Migrations
                         Participant_ParticipantId = c.Guid(),
                     })
                 .PrimaryKey(t => t.PhotoId)
-                .ForeignKey("dbo.Participant", t => t.Participant_ParticipantId)
+                .ForeignKey("dbo.Participants", t => t.Participant_ParticipantId)
                 .Index(t => t.Participant_ParticipantId);
             
             CreateTable(
-                "dbo.ParticipantType",
+                "dbo.ParticipantTypes",
                 c => new
                     {
                         ParticipantTypeId = c.Guid(nullable: false, identity: true),
@@ -78,19 +78,19 @@ namespace ParticipantsOfWar.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Participant", "type_ParticipantTypeId", "dbo.ParticipantType");
-            DropForeignKey("dbo.Photo", "Participant_ParticipantId", "dbo.Participant");
-            DropForeignKey("dbo.Document", "Participant_ParticipantId", "dbo.Participant");
-            DropForeignKey("dbo.Document", "type_DocumentTypeId", "dbo.DocumentType");
-            DropIndex("dbo.Photo", new[] { "Participant_ParticipantId" });
-            DropIndex("dbo.Participant", new[] { "type_ParticipantTypeId" });
-            DropIndex("dbo.Document", new[] { "Participant_ParticipantId" });
-            DropIndex("dbo.Document", new[] { "type_DocumentTypeId" });
-            DropTable("dbo.ParticipantType");
-            DropTable("dbo.Photo");
-            DropTable("dbo.Participant");
-            DropTable("dbo.DocumentType");
-            DropTable("dbo.Document");
+            DropForeignKey("dbo.Participants", "type_ParticipantTypeId", "dbo.ParticipantTypes");
+            DropForeignKey("dbo.Photos", "Participant_ParticipantId", "dbo.Participants");
+            DropForeignKey("dbo.Documents", "Participant_ParticipantId", "dbo.Participants");
+            DropForeignKey("dbo.Documents", "type_DocumentTypeId", "dbo.DocumentTypes");
+            DropIndex("dbo.Photos", new[] { "Participant_ParticipantId" });
+            DropIndex("dbo.Participants", new[] { "type_ParticipantTypeId" });
+            DropIndex("dbo.Documents", new[] { "Participant_ParticipantId" });
+            DropIndex("dbo.Documents", new[] { "type_DocumentTypeId" });
+            DropTable("dbo.ParticipantTypes");
+            DropTable("dbo.Photos");
+            DropTable("dbo.Participants");
+            DropTable("dbo.DocumentTypes");
+            DropTable("dbo.Documents");
         }
     }
 }
