@@ -34,5 +34,19 @@
         this.getDocument = function (documentid) {
             window.location.href = 'api/Documents/GetDocument/' + documentid;
         };
+
+        this.getParticipants = function (filter, number) {
+            return $rootScope.powHub.server.getParticipants(filter, number);
+        };
+        this.getAllParticipants = function (filter) {
+            return $rootScope.powHub.server.getAllParticipants(filter);
+        };
+        this.getTotalFilteredParticipants = function (filter) {
+            return $rootScope.powHub.server.getTotalFilteredParticipants(filter);
+        };
+        this.sendGuidsCache = function (guids) {
+            $rootScope.powHub.server.guidscache(guids);
+        };
+
     }]);
 })();

@@ -25,8 +25,8 @@
                     <div class="icon-delete" title="Очистить поле" ng-click="filter.middlename=''">&times;</div>
                 </td>
                 <td>
-                    <input class="input-filter" type="date" ng-model="filter.birthday" />
-                    <div class="icon-delete" title="Очистить поле" ng-click="filter.birthday=undefined">&times;</div>
+                    <input class="input-filter" type="date" ng-model="filter.birthday" ng-change="handlers.onDateInputChange()" />
+                      <div class="icon-delete" title="Очистить поле" ng-click="filter.birthday=undefined">&times;</div>
                 </td>
                 &nbsp;
             </tr>
@@ -135,7 +135,9 @@
                 <span>
                     Показано записей {{filtered.length}} из {{participantsVM.TotalParticipants}}
                 </span>
-                <md-button class="md-raised md-primary" ng-show="participantsVM.TotalParticipants > Participants.length" ng-click="paging.showMore(filter, remains)">
+                <md-button class="md-raised md-primary"
+                           ng-show="participantsVM.TotalParticipants > filtered.length"
+                           ng-click="paging.showMore(filter)">
                     &nbsp;&nbsp; Показать ещё {{remains = (paging.getLastCount(filter, filtered.length) || participantsVM.TotalParticipants - filtered.length || '')}} &nbsp;&nbsp;
                 </md-button>
                 <a ng-show="participantsVM.TotalParticipants > Participants.length" ng-click="paging.showAll(filter)" style="cursor: pointer;">

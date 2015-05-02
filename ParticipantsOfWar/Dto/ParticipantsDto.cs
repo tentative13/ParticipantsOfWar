@@ -36,6 +36,9 @@ namespace ParticipantsOfWar.Dto
         [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
 
+        [JsonProperty(PropertyName = "type_value")]
+        public int Type_value { get; set; }
+
         [JsonProperty(PropertyName = "photos")]
         public List<PhotoDto> Photos { get; set; }
 
@@ -51,6 +54,12 @@ namespace ParticipantsOfWar.Dto
             this.ShortName = String.IsNullOrEmpty(prtc.ShortName) ? "" : prtc.ShortName;
             this.Description = String.IsNullOrEmpty(prtc.Description) ? "" : prtc.Description;
             this.Type = String.IsNullOrEmpty(prtc.type.Name) ? "" : prtc.type.Name;
+
+            if(prtc.type.Priority!=null)
+            {
+                this.Type_value = prtc.type.Priority;
+            }
+           
 
             if (prtc.Birthday != null)
                 this.Birthday = (DateTime)prtc.Birthday;

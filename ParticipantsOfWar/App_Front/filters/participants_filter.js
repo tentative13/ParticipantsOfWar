@@ -26,11 +26,11 @@
 
                     if (typeof searchTerm.firstname != 'undefined')
                     {
-                        if (item.firstname.toLowerCase().substring(0, searchTerm.firstname.toString().length) == searchTerm.firstname.toLowerCase()) check_firstname = true;
+                        if (item.firstname.toLowerCase().substring(0, searchTerm.firstname.toString().length) == searchTerm.firstname.toString().toLowerCase()) check_firstname = true;
                     }
                     if (typeof searchTerm.middlename != 'undefined')
                     {
-                        if (item.middlename.toLowerCase().substring(0, searchTerm.middlename.toString().length) == searchTerm.middlename.toLowerCase()) check_middlename = true;
+                        if (item.middlename.toLowerCase().substring(0, searchTerm.middlename.toString().length) == searchTerm.middlename.toString().toLowerCase()) check_middlename = true;
                     }
                     if (typeof searchTerm.surname != 'undefined')
                     {
