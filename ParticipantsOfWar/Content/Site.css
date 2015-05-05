@@ -49,6 +49,7 @@ input[type="checkbox"].input-validation-error {
     height: auto;
     width: 100%;
 }
+
 .Documents {
     height: auto;
     width: 100%;
@@ -216,20 +217,22 @@ input {
 
 .logo {
     margin: 10px;
-    float:left;
-    vertical-align: middle; 
-}
-.header{
-       margin:0 auto;
-       text-align:center;
-}
-.md-display-2{
-    white-space:nowrap;
-    padding:15px;
+    float: left;
+    vertical-align: middle;
 }
 
-.centered-header{
-    vertical-align:middle;
+.header {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.md-display-2 {
+    white-space: nowrap;
+    padding: 15px;
+}
+
+.centered-header {
+    vertical-align: middle;
     margin: 0 auto;
 }
 
@@ -238,7 +241,6 @@ md-grid-list {
 }
 
 .gray {
-
     background: #f5f5f5;
 }
 
@@ -264,7 +266,7 @@ md-grid-list {
 
 md-grid-tile {
     transition: all 400ms ease-out 50ms;
-      background-color:#EFEBE9;
+    background-color: #EFEBE9;
 }
 
 .lenta {
@@ -273,35 +275,46 @@ md-grid-tile {
     right: 0px;
 }
 
- .BtnWord{
-    width:30px;
-    height:30px;
-    float:left;
-    margin-left:10px;
+.BtnWord {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-left: 10px;
     background: url("../Content/images/ico_docx.png") no-repeat;
+    background-size: 18px 18px;
+}
+.BtnPhoto{
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-left: 10px;
+    background: url("../Content/images/ico_photo.png") no-repeat;
+    background-size: 18px 18px;
 }
 
-.BtnXml{
-    width:30px;
-    height:30px;
-    float:left;
-    margin-left:10px;
+.BtnXml {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-left: 10px;
     background: url("../Content/images/ico_xml.png") no-repeat;
+    background-size: 18px 18px;
 }
 
-.BtnExel{
-    width:30px;
-    height:30px;
-    float:left;
-    margin-left:10px;
+.BtnExel {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-left: 10px;
     background: url("../Content/images/ico_xlsx.png") no-repeat;
+    background-size: 18px 18px;
 }
 
-.BtnPdf{
-    width:30px;
-    height:30px;
-    float:left;
-    margin-left:10px;
+.BtnPdf {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-left: 10px;
     background: url("../Content/images/ico_pdf.png") no-repeat;
+    background-size: 18px 18px;
 }
-

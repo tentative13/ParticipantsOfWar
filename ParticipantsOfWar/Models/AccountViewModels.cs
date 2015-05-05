@@ -22,7 +22,6 @@ namespace ParticipantsOfWar.Models
 
         public IEnumerable<UserLoginInfoViewModel> Logins { get; set; }
 
-        public IEnumerable<ExternalLoginViewModel> ExternalLoginProviders { get; set; }
     }
 
     public class UserInfoViewModel

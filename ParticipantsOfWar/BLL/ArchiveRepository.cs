@@ -15,7 +15,7 @@ namespace ParticipantsOfWar.BLL
 
         public IEnumerable<Participant> GetAll()
         {
-            return db.Set<Participant>().Include(x => x.type).Include(x => x.Photos).Include(x => x.Documents.Select(t=>t.type));
+            return db.Set<Participant>().Include(x => x.type).Include(x => x.Photos).Include(x => x.Documents);
            
         }
 

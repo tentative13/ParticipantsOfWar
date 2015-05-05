@@ -15,21 +15,21 @@ namespace ParticipantsOfWar.Dto
         [JsonProperty(PropertyName = "extension")]
         public string Extension { get; set; }
 
-        [JsonProperty(PropertyName = "type")]
-        public string type { get; set; }
+        [JsonProperty(PropertyName = "name")]
+        public string name { get; set; }
 
         public DocumentsDto(Document doc)
         {
             this.DocumentId = doc.DocumentId.ToString();
             this.Extension = String.IsNullOrEmpty(doc.Extension) ? "" : doc.Extension;
 
-            if(doc.type != null)
+            if(doc.DocumentName != null)
             {
-                this.type = doc.type.Name;
+                this.name = doc.DocumentName;
             }
             else
             {
-                this.type = "Неизвестный";
+                this.name = "Имя файла отсутсвует";
             }
 
         }

@@ -30,8 +30,14 @@
                         <div flex="100"> <b>ФИО:</b>&nbsp;{{participant.surname}} {{ participant.firstname }} {{ participant.middlename }} </div>
                     </div>
                     <div layout="row" layout-wrap>
+                        <div flex="100"><b>Звание:</b>&nbsp;{{participant.rank}}</div>
+                    </div>
+                    <div layout="row" layout-wrap>
                         <div flex="100"><b>Дата рождения:</b>&nbsp;{{participant.birthday | date:'dd.MM.yyyy' }}</div>
                     </div>
+                    <div layout="row" layout-wrap>
+                        <div flex="100"><b>Место рождения:</b>&nbsp;{{participant.birthplace}}</div>
+                    </div>                    
                     <div layout="row" layout-wrap>
                         <div flex="100">
                             <b>История:</b>&nbsp;{{ participant.description }}
@@ -55,11 +61,12 @@
                                 <tbody>
                                     <tr ng-repeat="item in participant.documents">
                                         <td>
-                                            <div ng-show="item.extension == '.docx'" title="Сохранить в .docx" class="BtnWord" ng-click="handlers.GetDocument(item.documentId)"></div>
+                                            <div ng-show="item.extension == '.docx' || item.extension == '.doc'" title="Сохранить в .docx" class="BtnWord" ng-click="handlers.GetDocument(item.documentId)"></div>
                                             <div ng-show="item.extension == '.pdf'" title="Сохранить в .pdf" class="BtnPdf" ng-click="handlers.GetDocument(item.documentId)"></div>
+                                            <div ng-show="item.extension == '.jpg' || item.extension == '.jpeg' || item.extension == '.png'  " title="Сохранить в .pdf" class="BtnPhoto" ng-click="handlers.GetDocument(item.documentId)"></div>
                                         </td>
                                         <td>
-                                            <a ng-click="handlers.GetDocument(item.documentId)">{{item.type}}</a>
+                                            <a ng-click="handlers.GetDocument(item.documentId)">{{item.name}}</a>
                                         </td>
                                     </tr>
                                 </tbody>

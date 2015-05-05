@@ -16,7 +16,7 @@ namespace ParticipantsOfWar.DAL
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Document> Documents { get; set; }
         public DbSet<ParticipantType> ParticipantTypes { get; set; }
-        public DbSet<DocumentType> DocumentTypes { get; set; }
+        //public DbSet<DocumentType> DocumentTypes { get; set; }
 
     }
 }

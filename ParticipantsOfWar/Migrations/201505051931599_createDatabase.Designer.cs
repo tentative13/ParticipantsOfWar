@@ -7,13 +7,13 @@ namespace ParticipantsOfWar.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Second : IMigrationMetadata
+    public sealed partial class createDatabase : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Second));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(createDatabase));
         
         string IMigrationMetadata.Id
         {
-            get { return "201504292126039_Second"; }
+            get { return "201505051931599_createDatabase"; }
         }
         
         string IMigrationMetadata.Source

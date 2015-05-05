@@ -26,7 +26,7 @@ namespace ParticipantsOfWar.Dto
 
         [JsonProperty(PropertyName = "birthday")]
         public DateTime Birthday { get; set; }
-        
+
         [JsonProperty(PropertyName = "deathday")]
         public DateTime Deathday { get; set; }
 
@@ -35,6 +35,12 @@ namespace ParticipantsOfWar.Dto
 
         [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
+
+        [JsonProperty(PropertyName = "rank")]
+        public string Rank { get; set; }
+
+        [JsonProperty(PropertyName = "birthplace")]
+        public string BirthPlace { get; set; }
 
         [JsonProperty(PropertyName = "photos")]
         public List<PhotoDto> Photos { get; set; }
@@ -51,6 +57,8 @@ namespace ParticipantsOfWar.Dto
             this.ShortName = String.IsNullOrEmpty(prtc.ShortName) ? "" : prtc.ShortName;
             this.Description = String.IsNullOrEmpty(prtc.Description) ? "" : prtc.Description;
             this.Type = String.IsNullOrEmpty(prtc.type.Name) ? "" : prtc.type.Name;
+            this.Rank = String.IsNullOrEmpty(prtc.Rank) ? "" : prtc.Rank;
+            this.BirthPlace = String.IsNullOrEmpty(prtc.BirthPlace) ? "" : prtc.BirthPlace;
 
             if (prtc.Birthday != null)
                 this.Birthday = (DateTime)prtc.Birthday;
@@ -59,23 +67,23 @@ namespace ParticipantsOfWar.Dto
                 this.Deathday = prtc.Deathday.Value;
 
             Photos = new List<PhotoDto>();
-            if(prtc.Photos.Any())
+            if (prtc.Photos.Any())
             {
-                foreach(var item in prtc.Photos)
+                foreach (var item in prtc.Photos)
                 {
                     Photos.Add(new PhotoDto(item));
                 }
             }
 
             Documents = new List<DocumentsDto>();
-            if(prtc.Documents.Any())
+            if (prtc.Documents != null && prtc.Documents.Any())
             {
                 foreach (var item in prtc.Documents)
                 {
                     Documents.Add(new DocumentsDto(item));
                 }
             }
-            
+
         }
 
     }

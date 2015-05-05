@@ -17,5 +17,6 @@ namespace ParticipantsOfWar.Models
         public Guid ParticipantTypeId { get; set; }
         public int Priority { get; set; }
         public string Name { get; set; }
+
     }
 }
