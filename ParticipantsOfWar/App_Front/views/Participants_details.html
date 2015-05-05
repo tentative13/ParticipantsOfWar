@@ -1,44 +1,88 @@
 ﻿<div layout="column">
     &nbsp;
-    <div>
-        <md-button class="md-raised md-primary" ng-click="handlers.onGetBackClick()">&nbsp;&nbsp;Вернуться&nbsp;&nbsp;</md-button>
+    <div layout="row">
+        <div flex="20">
+            <md-button class="md-raised md-primary" ng-click="handlers.onGetBackClick()">&nbsp;&nbsp;Вернуться&nbsp;&nbsp;</md-button>
+        </div>
+        <div flex="60"></div>
+        <div flex="20" style="text-align:right">
+            <md-button class="md-raised md-primary" ng-hide="editMode" ng-click="handlers.onEditClick()">&nbsp;&nbsp;Редактировать&nbsp;&nbsp;</md-button>
+            <md-button class="md-raised md-primary" ng-show="editMode" ng-click="handlers.onSaveClick()">&nbsp;&nbsp;Сохранить&nbsp;&nbsp;</md-button>
+            &nbsp;
+            <md-button class="md-raised md-primary" ng-show="editMode" ng-click="handlers.onCancelClick()">&nbsp;&nbsp;Отменить&nbsp;&nbsp;</md-button>
+        </div>
     </div>
     &nbsp;
     <div>
         <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
-                      md-row-height-gt-md="1:1" md-row-height="2:2"
+                      md-row-height="3:5"
                       md-gutter="12px" md-gutter-gt-sm="8px">
 
-            <md-grid-tile class="md-primary" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
-
+            <md-grid-tile class="md-primary" md-rowspan="1" md-colspan="2" md-colspan-sm="1">
+                <md-grid-tile-header>
+                    <h3>Фотография</h3>
+                </md-grid-tile-header>
                 <img ng-show="delayshow" ng-src="api/Documents/GetPhoto/{{participant.photos[0].photoId}}" style="width:auto; height:100%;" />
 
-                <md-grid-tile-footer>
-                    <h3>Фотография</h3>
-                </md-grid-tile-footer>
+
             </md-grid-tile>
 
-            <md-grid-tile class="md-primary" md-colspan="5" md-colspan-sm="1" md-colspan-md="2">
+            <md-grid-tile class="md-primary" md-colspan="4" md-colspan-sm="1" md-colspan-md="2" md-rowspan="1">
                 <md-grid-tile-header>
                     <h3>Персональные данные:</h3>
                 </md-grid-tile-header>
-                <div layout="column" style="width: 100%; padding-left: 20pt;">
-                    <div layout="row" layout-wrap>
-                        <div flex="100"><b>Статус:</b>&nbsp;{{ participant.type }}</div>
+
+                <div layout="column" layout-align="left" style="width: 100%; padding-left: 20pt; height:80%">
+                    <div layout="row">
+                        <!--<div flex="100"><b>Статус:</b>&nbsp;{{ participant.type }}</div>-->
+                        <md-input-container md-no-float ng-hide="editMode">
+                            <label>Статус</label>
+                            <input ng-model="participant.type" ng-readonly="!editMode">
+                        </md-input-container>
+
+                        <md-select ng-show="editMode" ng-model="participant.type" placeholder="Статус" style="width:200px;">
+                            <md-option ng-value="opt" ng-repeat="opt in types">{{ opt.name }}</md-option>
+                        </md-select>
+                    </div>
+                    <div layout="row">
+                        <!--<div flex="100" ng-hide="editMode"> <b>ФИО:</b>&nbsp;{{participant.surname}} {{ participant.firstname }} {{ participant.middlename }} </div>-->
+                        <md-input-container md-no-float>
+                            <label>Фамилия</label>
+                            <input ng-model="participant.surname" ng-readonly="!editMode">
+                        </md-input-container>
+                        <md-input-container md-no-float>
+                            <label>Имя</label>
+                            <input ng-model="participant.firstname" ng-readonly="!editMode">
+                        </md-input-container>
+                        <md-input-container md-no-float>
+                            <label>Отчество</label>
+                            <input ng-model="participant.middlename" ng-readonly="!editMode">
+                        </md-input-container>
+                    </div>
+                    <div layout="row">
+                            <!--<b>Дата рождения:</b>&nbsp;{{participant.birthday | date:'dd.MM.yyyy' }}-->
+                            <md-input-container ng-hide="editMode">
+                                <label>Дата рождения</label>
+                                <input ng-model="participant.birthday | date:'dd.MM.yyyy'" ng-readonly="!editMode" style="width:200px;">
+                            </md-input-container>
+
+                            <md-input-container ng-show="editMode">
+                                <label>Дата рождения</label>
+                                <input type="date" style="width:200px;" ng-model="participant.birthday" ng-change="handlers.onDateInputChange()">
+                            </md-input-container>
                     </div>
                     <div layout="row" layout-wrap>
-                        <div flex="100"> <b>ФИО:</b>&nbsp;{{participant.surname}} {{ participant.firstname }} {{ participant.middlename }} </div>
-                    </div>
-                    <div layout="row" layout-wrap>
-                        <div flex="100"><b>Дата рождения:</b>&nbsp;{{participant.birthday | date:'dd.MM.yyyy' }}</div>
-                    </div>
-                    <div layout="row" layout-wrap>
-                        <div flex="100">
-                            <b>История:</b>&nbsp;{{ participant.description }}
-                        </div>
+                        <!--<div flex="100" ng-hide="editMode"> <b>Биография:</b>&nbsp;{{ participant.description }} </div>-->
+                            <md-input-container flex ng-hide="editMode">
+                                <label>Биография</label>
+                                <textarea ng-model="participant.description" columns="1" ng-readonly="!editMode" style="margin: 0px -0.5px 0px 0px; width: 95%; height: 100px; max-height:250px; max-width:100%; background:transparent;  cursor: default;"></textarea>
+                            </md-input-container>
+
+                            <textarea ng-show="editMode"  ng-readonly="!editMode" editmode"" ng-model="participant.description" class="form-control" placeholder="Биография" style="width: 95%; height: 100px; max-height:250px; max-width:100%;"></textarea>
                     </div>
                 </div>
             </md-grid-tile>
+
             <md-grid-tile class="md-primary" md-colspan="6" md-rowspan="1" md-colspan-sm="1" md-colspan-md="2">
                 <md-grid-tile-header>
                     <h3>Документы:</h3>
