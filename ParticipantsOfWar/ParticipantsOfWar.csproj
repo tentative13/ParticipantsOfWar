@@ -245,10 +245,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\ArchiveLocal.mdf" />
-    <Content Include="App_Data\ArchiveLocal_log.ldf">
-      <DependentUpon>ArchiveLocal.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Front\controllers\pow_detail_controller.js" />
     <Content Include="App_Front\views\Participants_details.html" />
     <Content Include="Content\images\blazon.png" />
@@ -1113,6 +1109,7 @@
     <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="App_Front\directives\" />
     <Folder Include="Providers\" />
   </ItemGroup>
