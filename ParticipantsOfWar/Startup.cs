@@ -13,6 +13,7 @@ namespace ParticipantsOfWar
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            ConfigureSignalr(app);
         }
     }
 }

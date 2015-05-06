@@ -1,4 +1,5 @@
 ﻿using ParticipantsOfWar.DAL;
+using ParticipantsOfWar.Dto;
 using ParticipantsOfWar.Models;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,8 @@ namespace ParticipantsOfWar.BLL
             params string[] include) where T : class;
 
         IEnumerable<TElement> ExecuteSql<TElement>(string sql, params object[] parameters);
+
+        List<ParticipantsDto> GetFiltered(TableFilter filter);
 
     }   
 }

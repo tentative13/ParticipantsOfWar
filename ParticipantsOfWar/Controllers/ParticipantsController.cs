@@ -25,21 +25,6 @@ namespace ParticipantsOfWar.Controllers
             _archiveRepo = archiveRepo;
         }
 
-        [Route("All")]
-        public HttpResponseMessage GetAllParticipants()
-        {
-            List<ParticipantsDto> response = new List<ParticipantsDto>();
-            var all_prtc = _archiveRepo.GetAll();
-            foreach(var item in all_prtc)
-            {
-                response.Add(new ParticipantsDto(item));
-            }
-
-            return response.Any()
-                ? Request.CreateResponse(HttpStatusCode.OK, response)
-                : Request.CreateResponse(HttpStatusCode.NotFound);
-        }
-
         [Route("GetTypes")]
         public HttpResponseMessage GetAllTypes()
         {
@@ -61,18 +46,39 @@ namespace ParticipantsOfWar.Controllers
         {
             Participant participant = _archiveRepo.Get<Participant>(id);
             if (participant == null) return NotFound();
-            
-            return Ok(participant);
+
+            ParticipantsDto response = new ParticipantsDto(participant);
+            return Ok(response);
         }
 
         // PUT: api/Participants/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutParticipant(Guid id, Participant participant)
+        public IHttpActionResult PutParticipant(Guid id, ParticipantsInDto participant)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
-            if (id != participant.ParticipantId) return BadRequest();
+            if (id != new Guid(participant.guid)) return BadRequest();
 
-            _archiveRepo.Update<Participant>(participant);
+            var dbEntity = _archiveRepo.Get<Participant>(id);
+            if (dbEntity == null) return NotFound();
+
+
+            dbEntity.Firstname = participant.Firstname;
+            dbEntity.Middlename = participant.Middlename;
+            dbEntity.Surname = participant.Surname;
+            dbEntity.Description = participant.Description;
+            dbEntity.ShortName = participant.ShortName;
+
+            dbEntity.Birthday = participant.Birthday;
+            dbEntity.Deathday = participant.Deathday;
+
+
+            var newtype = _archiveRepo.List<ParticipantType>(x => x.Name == participant.Type.name).FirstOrDefault();
+            if (newtype != null)
+            {
+                dbEntity.type = newtype;
+            }
+
+            _archiveRepo.Update<Participant>(dbEntity);
+
             try
             {
                 _archiveRepo.Commit();
@@ -95,11 +101,31 @@ namespace ParticipantsOfWar.Controllers
         // POST: api/Participants
         [HttpPost]
         [ResponseType(typeof(Participant))]
-        public IHttpActionResult PostParticipant(Participant participant)
+        public IHttpActionResult PostParticipant(ParticipantsInDto participant)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            _archiveRepo.Add<Participant>(participant);
+            Participant newone = new Participant();
+
+            newone.Birthday = participant.Birthday;
+            newone.Deathday = participant.Deathday;
+            newone.Description = participant.Description;
+            newone.Firstname = participant.Firstname;
+            newone.Middlename = participant.Middlename;
+            newone.Surname = participant.Surname;
+            newone.ShortName = participant.ShortName;
+
+
+            if (participant.Type != null)
+            {
+                var newtype = _archiveRepo.List<ParticipantType>(x => x.Name == participant.Type.name).FirstOrDefault();
+                if (newtype != null)
+                {
+                    newone.type = newtype;
+                }
+            }
+
+            _archiveRepo.Add<Participant>(newone);
 
             try
             {
@@ -107,7 +133,7 @@ namespace ParticipantsOfWar.Controllers
             }
             catch (DbUpdateException)
             {
-                if (ParticipantExists(participant.ParticipantId))
+                if (ParticipantExists(new Guid(participant.guid)))
                 {
                     return Conflict();
                 }
@@ -117,7 +143,9 @@ namespace ParticipantsOfWar.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = participant.ParticipantId }, participant);
+            ParticipantsDto response = new ParticipantsDto(newone);
+
+            return CreatedAtRoute("DefaultApi", new { id = response.guid }, response);
         }
 
         //// DELETE: api/Participants/5
