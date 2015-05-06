@@ -7,32 +7,35 @@
         function ($rootScope, $log, $scope, participantsService, participantsVM, $state) {
 
             $scope.participantsVM = participantsVM;
-            $scope.predicate = '-type_value';
+            $scope.Participants = participantsVM.Participants;
+            $scope.predicate = '-type.value';
             $scope.idSelectedRow = null;
-            $scope.Participants = [];
             $scope.filter = {};
-
             $scope.alphabet = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ы', 'Э', 'Ю', 'Я'];
 
             $scope.handlers = {
                 LoadPage: function () { },
                 onDocumentClick: function (item) {
                     $rootScope.pow_details = item;
+                    $rootScope.editMode = false;
                     $state.go("participants.details");
+                },
+                onCreateClick: function () {
+                    $rootScope.pow_details = {};
+                    $rootScope.editMode = true;
+                    $rootScope.createMode = true;
+                    $state.go("participants.create");
                 },
                 letterFilter: function (letter)
                 {
-                    angular.forEach(participantsVM.Participants, function (item) {
-
-                        if (item.surname[0].toLowerCase() === letter.toLowerCase()) {
-                            var check = $.grep($scope.Participants, function (f) { return f.guid == item.guid; });
-                            if (check.length === 0) {
-                                $scope.Participants.push(item);
-                            }
-                        }
-                    });
-
-                        $scope.filter.surname = letter
+                    $scope.filter.surname = letter;
+                },
+                onDateInputChange: function () {
+                    if (typeof $scope.filter.birthday != "undefined" && ($scope.filter.birthday instanceof Date)) {
+                        var offset = new Date().getTimezoneOffset();
+                        offset = (offset / 60) * (-1);
+                        $scope.filter.birthday.setHours($scope.filter.birthday.getHours() + offset);
+                    }
                 }
             };
 
@@ -66,42 +69,25 @@
 
             $scope.paging = {
                 pageSize: 10,
-                currpage: 1,
+                filterbase : { firstname: '', middlename: '', surname: '', ParticipantsTypes: 0, birthday: '' },
                 getLastCount: function (filter, tablelength) {
-                    var lastLength = participantsVM.TotalParticipants - $scope.Participants.length;// tablelength;
+                    if (!(JSON.stringify(filter) === JSON.stringify(this.filterbase))) {
+                        if ($.connection.hub.id != null) {
+                            $scope.participantsVM.GetTotalFilteredParticipants(filter);
+                        }
+                        this.filterbase = angular.copy(filter);
+                    }
+
+                    var lastLength = $scope.participantsVM.TotalParticipants - tablelength;
                     return lastLength < 0 ? null : lastLength >= this.pageSize ? this.pageSize : lastLength;
                 },
-                showMore: function (filter, remains) {
-                    var j = 0;
-                    for (var i = this.pageSize*this.currpage; i < participantsVM.TotalParticipants; i++) {
-
-                        var check = $.grep($scope.Participants, function (f) { return f.guid == participantsVM.Participants[i].guid; });
-                        if (check.length === 0) {
-                            $scope.Participants.push(participantsVM.Participants[i]);
-                            j++;
-                        }
-
-                        if (j == this.pageSize) break;
-                    }
-                    this.currpage++;
-
+                showMore: function (filter) {
+                    $scope.participantsVM.GetPageParticipants(filter, this.pageSize);
                 },
                 showAll: function (filter) {
-                    for (var i = this.pageSize * this.currpage; i < participantsVM.TotalParticipants; i++) {
-                        var check = $.grep($scope.Participants, function (f) { return f.guid == participantsVM.Participants[i].guid; });
-                        if (check.length === 0) {
-                            $scope.Participants.push(participantsVM.Participants[i]);
-                        }
-
-                    }
+                    $scope.participantsVM.GetAllParticipants(filter);
                 }
             }
-
-            $rootScope.$on('ParticipantsLoaded', function (e) {
-                $scope.Participants = participantsVM.Participants.slice(0, $scope.paging.pageSize);
-            });
-
-
 
          //   $scope.handlers.LoadPage();
         }]);

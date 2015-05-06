@@ -1,4 +1,5 @@
 ﻿using ParticipantsOfWar.DAL;
+using ParticipantsOfWar.Dto;
 using ParticipantsOfWar.Models;
 using System;
 using System.Collections.Generic;
@@ -214,6 +215,56 @@ namespace ParticipantsOfWar.BLL
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+
+        public List<ParticipantsDto> GetFiltered(TableFilter filter)
+        {
+            Participant[] participants = new Participant[] { };
+            List<ParticipantsDto> participantsDto = new List<ParticipantsDto>();
+            try
+            {
+                participants = this.GetAll().OrderBy(x=>x.type.Priority).ToArray();
+
+
+                if (!String.IsNullOrEmpty(filter.firstname))
+                {
+                    participants = participants.Where(x => x.Firstname.ToLower().StartsWith(filter.firstname.ToLower())).ToArray();
+                }
+               
+                if (!String.IsNullOrEmpty(filter.middlename))
+                {
+                    participants = participants.Where(x => x.Middlename.ToLower().StartsWith(filter.middlename.ToLower())).ToArray();
+                }
+                
+                if (!String.IsNullOrEmpty(filter.surname))
+                {
+                    participants = participants.Where(x => x.Surname.ToLower().StartsWith(filter.surname.ToLower())).ToArray();
+                }
+                if (filter.birthday != null && filter.birthday != DateTime.MinValue)
+                {
+                    participants = participants.Where(x => x.Birthday != null).ToArray();
+                    participants = participants.Where(x => x.Birthday.Value.Date == filter.birthday.Date).ToArray();
+                }
+
+                if (filter.ParticipantsTypes > 0)
+                {
+                    participants = participants.Where(x => x.type.Priority == filter.ParticipantsTypes).ToArray();
+                }
+
+                foreach (var item in participants)
+                {
+                    participantsDto.Add(new ParticipantsDto(item));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return participantsDto;
+        }
+
+
     }
 
 }

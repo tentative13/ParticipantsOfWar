@@ -34,7 +34,7 @@ namespace ParticipantsOfWar.Dto
         public string Description { get; set; }
 
         [JsonProperty(PropertyName = "type")]
-        public string Type { get; set; }
+        public ParticipantsTypeObjDto Type { get; set; }
 
         [JsonProperty(PropertyName = "rank")]
         public string Rank { get; set; }
@@ -56,36 +56,116 @@ namespace ParticipantsOfWar.Dto
             this.Middlename = String.IsNullOrEmpty(prtc.Middlename) ? "" : prtc.Middlename;
             this.ShortName = String.IsNullOrEmpty(prtc.ShortName) ? "" : prtc.ShortName;
             this.Description = String.IsNullOrEmpty(prtc.Description) ? "" : prtc.Description;
-            this.Type = String.IsNullOrEmpty(prtc.type.Name) ? "" : prtc.type.Name;
             this.Rank = String.IsNullOrEmpty(prtc.Rank) ? "" : prtc.Rank;
             this.BirthPlace = String.IsNullOrEmpty(prtc.BirthPlace) ? "" : prtc.BirthPlace;
 
+            if(prtc.type != null)
+            {
+                ParticipantsTypeObjDto typeobj = new ParticipantsTypeObjDto();
+                typeobj.name = prtc.type.Name;
+                typeobj.value = prtc.type.Priority;
+                this.Type = typeobj;
+            }
+           
             if (prtc.Birthday != null)
                 this.Birthday = (DateTime)prtc.Birthday;
 
             if (prtc.Deathday != null)
                 this.Deathday = prtc.Deathday.Value;
 
-            Photos = new List<PhotoDto>();
-            if (prtc.Photos.Any())
+            if (prtc.Photos != null)
             {
-                foreach (var item in prtc.Photos)
+                if (prtc.Photos.Any())
                 {
-                    Photos.Add(new PhotoDto(item));
+                    this.Photos = new List<PhotoDto>();
+
+                    foreach (var item in prtc.Photos)
+                    {
+                        Photos.Add(new PhotoDto(item));
+                    }
                 }
             }
 
-            Documents = new List<DocumentsDto>();
-            if (prtc.Documents != null && prtc.Documents.Any())
+            if (prtc.Documents != null)
             {
-                foreach (var item in prtc.Documents)
+                if (prtc.Documents.Any())
                 {
-                    Documents.Add(new DocumentsDto(item));
+                    this.Documents = new List<DocumentsDto>();
+
+                    foreach (var item in prtc.Documents)
+                    {
+                        Documents.Add(new DocumentsDto(item));
+                    }
                 }
             }
 
         }
 
+    }
+
+    public class ParticipantsTypeObjDto
+    {
+        [JsonProperty(PropertyName = "name")]
+        public string name { get; set; }
+
+        [JsonProperty(PropertyName = "value")]
+        public int value { get; set; }
+    }
+
+    public class ParticipantsInDto
+    {
+        [JsonProperty(PropertyName = "guid")]
+        public string guid { get; set; }
+
+        [JsonProperty(PropertyName = "surname")]
+        public string Surname { get; set; }
+
+        [JsonProperty(PropertyName = "firstname")]
+        public string Firstname { get; set; }
+
+        [JsonProperty(PropertyName = "middlename")]
+        public string Middlename { get; set; }
+
+        [JsonProperty(PropertyName = "shortName")]
+        public string ShortName { get; set; }
+
+        [JsonProperty(PropertyName = "birthday")]
+        public DateTime Birthday { get; set; }
+
+        [JsonProperty(PropertyName = "deathday")]
+        public DateTime Deathday { get; set; }
+
+        [JsonProperty(PropertyName = "description")]
+        public string Description { get; set; }
+
+        [JsonProperty(PropertyName = "type")]
+        public ParticipantsTypeObjDto Type { get; set; }
+
+        [JsonProperty(PropertyName = "photos")]
+        public PhotoInDto[] Photos { get; set; }
+
+        [JsonProperty(PropertyName = "documents")]
+        public DocumentsInDto[] Documents { get; set; }
+    }
+    public class PhotoInDto
+    {
+        [JsonProperty(PropertyName = "photoId")]
+        public string PhotoId { get; set; }
+
+        [JsonProperty(PropertyName = "description")]
+        public string Description { get; set; }
+    }
+
+    public class DocumentsInDto
+    {
+        [JsonProperty(PropertyName = "documentId")]
+        public string DocumentId { get; set; }
+
+        [JsonProperty(PropertyName = "extension")]
+        public string Extension { get; set; }
+
+        [JsonProperty(PropertyName = "type")]
+        public string type { get; set; }
     }
 }
 

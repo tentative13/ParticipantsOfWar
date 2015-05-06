@@ -15,7 +15,10 @@ namespace ParticipantsOfWar
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery.signalR-2.2.0.min.js",
+                        "~/Scripts/jquery-ui.js"
+                        ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -38,7 +41,8 @@ namespace ParticipantsOfWar
                 "~/Scripts/i18n/angular-locale_ru-ru.js",
                 "~/Scripts/angular-material.js",
                 "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
-                "~/Scripts/angular-ui/ui-bootstrap.js"));
+                "~/Scripts/angular-ui/angular-ui-date/date.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/bundles/pow_app")
                 //.Include(
@@ -53,6 +57,7 @@ namespace ParticipantsOfWar
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/jquery-ui.css",
                       "~/Content/angular-material/angular-material.css",
                       "~/Content/site.css"));
 
