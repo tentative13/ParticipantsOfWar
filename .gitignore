@@ -190,3 +190,6 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 /ParticipantsOfWar/App_Data/*.mdf
+ParticipantsOfWar/Migrations/201505061930288_adduser.Designer.cs
+ParticipantsOfWar/Migrations/201505061930288_adduser.cs
+ParticipantsOfWar/Migrations/201505061930288_adduser.resx
