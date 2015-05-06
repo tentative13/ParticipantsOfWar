@@ -1,4 +1,7 @@
 ﻿<div class="mainContainer" style="top:50px;" ui-view>
+    <div>
+        <md-button class="md-raised md-primary" ng-click="handlers.onCreateClick()" style="float: right; margin-top: 30px;">&nbsp;&nbsp;Создать новую запись&nbsp;&nbsp;</md-button>
+    </div>
     <div class="tableDiv tableDiv-header">
         <table class="objList">
             <col width="12%" />
@@ -35,8 +38,8 @@
                 <td>
                     Статус участника
                     <div class="row-block">
-                        <div ng-class="{'selected': predicate == 'type_value'}" title="Сортировать по возрастанию" class="row-up" ng-click="predicate = 'type_value'"></div>
-                        <div ng-class="{'selected': predicate == '-type_value'}" title="Сортировать по убыванию" class="row-down" ng-click="predicate = '-type_value'"></div>
+                        <div ng-class="{'selected': predicate == 'type.value'}" title="Сортировать по возрастанию" class="row-up" ng-click="predicate = 'type.value'"></div>
+                        <div ng-class="{'selected': predicate == '-type.value'}" title="Сортировать по убыванию" class="row-down" ng-click="predicate = '-type.value'"></div>
                     </div>
                 </td>
                 <td>
@@ -89,7 +92,7 @@
                 <tr ng-click="grid.expandRow(item, $index)" ng-class="{part_selected: item.guid === idSelectedRow}">
 
                     <td>
-                        {{ item.type }}
+                        {{ item.type.name }}
                     </td>
                     <td>
                         {{item.surname}}
@@ -146,7 +149,5 @@
 
             </div>
         </div>
-
-
     </div>
 </div>

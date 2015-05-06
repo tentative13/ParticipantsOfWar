@@ -37,39 +37,71 @@
                         <!--<div flex="100"><b>Статус:</b>&nbsp;{{ participant.type }}</div>-->
                         <md-input-container md-no-float ng-hide="editMode">
                             <label>Статус</label>
-                            <input ng-model="participant.type" ng-readonly="!editMode">
+                            <input ng-model="participant.type.name" ng-readonly="!editMode">
                         </md-input-container>
 
-                        <md-select ng-show="editMode" ng-model="participant.type" placeholder="Статус" style="width:200px;">
-                            <md-option ng-value="opt" ng-repeat="opt in types">{{ opt.name }}</md-option>
+                        <md-select ng-show="editMode" ng-model="new_record.type" placeholder="Статус" style="width:200px;">
+                            <md-option ng-value="opt" ng-repeat="opt in types" ng-selected="opt.value==new_record.type.value">{{ opt.name }}</md-option>
                         </md-select>
                     </div>
                     <div layout="row">
                         <!--<div flex="100" ng-hide="editMode"> <b>ФИО:</b>&nbsp;{{participant.surname}} {{ participant.firstname }} {{ participant.middlename }} </div>-->
-                        <md-input-container md-no-float>
+                        <md-input-container md-no-float ng-hide="editMode">
                             <label>Фамилия</label>
                             <input ng-model="participant.surname" ng-readonly="!editMode">
                         </md-input-container>
-                        <md-input-container md-no-float>
+                        <md-input-container md-no-float ng-show="editMode">
+                            <label>Фамилия</label>
+                            <input ng-model="new_record.surname" ng-readonly="!editMode">
+                        </md-input-container>
+                        <md-input-container ng-hide="editMode">
                             <label>Имя</label>
                             <input ng-model="participant.firstname" ng-readonly="!editMode">
                         </md-input-container>
-                        <md-input-container md-no-float>
+                        <md-input-container md-no-float ng-show="editMode">
+                            <label>Имя</label>
+                            <input ng-model="new_record.firstname" ng-readonly="!editMode">
+                        </md-input-container>
+                        <md-input-container md-no-float ng-hide="editMode">
                             <label>Отчество</label>
                             <input ng-model="participant.middlename" ng-readonly="!editMode">
                         </md-input-container>
+                        <md-input-container md-no-float ng-show="editMode">
+                            <label>Отчество</label>
+                            <input ng-model="new_record.middlename" ng-readonly="!editMode">
+                        </md-input-container>
                     </div>
                     <div layout="row">
-                            <!--<b>Дата рождения:</b>&nbsp;{{participant.birthday | date:'dd.MM.yyyy' }}-->
-                            <md-input-container ng-hide="editMode">
+                         <div flex="20">
+                            <md-input-container md-no-float ng-hide="editMode">
                                 <label>Дата рождения</label>
-                                <input ng-model="participant.birthday | date:'dd.MM.yyyy'" ng-readonly="!editMode" style="width:200px;">
+                                <input ng-model="birthday_str" ng-readonly="!editMode">
                             </md-input-container>
 
                             <md-input-container ng-show="editMode">
                                 <label>Дата рождения</label>
-                                <input type="date" style="width:200px;" ng-model="participant.birthday" ng-change="handlers.onDateInputChange()">
+                                <input ui-date="dateOptions"
+                                        style="width:200px;"
+                                        ng-model="new_record.birthday"
+                                        ui-date-format="yy-mm-dd"
+                                        ng-change="handlers.onDateInputChange()">
                             </md-input-container>
+                         </div>
+                        <div flex="20">
+                            <md-input-container md-no-float ng-hide="editMode">
+                                <label>Дата смерти</label>
+                                <input ng-model="death_str" ng-readonly="!editMode">
+                            </md-input-container>
+
+                            <md-input-container ng-show="editMode">
+                                <label>Дата смерти</label>
+                                <input ui-date="dateOptions"
+                                       style="width:200px;"
+                                       ng-model="new_record.deathday"
+                                       ui-date-format="yy-mm-dd"
+                                       ng-change="handlers.onDateInputChange()">
+                            </md-input-container>
+                        </div>
                     </div>
                     <div layout="row" layout-wrap>
                         <!--<div flex="100" ng-hide="editMode"> <b>Биография:</b>&nbsp;{{ participant.description }} </div>-->
@@ -78,7 +110,7 @@
                                 <textarea ng-model="participant.description" columns="1" ng-readonly="!editMode" style="margin: 0px -0.5px 0px 0px; width: 95%; height: 100px; max-height:250px; max-width:100%; background:transparent;  cursor: default;"></textarea>
                             </md-input-container>
 
-                            <textarea ng-show="editMode"  ng-readonly="!editMode" editmode"" ng-model="participant.description" class="form-control" placeholder="Биография" style="width: 95%; height: 100px; max-height:250px; max-width:100%;"></textarea>
+                        <textarea ng-show="editMode" ng-readonly="!editMode" editmode"" ng-model="new_record.description" class="form-control" placeholder="Биография" style="width: 95%; height: 100px; max-height:200px; max-width:100%;"></textarea>
                     </div>
                 </div>
             </md-grid-tile>

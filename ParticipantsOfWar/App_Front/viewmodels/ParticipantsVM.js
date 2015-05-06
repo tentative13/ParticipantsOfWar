@@ -67,6 +67,20 @@
             });
         });
 
+        self.UpdateCacheParticipants = function (newitem) {
+
+            for (var i = 0; i < self.Participants.length; i++) {
+                if (newitem.guid === self.Participants[i].guid) {
+                    self.Participants[i] = newitem;
+                }
+            }
+        };
+
+        self.AddToCacheParticipants = function (newitem) {
+            var check = $.grep(self.Participants, function (f) { return f.guid == newitem.guid; });
+            if (check.length === 0) self.Participants.push(newitem);
+        };
+
         return self;
     }]);
 }());

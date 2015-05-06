@@ -251,6 +251,7 @@
     <Content Include="Content\images\Print.gif" />
     <Content Include="Content\images\row_down.png" />
     <Content Include="Content\images\row_down_selected.png" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\participantPhotos\0008-007-Borodin-Nikolaj-Timofeevich-uchastnik-Velikoj-Otechestvennoj-Vojny.jpg" />
     <Content Include="Content\participantPhotos\01_1.jpg" />
     <Content Include="Content\participantPhotos\1297756284_antonov.jpg" />
@@ -309,6 +310,7 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular-ui-router.js" />
     <Content Include="Scripts\angular-ui-router.min.js" />
+    <Content Include="Scripts\angular-ui\angular-ui-date\date.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap-tpls.min.js" />
     <Content Include="Scripts\angular-ui\ui-bootstrap.js" />
@@ -1092,6 +1094,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.js" />
     <Content Include="Scripts\jquery.signalR-2.2.0.min.js" />
     <Content Include="Scripts\jquery.validate.js" />

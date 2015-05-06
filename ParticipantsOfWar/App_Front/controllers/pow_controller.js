@@ -6,7 +6,7 @@
 
             $scope.participantsVM = participantsVM;
             $scope.Participants = participantsVM.Participants;
-            $scope.predicate = '-type_value';
+            $scope.predicate = '-type.value';
             $scope.idSelectedRow = null;
             $scope.filter = {};
             $scope.alphabet = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ы', 'Э', 'Ю', 'Я'];
@@ -15,7 +15,14 @@
                 LoadPage: function () { },
                 onDocumentClick: function (item) {
                     $rootScope.pow_details = item;
+                    $rootScope.editMode = false;
                     $state.go("participants.details");
+                },
+                onCreateClick: function () {
+                    $rootScope.pow_details = {};
+                    $rootScope.editMode = true;
+                    $rootScope.createMode = true;
+                    $state.go("participants.create");
                 },
                 letterFilter: function (letter)
                 {

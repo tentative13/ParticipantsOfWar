@@ -4,7 +4,8 @@
        [
             'ui.router',
             'ngMaterial',
-            'ui.bootstrap'
+            'ui.bootstrap',
+            'ui.date'
        ])
        .config(
        [
@@ -22,6 +23,11 @@
                 })
                 .state('participants.details', {
                     url: "/details",
+                    templateUrl: "/App_Front/views/Participants_details.html",
+                    controller: 'powDetailsCtrl'
+                })
+                .state('participants.create', {
+                    url: "/create",
                     templateUrl: "/App_Front/views/Participants_details.html",
                     controller: 'powDetailsCtrl'
                 });

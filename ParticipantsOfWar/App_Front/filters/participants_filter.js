@@ -38,7 +38,7 @@
                     }
                     if (searchTerm.ParticipantsTypes != 0) {
                         check_type = false;
-                        if (searchTerm.ParticipantsTypes == item.type_value) check_type = true;
+                        if (searchTerm.ParticipantsTypes == item.type.value) check_type = true;
                     }
                     if (typeof searchTerm.birthday != 'undefined')// && searchTerm.MessageBody != '')
                     {
