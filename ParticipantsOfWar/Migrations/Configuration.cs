@@ -1,5 +1,6 @@
 namespace ParticipantsOfWar.Migrations
 {
+    using ParticipantsOfWar.DAL;
     using ParticipantsOfWar.Models;
     using System;
     using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace ParticipantsOfWar.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ParticipantsOfWar.DAL.ArchiveContext context)
+        protected override void Seed(ArchiveContext context)
         {
             
         }

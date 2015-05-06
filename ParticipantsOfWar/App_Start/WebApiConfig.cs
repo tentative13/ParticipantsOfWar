@@ -7,6 +7,9 @@ using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Data.Entity;
+using ParticipantsOfWar.DAL;
+using System.Data.Entity.Core.EntityClient;
 
 namespace ParticipantsOfWar
 {
@@ -31,6 +34,9 @@ namespace ParticipantsOfWar
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+          
+           
         }
     }
 }

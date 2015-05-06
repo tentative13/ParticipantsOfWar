@@ -3,8 +3,9 @@ namespace ParticipantsOfWar.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class createDatabase : DbMigration
+    public partial class initial : DbMigration
     {
+        
         public override void Up()
         {
             CreateTable(

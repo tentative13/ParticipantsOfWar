@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ParticipantsOfWar.DAL;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -14,11 +16,14 @@ namespace ParticipantsOfWar
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            UnityConfig.RegisterComponents();     
+            UnityConfig.RegisterComponents();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+#if DEBUG
+            Database.SetInitializer<ArchiveContext>(new ArchiveInitializer());
+#endif
         }
     }
 }

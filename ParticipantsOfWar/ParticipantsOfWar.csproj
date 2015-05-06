@@ -219,6 +219,7 @@
     <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ParticipantsController.cs" />
+    <Compile Include="DAL\ArchiveInitializer.cs" />
     <Compile Include="Dto\DocumentsDto.cs" />
     <Compile Include="Dto\ParticipantsDto.cs" />
     <Compile Include="Dto\ParticipantTypeDto.cs" />
@@ -226,9 +227,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201505051931599_createDatabase.cs" />
-    <Compile Include="Migrations\201505051931599_createDatabase.Designer.cs">
-      <DependentUpon>201505051931599_createDatabase.cs</DependentUpon>
+    <Compile Include="Migrations\201505061849058_initial.cs" />
+    <Compile Include="Migrations\201505061849058_initial.Designer.cs">
+      <DependentUpon>201505061849058_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -244,6 +245,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\ArchiveLocal.mdf" />
+    <Content Include="App_Data\ArchiveLocal_log.ldf">
+      <DependentUpon>ArchiveLocal.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Front\controllers\pow_detail_controller.js" />
     <Content Include="App_Front\views\Participants_details.html" />
     <Content Include="Content\images\blazon.png" />
@@ -1108,7 +1113,6 @@
     <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="App_Front\directives\" />
     <Folder Include="Providers\" />
   </ItemGroup>
@@ -1123,8 +1127,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505051931599_createDatabase.resx">
-      <DependentUpon>201505051931599_createDatabase.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505061849058_initial.resx">
+      <DependentUpon>201505061849058_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

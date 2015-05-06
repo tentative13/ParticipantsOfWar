@@ -1,6 +1,8 @@
 ﻿(function () {
     var app = angular.module('pow_app');
 
+
+
     app.controller('powCtrl', ['$rootScope', '$log', '$scope', 'ParticipantsService', 'participantsVM', '$state',
         function ($rootScope, $log, $scope, participantsService, participantsVM, $state) {
 
