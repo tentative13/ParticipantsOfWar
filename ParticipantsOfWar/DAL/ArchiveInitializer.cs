@@ -8,7 +8,7 @@ using System.Web;
 
 namespace ParticipantsOfWar.DAL
 {
-    public class ArchiveInitializer : DropCreateDatabaseAlways<ArchiveContext>
+    public class ArchiveInitializer : DropCreateDatabaseIfModelChanges<ArchiveContext>
     {
         protected override void Seed(ArchiveContext context)
         {

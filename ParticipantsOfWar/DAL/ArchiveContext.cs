@@ -10,12 +10,11 @@ namespace ParticipantsOfWar.DAL
     {
 
         public ArchiveContext()
-            : base("name=ArchiveLocal")
+            : base("name=Archive")
         {
 
         }
-
-        
+               
 
         public DbSet<Participant> Participants { get; set; }
         public DbSet<Photo> Photos { get; set; }

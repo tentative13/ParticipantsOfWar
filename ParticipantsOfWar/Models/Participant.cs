@@ -21,7 +21,9 @@ namespace ParticipantsOfWar.Models
         public string ShortName { get; set; }
         public string Rank { get; set; }
         public string BirthPlace { get; set; }
+         [Column(TypeName = "datetime2")]
         public DateTime? Birthday { get; set; }
+         [Column(TypeName = "datetime2")]
         public DateTime? Deathday { get; set; }
         [MaxLength]
         public string Description { get; set; }

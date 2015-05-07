@@ -61,11 +61,11 @@ namespace ParticipantsOfWar.Controllers
             if (dbEntity == null) return NotFound();
 
 
-            dbEntity.Firstname = participant.Firstname;
-            dbEntity.Middlename = participant.Middlename;
-            dbEntity.Surname = participant.Surname;
-            dbEntity.Description = participant.Description;
-            dbEntity.ShortName = participant.ShortName;
+            dbEntity.Firstname = participant.Firstname == null ? "" : participant.Firstname;
+            dbEntity.Middlename = participant.Middlename == null ? "" : participant.Middlename;
+            dbEntity.Surname = participant.Surname == null ? "" : participant.Surname; 
+            dbEntity.Description = participant.Description == null ? "" : participant.Description;
+            dbEntity.ShortName = participant.ShortName == null ? "" : participant.ShortName;
 
             dbEntity.Birthday = participant.Birthday;
             dbEntity.Deathday = participant.Deathday;
@@ -109,11 +109,13 @@ namespace ParticipantsOfWar.Controllers
 
             newone.Birthday = participant.Birthday;
             newone.Deathday = participant.Deathday;
-            newone.Description = participant.Description;
-            newone.Firstname = participant.Firstname;
-            newone.Middlename = participant.Middlename;
-            newone.Surname = participant.Surname;
-            newone.ShortName = participant.ShortName;
+            newone.Firstname = participant.Firstname == null ? "" : participant.Firstname;
+            newone.Middlename = participant.Middlename == null ? "" : participant.Middlename;
+            newone.Surname = participant.Surname == null ? "" : participant.Surname;
+            newone.Description = participant.Description == null ? "" : participant.Description;
+            newone.ShortName = participant.ShortName == null ? "" : participant.ShortName;
+            newone.BirthPlace = "";
+            newone.Rank = "";
 
 
             if (participant.Type != null)
@@ -131,7 +133,7 @@ namespace ParticipantsOfWar.Controllers
             {
                 _archiveRepo.Commit();
             }
-            catch (DbUpdateException)
+            catch (DbUpdateException ex)
             {
                 if (ParticipantExists(new Guid(participant.guid)))
                 {
