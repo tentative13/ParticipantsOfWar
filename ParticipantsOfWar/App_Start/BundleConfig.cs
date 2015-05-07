@@ -38,6 +38,8 @@ namespace ParticipantsOfWar
                 "~/Scripts/angular-ui-router.js",
                 "~/Scripts/angular-cookies.js",
                 "~/Scripts/angular-highcharts.js",
+                "~/Scripts/ng-file-upload.js",
+                "~/Scripts/ng-file-upload-shim.js",
                 "~/Scripts/i18n/angular-locale_ru-ru.js",
                 "~/Scripts/angular-material.js",
                 "~/Scripts/angular-ui/ui-bootstrap-tpls.js",

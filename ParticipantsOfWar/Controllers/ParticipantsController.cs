@@ -41,7 +41,7 @@ namespace ParticipantsOfWar.Controllers
         }
 
         // GET: api/Participants/5
-        [ResponseType(typeof(Participant))]
+        [ResponseType(typeof(ParticipantsDto))]
         public IHttpActionResult GetParticipant(Guid id)
         {
             Participant participant = _archiveRepo.Get<Participant>(id);

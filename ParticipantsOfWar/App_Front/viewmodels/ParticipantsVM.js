@@ -78,7 +78,12 @@
 
         self.AddToCacheParticipants = function (newitem) {
             var check = $.grep(self.Participants, function (f) { return f.guid == newitem.guid; });
-            if (check.length === 0) self.Participants.push(newitem);
+            if (check.length === 0) {
+                self.Participants.push(newitem);
+            }
+            else {
+                self.UpdateCacheParticipants(newitem);
+            }
         };
 
         return self;

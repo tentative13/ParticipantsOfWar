@@ -23,8 +23,9 @@
                     <h3>Фотография</h3>
                 </md-grid-tile-header>
                 <img ng-show="delayshow" ng-src="api/Documents/GetPhoto/{{participant.photos[0].photoId}}" style="width:auto; height:100%;" />
-
-
+                &nbsp;&nbsp;
+                <md-button class="md-raised md-primary" ng-show="editMode" type="file" ngf-select ngf-change="handlers.PhotoFileSelected($files, $event)" ngf-multiple="false">Выбрать файл</md-button>
+                &nbsp;&nbsp;
             </md-grid-tile>
 
             <md-grid-tile class="md-primary" md-colspan="4" md-colspan-sm="1" md-colspan-md="2" md-rowspan="1">
@@ -141,6 +142,10 @@
                                     </tr>
                                 </tbody>
                             </table>
+
+                            &nbsp;
+                            <md-button class="md-raised md-primary" ng-show="editMode" type="file" ngf-select ngf-change="handlers.DocumentFileSelected($files, $event)" ngf-multiple="false">Выбрать файл</md-button>
+                            &nbsp;
                         </div>
                         <div flex="5"></div>
                     </div>

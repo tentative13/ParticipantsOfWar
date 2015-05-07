@@ -13,6 +13,8 @@ using System.Linq.Expressions;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.IO;
+using System.Web;
+using System.Collections.Specialized;
 
 namespace ParticipantsOfWar.Controllers
 {
@@ -69,5 +71,116 @@ namespace ParticipantsOfWar.Controllers
 
             return response;
         }
+
+        [HttpPost]
+        [ResponseType(typeof(PhotoDto[]))]
+        [Route("UploadPhoto")]
+        public IHttpActionResult UploadPhoto()
+        {
+            List<PhotoDto> response = new List<PhotoDto>();
+
+            if (HttpContext.Current.Request.Files.Count > 0)
+            {
+                HttpFileCollection files = HttpContext.Current.Request.Files;
+                var ParticipantGuid = HttpContext.Current.Request.Form["ParticipantGuid"].ToString();
+                
+                if(String.IsNullOrWhiteSpace(ParticipantGuid)) return NotFound();
+
+                var guid = new Guid(ParticipantGuid);
+                if (guid == null) return NotFound();
+
+                Participant participant = _archiveRepo.Get<Participant>(guid);
+                if (participant == null) return NotFound();
+               
+
+                for (int i = 0; i < files.Count; i++)
+                {
+                    HttpPostedFile file = files[i];
+                    int numBytes = file.ContentLength;
+                    BinaryReader br = new BinaryReader(file.InputStream);
+                    byte[] data = br.ReadBytes(numBytes);
+
+                    Photo newphoto = new Photo();
+                    newphoto.PhotoBytes = data;
+                    newphoto.Extension = '.' +  file.FileName.Split('.')[1];
+                    newphoto.Description = "Фотография";
+
+                    _archiveRepo.Add<Photo>(newphoto);
+
+                    participant.Photos.Add(newphoto);
+                    _archiveRepo.Update<Participant>(participant);
+
+                    try
+                    {
+                        _archiveRepo.Commit();
+                        response.Add(new PhotoDto(newphoto));
+                    }
+                    catch (DbUpdateException)
+                    {
+                        return NotFound();
+                    }
+                }
+
+               
+            }
+            return Ok(response.ToArray());
+        }
+
+        [HttpPost]
+        [ResponseType(typeof(DocumentsDto[]))]
+        [Route("UploadDocument")]
+        public IHttpActionResult UploadDocument()
+        {
+            List<DocumentsDto> response = new List<DocumentsDto>();
+
+            if (HttpContext.Current.Request.Files.Count > 0)
+            {
+                HttpFileCollection files = HttpContext.Current.Request.Files;
+                var ParticipantGuid = HttpContext.Current.Request.Form["ParticipantGuid"].ToString();
+
+                if (String.IsNullOrWhiteSpace(ParticipantGuid)) return NotFound();
+
+                var guid = new Guid(ParticipantGuid);
+                if (guid == null) return NotFound();
+
+                Participant participant = _archiveRepo.Get<Participant>(guid);
+                if (participant == null) return NotFound();
+
+
+
+                for (int i = 0; i < files.Count; i++)
+                {
+                    HttpPostedFile file = files[i];
+                    int numBytes = file.ContentLength;
+                    BinaryReader br = new BinaryReader(file.InputStream);
+                    byte[] data = br.ReadBytes(numBytes);
+
+                    Document newdoc = new Document();
+
+                    newdoc.DocumentBytes = data;
+                    newdoc.DocumentName = file.FileName;
+                    newdoc.Extension = '.' + file.FileName.Split('.')[1];
+
+                    _archiveRepo.Add<Document>(newdoc);
+                    participant.Documents.Add(newdoc);
+                    _archiveRepo.Update<Participant>(participant);
+
+                    try
+                    {
+                        _archiveRepo.Commit();
+                        response.Add(new DocumentsDto(newdoc));
+                    }
+                    catch (DbUpdateException)
+                    {
+                        return NotFound();
+                    }
+                }
+
+
+            }
+            return Ok(response.ToArray());
+        }
+
     }
+
 }

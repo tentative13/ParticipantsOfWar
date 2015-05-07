@@ -1,7 +1,7 @@
 ﻿(function () {
     var app = angular.module('pow_app');
 
-    app.service('ParticipantsService', ['$http', '$rootScope', '$log', function ($http, $rootScope, $log) {
+    app.service('ParticipantsService', ['$http', '$rootScope', '$log', 'Upload', function ($http, $rootScope, $log, Upload) {
 
         var url = 'api/Participants';
 
@@ -65,6 +65,33 @@
         this.sendGuidsCache = function (guids) {
             $rootScope.powHub.server.guidscache(guids);
         };
+
+        this.UploadDocument = function (file, guid, callback) {
+            this.UploadFile('api/Documents/UploadDocument', file, guid, callback);
+        };
+
+        this.UploadPhoto = function (file, guid, callback) {
+            this.UploadFile('api/Documents/UploadPhoto', file, guid, callback);
+        };
+
+        this.UploadFile = function (url, file, guid, callback) {
+            Upload.upload({
+                url: url,
+                file: file,
+                method: 'POST',
+                fields: {
+                    ParticipantGuid: guid
+                }
+            }).progress(function (evt) {
+                $log.log('progress: ' + parseInt(100.0 * evt.loaded / evt.total) + '% file :' + evt.config.file.name);
+            }).success(function (data, status, headers, config) {
+                $log.log('file ' + config.file.name + ' is uploaded successfully. Response: ' + data);
+                callback(data);
+            }).error(function (data, status, headers, config) {
+                $log.error('Upload error', status, data, headers, config);
+            });
+
+        }
 
     }]);
 })();
