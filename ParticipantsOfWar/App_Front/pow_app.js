@@ -5,7 +5,8 @@
             'ui.router',
             'ngMaterial',
             'ui.bootstrap',
-            'ui.date'
+            'ui.date',
+            'ngFileUpload'
        ])
        .config(
        [
