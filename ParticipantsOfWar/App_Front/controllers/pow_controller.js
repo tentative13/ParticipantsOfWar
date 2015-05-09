@@ -31,38 +31,30 @@
                     $scope.filter.surname = letter;
                 },
                 onDateInputChange: function () {
-                    if (typeof $scope.filter.birthday != "undefined" && ($scope.filter.birthday instanceof Date)) {
-                        var offset = new Date().getTimezoneOffset();
-                        offset = (offset / 60) * (-1);
-                        $scope.filter.birthday.setHours($scope.filter.birthday.getHours() + offset);
-                    }
+                    participantsService.TimeZoneFixer($scope.filter);
                 }
             };
 
             $scope.grid = {
-                openMessages: [],
+                openRows: [],
                 rowindex: -1,
                 showData: function (value) {
-                    if (this.openMessages.length > 0 && this.openMessages.indexOf(value) > -1)
+                    if (this.openRows.length > 0 && this.openRows.indexOf(value) > -1)
                         return true;
                     return false;
                 },
                 expandRow: function (item, index) {
                     $scope.idSelectedRow = item.guid;
-                    if (this.openMessages.indexOf(index) === -1)
-                        this.openMessages.push(index);
+                    if (this.openRows.indexOf(index) === -1)
+                        this.openRows.push(index);
                     else
-                        this.openMessages.splice(this.openMessages.indexOf(index), 1);
+                        this.openRows.splice(this.openRows.indexOf(index), 1);
                 },
-                newmsgrow_shift: function () {
-
-                    if (this.openMessages.length > 0)
-                    {
-                        for (var i = 0; i < this.openMessages.length; i++)
-                        {
-                            this.openMessages[i] = this.openMessages[i] + 1;
+                row_shift: function () {
+                    if (this.openRows.length > 0){
+                        for (var i = 0; i < this.openRows.length; i++){
+                            this.openRows[i] = this.openRows[i] + 1;
                         }
-
                     }
                 },
             }

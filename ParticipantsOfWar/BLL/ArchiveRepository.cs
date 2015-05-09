@@ -57,13 +57,9 @@ namespace ParticipantsOfWar.BLL
             entry.State = EntityState.Modified;
         }
 
-        /// <summary>
-        /// AsNoTracking ВЫКЛ. В контекст не попадает. -память +скорость
-        /// </summary>
-        /// <returns></returns>
         public IQueryable<T> Get<T>() where T : class
         {
-            return db.Set<T>().AsNoTracking();
+            return db.Set<T>();
         }
 
         /// <summary>
@@ -132,7 +128,7 @@ namespace ParticipantsOfWar.BLL
             string sorting,
             params Expression<Func<T, object>>[] include) where T : class
         {
-            var objectSet = db.Set<T>().AsNoTracking().AsQueryable();
+            var objectSet = db.Set<T>().AsQueryable();
             var query = objectSet.Where(filters ?? (t => true));
 
             query = Include(query, include);
@@ -148,7 +144,7 @@ namespace ParticipantsOfWar.BLL
             Expression<Func<T, bool>> filters,
             string sorting, params string[] include) where T : class
         {
-            var objectSet = db.Set<T>().AsNoTracking().AsQueryable();
+            var objectSet = db.Set<T>().AsQueryable();
             var query = objectSet.Where(filters ?? (t => true));
 
             query = Include(query, include);
@@ -166,7 +162,7 @@ namespace ParticipantsOfWar.BLL
             int pageSize,
             params Expression<Func<T, object>>[] include) where T : class
         {
-            var objectSet = db.Set<T>().AsNoTracking().AsQueryable();
+            var objectSet = db.Set<T>().AsQueryable();
             var query = objectSet.Where(filters ?? (t => true));
 
             query = Include(query, include);
@@ -185,7 +181,7 @@ namespace ParticipantsOfWar.BLL
             int pageSize,
             params string[] include) where T : class
         {
-            var objectSet = db.Set<T>().AsNoTracking().AsQueryable();
+            var objectSet = db.Set<T>().AsQueryable();
             var query = objectSet.Where(filters ?? (t => true));
 
             query = Include(query, include);
@@ -253,7 +249,7 @@ namespace ParticipantsOfWar.BLL
 
                 foreach (var item in participants)
                 {
-                    participantsDto.Add(new ParticipantsDto(item));
+                    participantsDto.Add(ParticipantsDto.MapToDto(item));
                 }
             }
             catch (Exception ex)

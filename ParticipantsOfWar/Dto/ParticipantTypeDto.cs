@@ -15,14 +15,16 @@ namespace ParticipantsOfWar.Dto
 		[JsonProperty(PropertyName = "name")]
 		public string Name { get; set; }
 
-		[JsonProperty(PropertyName = "priority")]
+		[JsonProperty(PropertyName = "value")]
 		public int Priority { get; set; }
 
-		public ParticipantTypeDto (ParticipantType type)
+		public static ParticipantTypeDto MapToDto (ParticipantType type)
 		{
-			this.guid = type.ParticipantTypeId.ToString();
-			this.Name = String.IsNullOrEmpty(type.Name) ? "" : type.Name;
-			this.Priority = type.Priority == null ? 0 : type.Priority;
+			ParticipantTypeDto dto = new ParticipantTypeDto();
+			dto.guid = type.ParticipantTypeId.ToString();
+			dto.Name = String.IsNullOrEmpty(type.Name) ? "" : type.Name;
+			dto.Priority = type.Priority;
+			return dto;
 		}
 	}
 }

@@ -15,11 +15,12 @@ namespace ParticipantsOfWar.Dto
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
 
-        public PhotoDto(Photo item)
+        public static PhotoDto MapToDto(Photo item)
         {
-            this.PhotoId = item.PhotoId.ToString();
-            this.Description = String.IsNullOrEmpty(item.Description) ? "" : item.Description;
-
+            PhotoDto dto = new PhotoDto();
+            dto.PhotoId = item.PhotoId.ToString();
+            dto.Description = String.IsNullOrEmpty(item.Description) ? "" : item.Description;
+            return dto;
         }
     }
 }

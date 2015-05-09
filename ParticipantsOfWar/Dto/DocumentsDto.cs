@@ -18,20 +18,22 @@ namespace ParticipantsOfWar.Dto
         [JsonProperty(PropertyName = "name")]
         public string name { get; set; }
 
-        public DocumentsDto(Document doc)
+        public static DocumentsDto MapToDto (Document doc)
         {
-            this.DocumentId = doc.DocumentId.ToString();
-            this.Extension = String.IsNullOrEmpty(doc.Extension) ? "" : doc.Extension;
+            DocumentsDto dto = new DocumentsDto();
+            dto.DocumentId = doc.DocumentId.ToString();
+            dto.Extension = String.IsNullOrEmpty(doc.Extension) ? "" : doc.Extension;
 
             if(doc.DocumentName != null)
             {
-                this.name = doc.DocumentName;
+                dto.name = doc.DocumentName;
             }
             else
             {
-                this.name = "Имя файла отсутсвует";
+                dto.name = "Имя файла отсутсвует";
             }
 
+            return dto;
         }
     }
 }

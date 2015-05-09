@@ -26,17 +26,18 @@ namespace ParticipantsOfWar.Controllers
         }
 
         [Route("GetTypes")]
+        [ResponseType(typeof(ParticipantTypeDto[]))]
         public HttpResponseMessage GetAllTypes()
         {
             List<ParticipantTypeDto> response = new List<ParticipantTypeDto>();
             var all_prtc = _archiveRepo.GetAllTypes();
             foreach(var item in all_prtc)
             {
-                response.Add(new ParticipantTypeDto(item));
+                response.Add(ParticipantTypeDto.MapToDto(item));
             }
 
             return response.Any()
-                ? Request.CreateResponse(HttpStatusCode.OK, response)
+                ? Request.CreateResponse(HttpStatusCode.OK, response.ToArray())
                 : Request.CreateResponse(HttpStatusCode.NotFound);
         }
 
@@ -46,13 +47,11 @@ namespace ParticipantsOfWar.Controllers
         {
             Participant participant = _archiveRepo.Get<Participant>(id);
             if (participant == null) return NotFound();
-
-            ParticipantsDto response = new ParticipantsDto(participant);
-            return Ok(response);
+            return Ok(ParticipantsDto.MapToDto(participant));
         }
 
         // PUT: api/Participants/5
-        public IHttpActionResult PutParticipant(Guid id, ParticipantsInDto participant)
+        public IHttpActionResult PutParticipant(Guid id, ParticipantsDto participant)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
             if (id != new Guid(participant.guid)) return BadRequest();
@@ -71,7 +70,7 @@ namespace ParticipantsOfWar.Controllers
             dbEntity.Deathday = participant.Deathday;
 
 
-            var newtype = _archiveRepo.List<ParticipantType>(x => x.Name == participant.Type.name).FirstOrDefault();
+            var newtype = _archiveRepo.List<ParticipantType>(x => x.Name == participant.Type.Name).FirstOrDefault();
             if (newtype != null)
             {
                 dbEntity.type = newtype;
@@ -100,8 +99,8 @@ namespace ParticipantsOfWar.Controllers
 
         // POST: api/Participants
         [HttpPost]
-        [ResponseType(typeof(Participant))]
-        public IHttpActionResult PostParticipant(ParticipantsInDto participant)
+        [ResponseType(typeof(ParticipantsDto))]
+        public IHttpActionResult PostParticipant(ParticipantsDto participant)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -118,7 +117,7 @@ namespace ParticipantsOfWar.Controllers
 
             if (participant.Type != null)
             {
-                var newtype = _archiveRepo.List<ParticipantType>(x => x.Name == participant.Type.name).FirstOrDefault();
+                var newtype = _archiveRepo.List<ParticipantType>(x => x.Name == participant.Type.Name).FirstOrDefault();
                 if (newtype != null)
                 {
                     newone.type = newtype;
@@ -143,7 +142,7 @@ namespace ParticipantsOfWar.Controllers
                 }
             }
 
-            ParticipantsDto response = new ParticipantsDto(newone);
+            ParticipantsDto response = ParticipantsDto.MapToDto(newone);
 
             return CreatedAtRoute("DefaultApi", new { id = response.guid }, response);
         }
