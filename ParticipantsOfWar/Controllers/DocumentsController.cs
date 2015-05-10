@@ -178,6 +178,44 @@ namespace ParticipantsOfWar.Controllers
             return Ok(response.ToArray());
         }
 
+
+        [HttpDelete]
+        [Route("DeleteDocument/{id:guid}")]
+        public IHttpActionResult DeleteDocument(Guid id)
+        {
+            var doc = _archiveRepo.Get<Document>(id);
+            if (doc == null) return NotFound();
+            _archiveRepo.Delete<Document>(doc);
+            try
+            {
+                _archiveRepo.Commit();
+            }
+            catch (DbUpdateException)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("DeletePhoto/{id:guid}")]
+        public IHttpActionResult DeletePhoto(Guid id)
+        {
+            var photo = _archiveRepo.Get<Photo>(id);
+            if (photo == null) return NotFound();
+            _archiveRepo.Delete<Photo>(photo);
+            try
+            {
+                _archiveRepo.Commit();
+            }
+            catch (DbUpdateException)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
     }
 
 }

@@ -102,5 +102,35 @@
             }
         };
 
+        this.deleteDocument = function (id, callback) {
+            return $http({
+                url: 'api/Documents/DeleteDocument/' + id,
+                method: 'delete'
+            })
+            .success(function (data, status, headers, config) {
+                $log.info('deleteDocument', status);
+                callback();
+            })
+            .error(function (data, status) {
+                $log.error('deleteDocument', status, data);
+            });
+        };
+
+
+        this.deletePhoto = function (id, callback) {
+            return $http({
+                url: 'api/Documents/DeletePhoto/' + id,
+                method: 'delete'
+            })
+            .success(function (data, status, headers, config) {
+                $log.info('deletePhoto', status);
+                callback();
+            })
+            .error(function (data, status) {
+                $log.error('deletePhoto', status, data);
+            });
+        };
+
+
     }]);
 })();

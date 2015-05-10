@@ -62,5 +62,8 @@ namespace ParticipantsOfWar.BLL
 
         List<ParticipantsDto> GetFiltered(TableFilter filter);
 
+         void Delete<T>(decimal id) where T : class;
+         void Delete<T>(Guid id) where T : class;
+         void Delete<T>(T entity) where T : class;
     }   
 }

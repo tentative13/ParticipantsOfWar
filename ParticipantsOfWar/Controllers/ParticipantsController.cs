@@ -147,22 +147,6 @@ namespace ParticipantsOfWar.Controllers
             return CreatedAtRoute("DefaultApi", new { id = response.guid }, response);
         }
 
-        //// DELETE: api/Participants/5
-        //[ResponseType(typeof(Participant))]
-        //public IHttpActionResult DeleteParticipant(Guid id)
-        //{
-        //    Participant participant = db.Participants.Find(id);
-        //    if (participant == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    db.Participants.Remove(participant);
-        //    db.SaveChanges();
-
-        //    return Ok(participant);
-        //}
-
         private bool ParticipantExists(Guid id)
         {
             return _archiveRepo.List<Participant>(e => e.ParticipantId == id).Count > 0;
