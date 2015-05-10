@@ -32,6 +32,7 @@ namespace ParticipantsOfWar.Controllers
         public HttpResponseMessage GetPhoto(Guid id)
         {
             var photo = _archiveRepo.Get<Photo>(id);
+            if (photo == null) return new HttpResponseMessage(HttpStatusCode.NotFound);
 
             var response = new HttpResponseMessage(HttpStatusCode.OK);
 
@@ -54,6 +55,7 @@ namespace ParticipantsOfWar.Controllers
         public HttpResponseMessage GetDocument(Guid id)
         {
             var doc = _archiveRepo.Get<Document>(id);
+            if (doc == null) return new HttpResponseMessage(HttpStatusCode.NotFound);
 
             var response = new HttpResponseMessage(HttpStatusCode.OK);
 
@@ -106,21 +108,19 @@ namespace ParticipantsOfWar.Controllers
                     newphoto.Description = "Фотография";
 
                     _archiveRepo.Add<Photo>(newphoto);
-
                     participant.Photos.Add(newphoto);
                     _archiveRepo.Update<Participant>(participant);
 
                     try
                     {
                         _archiveRepo.Commit();
-                        response.Add(new PhotoDto(newphoto));
+                        response.Add(PhotoDto.MapToDto(newphoto));
                     }
                     catch (DbUpdateException)
                     {
                         return NotFound();
                     }
                 }
-
                
             }
             return Ok(response.ToArray());
@@ -164,19 +164,16 @@ namespace ParticipantsOfWar.Controllers
                     _archiveRepo.Add<Document>(newdoc);
                     participant.Documents.Add(newdoc);
                     _archiveRepo.Update<Participant>(participant);
-
                     try
                     {
                         _archiveRepo.Commit();
-                        response.Add(new DocumentsDto(newdoc));
+                        response.Add(DocumentsDto.MapToDto(newdoc));
                     }
                     catch (DbUpdateException)
                     {
                         return NotFound();
                     }
                 }
-
-
             }
             return Ok(response.ToArray());
         }

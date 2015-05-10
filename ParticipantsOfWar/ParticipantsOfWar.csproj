@@ -249,7 +249,9 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Front\animation\slider_animation.js" />
     <Content Include="App_Front\controllers\pow_detail_controller.js" />
+    <Content Include="App_Front\services\pow_factories.js" />
     <Content Include="App_Front\views\Participants_details.html" />
     <Content Include="Content\images\blazon.png" />
     <Content Include="Content\images\Download.gif" />
@@ -1129,6 +1131,7 @@
     <Content Include="Scripts\ng-file-upload.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\TweenMax.min.js" />
     <Content Include="Scripts\ui-grid-unstable.js" />
     <Content Include="Scripts\ui-grid-unstable.min.js" />
     <Content Include="Web.config">

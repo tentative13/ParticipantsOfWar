@@ -40,6 +40,7 @@ namespace ParticipantsOfWar
                 "~/Scripts/angular-highcharts.js",
                 "~/Scripts/ng-file-upload.js",
                 "~/Scripts/ng-file-upload-shim.js",
+                "~/Scripts/TweenMax.min.js",
                 "~/Scripts/i18n/angular-locale_ru-ru.js",
                 "~/Scripts/angular-material.js",
                 "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
@@ -47,13 +48,7 @@ namespace ParticipantsOfWar
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/pow_app")
-                //.Include(
-                //"~/App_Front/pow_app.js")
               .IncludeDirectory("~/App_Front", "*.js", true)
-                //.IncludeDirectory("~/App_Front/services", "*.js")
-                //.IncludeDirectory("~/App_Front/directives", "*.js")
-                //.IncludeDirectory("~/App_Front/filters", "*.js")
-                //.IncludeDirectory("~/App_Front/viewmodels", "*.js")
               );
 
 

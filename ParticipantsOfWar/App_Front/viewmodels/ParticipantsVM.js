@@ -63,7 +63,7 @@
         participantsService.getTypes(function (data) {
             $log.log('recieved types: ',data);
             angular.forEach(data, function (item) {
-                self.ParticipantsTypes.push({ name: item["name"], value: item["priority"] });
+                self.ParticipantsTypes.push({ name: item["name"], value: item["value"] });
             });
         });
 

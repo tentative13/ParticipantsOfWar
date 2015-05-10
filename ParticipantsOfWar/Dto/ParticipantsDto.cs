@@ -34,7 +34,7 @@ namespace ParticipantsOfWar.Dto
         public string Description { get; set; }
 
         [JsonProperty(PropertyName = "type")]
-        public ParticipantsTypeObjDto Type { get; set; }
+        public ParticipantTypeDto Type { get; set; }
 
         [JsonProperty(PropertyName = "rank")]
         public string Rank { get; set; }
@@ -43,46 +43,46 @@ namespace ParticipantsOfWar.Dto
         public string BirthPlace { get; set; }
 
         [JsonProperty(PropertyName = "photos")]
-        public List<PhotoDto> Photos { get; set; }
+        public PhotoDto[] Photos { get; set; }
 
         [JsonProperty(PropertyName = "documents")]
-        public List<DocumentsDto> Documents { get; set; }
+        public DocumentsDto[] Documents { get; set; }
 
-        public ParticipantsDto(Participant prtc)
+        public static ParticipantsDto MapToDto (Participant prtc)
         {
-            this.guid = prtc.ParticipantId.ToString();
-            this.Surname = String.IsNullOrEmpty(prtc.Surname) ? "" : prtc.Surname;
-            this.Firstname = String.IsNullOrEmpty(prtc.Firstname) ? "" : prtc.Firstname;
-            this.Middlename = String.IsNullOrEmpty(prtc.Middlename) ? "" : prtc.Middlename;
-            this.ShortName = String.IsNullOrEmpty(prtc.ShortName) ? "" : prtc.ShortName;
-            this.Description = String.IsNullOrEmpty(prtc.Description) ? "" : prtc.Description;
-            this.Rank = String.IsNullOrEmpty(prtc.Rank) ? "" : prtc.Rank;
-            this.BirthPlace = String.IsNullOrEmpty(prtc.BirthPlace) ? "" : prtc.BirthPlace;
+            ParticipantsDto dto = new ParticipantsDto();
+            dto.guid = prtc.ParticipantId.ToString();
+            dto.Surname = String.IsNullOrEmpty(prtc.Surname) ? "" : prtc.Surname;
+            dto.Firstname = String.IsNullOrEmpty(prtc.Firstname) ? "" : prtc.Firstname;
+            dto.Middlename = String.IsNullOrEmpty(prtc.Middlename) ? "" : prtc.Middlename;
+            dto.ShortName = String.IsNullOrEmpty(prtc.ShortName) ? "" : prtc.ShortName;
+            dto.Description = String.IsNullOrEmpty(prtc.Description) ? "" : prtc.Description;
+            dto.Rank = String.IsNullOrEmpty(prtc.Rank) ? "" : prtc.Rank;
+            dto.BirthPlace = String.IsNullOrEmpty(prtc.BirthPlace) ? "" : prtc.BirthPlace;
 
             if(prtc.type != null)
             {
-                ParticipantsTypeObjDto typeobj = new ParticipantsTypeObjDto();
-                typeobj.name = prtc.type.Name;
-                typeobj.value = prtc.type.Priority;
-                this.Type = typeobj;
+                dto.Type = ParticipantTypeDto.MapToDto(prtc.type);
             }
            
             if (prtc.Birthday != null)
-                this.Birthday = (DateTime)prtc.Birthday;
+                dto.Birthday = (DateTime)prtc.Birthday;
 
             if (prtc.Deathday != null)
-                this.Deathday = prtc.Deathday.Value;
+                dto.Deathday = (DateTime)prtc.Deathday.Value;
 
             if (prtc.Photos != null)
             {
                 if (prtc.Photos.Any())
                 {
-                    this.Photos = new List<PhotoDto>();
+                    List<PhotoDto> photos = new List<PhotoDto>();
 
                     foreach (var item in prtc.Photos)
                     {
-                        Photos.Add(new PhotoDto(item));
+                        photos.Add(PhotoDto.MapToDto(item));
                     }
+
+                    dto.Photos = photos.ToArray();
                 }
             }
 
@@ -90,82 +90,20 @@ namespace ParticipantsOfWar.Dto
             {
                 if (prtc.Documents.Any())
                 {
-                    this.Documents = new List<DocumentsDto>();
+                    List<DocumentsDto> docs = new List<DocumentsDto>();
 
                     foreach (var item in prtc.Documents)
                     {
-                        Documents.Add(new DocumentsDto(item));
+                        docs.Add(DocumentsDto.MapToDto(item));
                     }
+
+                    dto.Documents = docs.ToArray();
                 }
             }
 
+            return dto;
         }
 
     }
-
-    public class ParticipantsTypeObjDto
-    {
-        [JsonProperty(PropertyName = "name")]
-        public string name { get; set; }
-
-        [JsonProperty(PropertyName = "value")]
-        public int value { get; set; }
-    }
-
-    public class ParticipantsInDto
-    {
-        [JsonProperty(PropertyName = "guid")]
-        public string guid { get; set; }
-
-        [JsonProperty(PropertyName = "surname")]
-        public string Surname { get; set; }
-
-        [JsonProperty(PropertyName = "firstname")]
-        public string Firstname { get; set; }
-
-        [JsonProperty(PropertyName = "middlename")]
-        public string Middlename { get; set; }
-
-        [JsonProperty(PropertyName = "shortName")]
-        public string ShortName { get; set; }
-
-        [JsonProperty(PropertyName = "birthday")]
-        public DateTime Birthday { get; set; }
-
-        [JsonProperty(PropertyName = "deathday")]
-        public DateTime Deathday { get; set; }
-
-        [JsonProperty(PropertyName = "description")]
-        public string Description { get; set; }
-
-        [JsonProperty(PropertyName = "type")]
-        public ParticipantsTypeObjDto Type { get; set; }
-
-        [JsonProperty(PropertyName = "photos")]
-        public PhotoInDto[] Photos { get; set; }
-
-        [JsonProperty(PropertyName = "documents")]
-        public DocumentsInDto[] Documents { get; set; }
-    }
-    public class PhotoInDto
-    {
-        [JsonProperty(PropertyName = "photoId")]
-        public string PhotoId { get; set; }
-
-        [JsonProperty(PropertyName = "description")]
-        public string Description { get; set; }
-    }
-
-    public class DocumentsInDto
-    {
-        [JsonProperty(PropertyName = "documentId")]
-        public string DocumentId { get; set; }
-
-        [JsonProperty(PropertyName = "extension")]
-        public string Extension { get; set; }
-
-        [JsonProperty(PropertyName = "type")]
-        public string type { get; set; }
-    }
-}
+ }
 

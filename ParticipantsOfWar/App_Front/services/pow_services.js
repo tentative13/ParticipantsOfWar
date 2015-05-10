@@ -91,7 +91,16 @@
                 $log.error('Upload error', status, data, headers, config);
             });
 
-        }
+        };
+
+        this.TimeZoneFixer = function (item) {
+
+            if (typeof item.birthday != "undefined" && (item.birthday instanceof Date)) {
+                var offset = new Date().getTimezoneOffset();
+                offset = (offset / 60) * (-1);
+                item.birthday.setHours(item.birthday.getHours() + offset);
+            }
+        };
 
     }]);
 })();
