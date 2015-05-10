@@ -1,12 +1,12 @@
 ﻿(function () {
     var app = angular.module('pow_app');
 
-    app.controller('powDetailsCtrl', ['$rootScope', '$log', '$scope', 'ParticipantsService', 'participantsVM', '$state', '$timeout', 'DateToStr',
-    function ($rootScope, $log, $scope, participantsService, participantsVM, $state, $timeout, DateToStr) {
+    app.controller('powDetailsCtrl', ['$rootScope', '$log', '$scope', 'ParticipantsService', 'participantsVM',
+        '$state', '$timeout', 'DateToStr', 'photoSlider',
+    function ($rootScope, $log, $scope, participantsService, participantsVM, $state, $timeout, DateToStr, photoSlider) {
 
         $scope.participant = $rootScope.pow_details;
         $scope.types = participantsVM.ParticipantsTypes;
-      //  $scope.delayshow = false;
         $scope.isAuthorized = false;
         $scope.new_record = {};
         $scope.new_record.type = $scope.types[0];
@@ -20,7 +20,8 @@
         $scope.photoFile = [];
         $scope.birthday_str = '';
         $scope.death_str = '';
-        $scope.slides = [];
+        $scope.photoSlider = photoSlider;
+
 
         if ($scope.participant && $scope.participant.birthday) {
              $scope.birthday_str = DateToStr($scope.participant.birthday);
@@ -66,37 +67,11 @@
         };
 
         $scope.addSlides = function () {
-            $scope.slides = [];
+            photoSlider.clearSlides();
             if ($scope.participant && $scope.participant.photos) {
-                angular.forEach($scope.participant.photos, function (item) {
-                    $scope.slides.push({
-                        image: 'api/Documents/GetPhoto/' + item.photoId,
-                        description: item.description
-                    });
-                });
+                photoSlider.addSlides($scope.participant.photos);
             }
         };
-
-        $scope.direction = 'left';
-        $scope.currentIndex = 0;
-        $scope.setCurrentSlideIndex = function (index) {
-            $scope.direction = (index > $scope.currentIndex) ? 'left' : 'right';
-            $scope.currentIndex = index;
-        };
-        $scope.isCurrentSlideIndex = function (index) {
-            return $scope.currentIndex === index;
-        };
-        $scope.prevSlide = function () {
-            $scope.direction = 'left';
-            $scope.currentIndex = ($scope.currentIndex < $scope.slides.length - 1) ? ++$scope.currentIndex : 0;
-        };
-
-        $scope.nextSlide = function () {
-            $scope.direction = 'right';
-            $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.slides.length - 1;
-        };
-
-
         $scope.addSlides();
 
         $scope.handlers = {
