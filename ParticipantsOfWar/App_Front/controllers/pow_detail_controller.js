@@ -20,7 +20,6 @@
         $scope.photoFile = [];
         $scope.birthday_str = '';
         $scope.death_str = '';
-        $scope.slideInterval = 5000;
         $scope.slides = [];
 
         if ($scope.participant && $scope.participant.birthday) {
@@ -30,7 +29,6 @@
             $scope.death_str = DateToStr($scope.participant.deathday);
         }
 
-    //    $timeout(function () { $scope.addSlides(); }, 1000);
 
         $scope.uploadFiles = function (participant) {
             if ($scope.photoFile && $scope.photoFile.length && participant && participant.guid) {
@@ -73,11 +71,31 @@
                 angular.forEach($scope.participant.photos, function (item) {
                     $scope.slides.push({
                         image: 'api/Documents/GetPhoto/' + item.photoId,
-                        text: item.description
+                        description: item.description
                     });
                 });
             }
         };
+
+        $scope.direction = 'left';
+        $scope.currentIndex = 0;
+        $scope.setCurrentSlideIndex = function (index) {
+            $scope.direction = (index > $scope.currentIndex) ? 'left' : 'right';
+            $scope.currentIndex = index;
+        };
+        $scope.isCurrentSlideIndex = function (index) {
+            return $scope.currentIndex === index;
+        };
+        $scope.prevSlide = function () {
+            $scope.direction = 'left';
+            $scope.currentIndex = ($scope.currentIndex < $scope.slides.length - 1) ? ++$scope.currentIndex : 0;
+        };
+
+        $scope.nextSlide = function () {
+            $scope.direction = 'right';
+            $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.slides.length - 1;
+        };
+
 
         $scope.addSlides();
 

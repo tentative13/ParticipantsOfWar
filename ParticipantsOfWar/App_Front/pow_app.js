@@ -6,7 +6,8 @@
             'ngMaterial',
             'ui.bootstrap',
             'ui.date',
-            'ngFileUpload'
+            'ngFileUpload',
+            'ngAnimate'
        ])
        .config(
        [

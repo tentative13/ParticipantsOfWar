@@ -10,17 +10,29 @@
             <md-button class="md-raised md-primary" ng-show="editMode" ng-click="handlers.onCancelClick()">&nbsp;&nbsp;Отменить&nbsp;&nbsp;</md-button>
         </div>
     </div>
-    <!--<carousel interval="slideInterval" style="width:auto; height:100%;z-index: 0;">
-        <slide ng-repeat="slide in slides" active="slide.active">
-            <img ng-src="{{slide.image}}" style="width:auto; height:100%;">
-        </slide>
-    </carousel>-->
 
     <div layout="row" layout-margin layout-fill>
         <div flex="25" class="grid-tile">
             <div class="grid-tile" layout="column" layout-padding layout-align="space-around center">
                 <div flex>
-                    <img ng-src="api/Documents/GetPhoto/{{participant.photos[0].photoId}}" style="width:100%; max-width:300px; height:auto;" />
+                    <div class="container slider">
+                        <img ng-repeat="slide in slides" class="slide slide-animation nonDraggableImage"
+                             ng-hide="!isCurrentSlideIndex($index)" ng-src="{{slide.image}}">
+                        <a class="arrow prev" href="#" ng-click="nextSlide()"></a>
+                        <a class="arrow next" href="#" ng-click="prevSlide()"></a>
+                        <nav class="nav">
+                            <div class="wrapper">
+                                <ul class="dots">
+                                    <li class="dot" ng-repeat="slide in slides">
+                                        <a href="#" ng-class="{'active':isCurrentSlideIndex($index)}"
+                                           ng-click="setCurrentSlideIndex($index);">{{slide.description}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+
+                    <!--<img ng-src="api/Documents/GetPhoto/{{participant.photos[0].photoId}}" style="width:100%; max-width:300px; height:auto;" />-->
                 </div>
                 <div flex="10" ng-show="editMode">
                     <md-divider style="width:90%;"></md-divider>
