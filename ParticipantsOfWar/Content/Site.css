@@ -269,6 +269,11 @@ md-grid-tile {
     background-color: #EFEBE9;
 }
 
+.grid-tile {
+    transition: all 400ms ease-out 50ms;
+    background-color: #EFEBE9;
+}
+
 .lenta {
     position: absolute;
     top: 0px;
@@ -317,4 +322,17 @@ md-grid-tile {
     margin-left: 10px;
     background: url("../Content/images/ico_pdf.png") no-repeat;
     background-size: 18px 18px;
+}
+.drop-box {
+    background: #F8F8F8;
+    border: 5px dashed #DDD;
+    width: auto;
+    height: 100px;
+    text-align: center;
+    padding: inherit;
+    /*padding-top: 25px;
+    margin: 10px;*/
+}
+.dragover {
+    border: 5px dashed blue;
 }

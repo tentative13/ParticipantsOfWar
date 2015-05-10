@@ -9,7 +9,7 @@
       //  $scope.delayshow = false;
         $scope.isAuthorized = false;
         $scope.new_record = {};
-        $scope.new_record.type = $scope.types[1];
+        $scope.new_record.type = $scope.types[0];
         $scope.dateOptions = {
             changeYear: true,
             changeMonth: true,
@@ -96,6 +96,14 @@
                 $scope.docFile = [];
                 $scope.photoFile = [];
                 $scope.new_record = angular.copy($scope.participant);
+
+                for (var i = 0; i < $scope.types.length; i++) {
+                    if ($scope.new_record.type.value == $scope.types[i].value) {
+                        $scope.new_record.type = $scope.types[i];
+                        break;
+                    }
+                }
+
             },
             onSaveClick: function () {
                 //todo start loader
@@ -144,15 +152,24 @@
             },
             PhotoFileSelected: function (files) {
                 if (files && files.length) {
-                    $scope.photoFile.push(files);
+                    angular.forEach(files, function (item) {
+                        $scope.photoFile.push(item);
+                    });
                 }
             },
             DocumentFileSelected: function (files) {
                 if (files && files.length) {
-                    $scope.docFile.push(files);
+                    angular.forEach(files, function (item) {
+                        $scope.docFile.push(item);
+                    });
                 }
+            },
+            RemoveFromDocSelected: function (index) {
+                $scope.docFile.splice(index, 1);
+            },
+            RemoveFromPhotoSelected: function (index) {
+                $scope.photoFile.splice(index, 1);
             }
-
         };
         }]);
 })();
