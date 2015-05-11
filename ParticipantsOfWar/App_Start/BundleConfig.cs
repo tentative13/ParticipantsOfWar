@@ -37,6 +37,7 @@ namespace ParticipantsOfWar
                 "~/Scripts/angular-route.js",
                 "~/Scripts/angular-ui-router.js",
                 "~/Scripts/angular-cookies.js",
+                "~/Scripts/angular-messages.js",
                 "~/Scripts/angular-highcharts.js",
                 "~/Scripts/ng-file-upload.js",
                 "~/Scripts/ng-file-upload-shim.js",

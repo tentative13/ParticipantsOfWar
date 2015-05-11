@@ -77,10 +77,9 @@
                             <label>Статус</label>
                             <input ng-model="participant.type.name" ng-readonly="!editMode">
                         </md-input-container>
-                        <md-select ng-show="editMode" ng-model="new_record.type" ng-required="new_record.type>0" placeholder="Статус" style="width:200px;">
-                            <md-option ng-value="opt" ng-repeat="opt in types" ng-selected="parseInt(opt.value)==parseInt(new_record.type.value)">{{ opt.name }}</md-option>
+                        <md-select name="selector" ng-show="editMode" ng-model="new_record.type" ng-required="new_record.type.value > 0" placeholder="Статус" style="width:200px;">
+                            <md-option ng-value="opt" ng-repeat="opt in types" ng-selected="parseInt(opt.value)===parseInt(new_record.type.value)">{{ opt.name }}</md-option>
                         </md-select>
-
                         <md-input-container md-no-float ng-hide="editMode">
                             <label>Звание/Должность</label>
                             <input ng-model="participant.rank" ng-readonly="!editMode">
@@ -98,7 +97,10 @@
                         </md-input-container>
                         <md-input-container md-no-float ng-show="editMode">
                             <label>Фамилия</label>
-                            <input ng-model="new_record.surname" ng-readonly="!editMode" required>
+                            <input ng-model="new_record.surname" required name="surname" autofocus="editMode">
+                            <div ng-messages="detailsForm.surname.$error">
+                                <div ng-message="required">Обязательное поле</div>
+                            </div>
                         </md-input-container>
                         <md-input-container ng-hide="editMode">
                             <label>Имя</label>

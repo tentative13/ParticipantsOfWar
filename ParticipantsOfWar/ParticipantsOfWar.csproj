@@ -251,7 +251,8 @@
   <ItemGroup>
     <Content Include="App_Front\animation\slider_animation.js" />
     <Content Include="App_Front\controllers\pow_detail_controller.js" />
-    <Content Include="App_Front\services\pow_factories.js" />
+    <Content Include="App_Front\directives\common_directives.js" />
+    <Content Include="App_Front\services\common_factories.js" />
     <Content Include="App_Front\views\Participants_details.html" />
     <Content Include="Content\images\blazon.png" />
     <Content Include="Content\images\Download.gif" />
@@ -1140,7 +1141,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="App_Front\directives\" />
     <Folder Include="Providers\" />
     <Folder Include="UploadedFiles\" />
   </ItemGroup>

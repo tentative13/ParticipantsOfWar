@@ -9,7 +9,10 @@
         $scope.types = participantsVM.ParticipantsTypes;
         $scope.isAuthorized = false;
         $scope.new_record = {};
-        $scope.new_record.type = $scope.types[0];
+        $scope.focus = true;
+        $timeout(function () {
+            $scope.new_record.type = $scope.types[1];
+        }, 50);
         $scope.dateOptions = {
             changeYear: true,
             changeMonth: true,

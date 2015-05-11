@@ -7,7 +7,8 @@
             'ui.bootstrap',
             'ui.date',
             'ngFileUpload',
-            'ngAnimate'
+            'ngAnimate',
+            'ngMessages'
        ])
        .config(
        [
