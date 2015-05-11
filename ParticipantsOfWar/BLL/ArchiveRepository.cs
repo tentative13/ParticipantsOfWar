@@ -261,6 +261,24 @@ namespace ParticipantsOfWar.BLL
         }
 
 
+        public void Delete<T>(decimal id) where T : class
+        {
+            var dbEntityEntry = db.Set<T>().Find(id);
+            db.Set<T>().Remove(dbEntityEntry);
+        }
+
+        public void Delete<T>(Guid id) where T : class
+        {
+            var dbEntityEntry = db.Set<T>().Find(id);
+            db.Set<T>().Remove(dbEntityEntry);
+        }
+
+        public void Delete<T>(T entity) where T : class
+        {
+            db.Set<T>().Remove(entity);
+        }
+
+
     }
 
 }

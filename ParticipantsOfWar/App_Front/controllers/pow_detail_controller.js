@@ -42,6 +42,7 @@
                         angular.forEach(data, function (item) {
                             participant.photos.push(item);
                         });
+                        photoSlider.addSlides(data);
                         participantsVM.UpdateCacheParticipants(participant);
                     });
                 }
