@@ -18,19 +18,52 @@
         };
         $scope.docFile = [];
         $scope.photoFile = [];
+        $scope.docForDelete = [];
+        $scope.photoForDelete = [];
         $scope.birthday_str = '';
         $scope.death_str = '';
         $scope.photoSlider = photoSlider;
 
-
-        if ($scope.participant && $scope.participant.birthday) {
-             $scope.birthday_str = DateToStr($scope.participant.birthday);
-        }
-        if ($scope.participant && $scope.participant.deathday) {
-            $scope.death_str = DateToStr($scope.participant.deathday);
-        }
+        if ($scope.participant && $scope.participant.birthday) {$scope.birthday_str = DateToStr($scope.participant.birthday);}
+        if ($scope.participant && $scope.participant.deathday) {$scope.death_str = DateToStr($scope.participant.deathday);}
 
 
+
+        $scope.dropFiles = function (participant) {
+            if ($scope.docForDelete && $scope.docForDelete.length && participant && participant.guid) {
+                for (var i = 0; i < $scope.docForDelete.length; i++) {
+                    
+                    participantsService.deleteDocument($scope.docForDelete[i].documentId, function (documentId, data) {
+                        $log.info('participantsService.deleteDocument success', documentId, data);
+                        for (var j = 0; j < participant.documents.length; j++) {
+                            if (participant.documents[j].documentId == documentId) {
+                                participant.documents.splice(j, 1);
+                                break;
+                            }
+                        }
+                        participantsVM.UpdateCacheParticipants(participant);
+                    });
+                }
+                $scope.docForDelete = [];
+            }
+
+            if ($scope.photoForDelete && $scope.photoForDelete.length && participant && participant.guid) {
+                for (var i = 0; i < $scope.photoForDelete.length; i++) {
+
+                    participantsService.deletePhoto($scope.photoForDelete[i].photoId, function (photoId, data) {
+                        $log.info('participantsService.deletePhoto success', photoId, data);
+                        for (var j = 0; j < participant.photos.length; j++) {
+                            if (participant.photos[j].photoId == photoId) {
+                                participant.photos.splice(j, 1);
+                                break;
+                            }
+                        }
+                        participantsVM.UpdateCacheParticipants(participant);
+                    });
+                }
+                $scope.photoForDelete = [];
+            }
+        };
         $scope.uploadFiles = function (participant) {
             if ($scope.photoFile && $scope.photoFile.length && participant && participant.guid) {
                 //todo start loader
@@ -66,7 +99,6 @@
                 $scope.docFile = [];
             }
         };
-
         $scope.addSlides = function () {
             photoSlider.clearSlides();
             if ($scope.participant && $scope.participant.photos) {
@@ -89,6 +121,9 @@
                 $rootScope.editMode = true;
                 $scope.docFile = [];
                 $scope.photoFile = [];
+                $scope.docForDelete = [];
+                $scope.photoForDelete = [];
+
                 $scope.new_record = angular.copy($scope.participant);
 
                 for (var i = 0; i < $scope.types.length; i++) {
@@ -133,6 +168,7 @@
                         $scope.participant = angular.copy($scope.new_record);
                         $scope.new_record = {};
                         participantsVM.UpdateCacheParticipants($scope.participant);
+                        $scope.dropFiles($scope.participant);
                         $scope.uploadFiles($scope.participant);
                     });
                 }
@@ -143,6 +179,8 @@
                 $scope.new_record = {};
                 $scope.docFile = [];
                 $scope.photoFile = [];
+                $scope.docForDelete = [];
+                $scope.photoForDelete = [];
             },
             PhotoFileSelected: function (files) {
                 if (files && files.length) {
@@ -163,9 +201,43 @@
             },
             RemoveFromPhotoSelected: function (index) {
                 $scope.photoFile.splice(index, 1);
+            },
+            DeleteDocument: function (item) {
+                if (item && item.documentId) {
+                    var check = $.grep($scope.docForDelete, function (f) { return f.documentId == item.documentId; });
+                    if (check.length === 0) $scope.docForDelete.push(item);
+                }
+            },
+            DeletePhoto: function (item) {
+                if (item && item.photoId) {
+                    var check = $.grep($scope.photoForDelete, function (f) { return f.photoId == item.photoId; });
+                    if (check.length === 0) $scope.photoForDelete.push(item);
+                }
+            },
+            isDocDeleted: function(item){
+
+                var check = $.grep($scope.docForDelete, function (f) { return f.documentId == item.documentId; });
+                if (check.length === 0)
+                    return false;
+                else
+                    return true;
+            },
+            unDeleteDocument: function(item){
+                for (var j = 0; j < $scope.docForDelete.length; j++) {
+                    if ($scope.docForDelete[j].documentId == item.documentId) {
+                        $scope.docForDelete.splice(j, 1);
+                        break;
+                    }
+                }
+            },
+            unDeletePhoto: function (item) {
+                for (var j = 0; j < $scope.photoForDelete.length; j++) {
+                    if ($scope.photoForDelete[j].photoId == item.photoId) {
+                        $scope.photoForDelete.splice(j, 1);
+                        break;
+                    }
+                }
             }
         };
         }]);
 })();
-
-

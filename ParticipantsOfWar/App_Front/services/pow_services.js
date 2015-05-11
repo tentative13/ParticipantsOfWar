@@ -109,7 +109,7 @@
             })
             .success(function (data, status, headers, config) {
                 $log.info('deleteDocument', status);
-                callback();
+                callback(id,data);
             })
             .error(function (data, status) {
                 $log.error('deleteDocument', status, data);
@@ -124,7 +124,7 @@
             })
             .success(function (data, status, headers, config) {
                 $log.info('deletePhoto', status);
-                callback();
+                callback(id, data);
             })
             .error(function (data, status) {
                 $log.error('deletePhoto', status, data);

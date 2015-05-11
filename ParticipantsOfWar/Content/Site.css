@@ -457,3 +457,11 @@ NAV
     border-color: #FFF;
     background-color: transparent;
 }
+
+.inputdemoErrors .inputErrorsApp {
+  min-height: 48px; }
+
+.deletefile{
+    text-decoration: line-through;
+    color:gray;
+}

@@ -40,15 +40,13 @@
                     <div style="color:gray;">Фотографии для загрузки:</div>
                     <br />
                     <table class="Documents">
-                        <col width="25%" />
-                        <col width="60%" />
+                        <col width="85%" />
                         <col width="15%" />
                         <tbody>
                             <tr ng-repeat="item in photoFile" style="border:1px dashed gray; border-collapse:separate; color:gray;">
                                 <td>
                                     {{item.name}}
                                 </td>
-                                <td></td>
                                 <td style="text-align:right">
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="handlers.RemoveFromPhotoSelected($index)" style="cursor:pointer;" title="Удалить из загрузки"></span>
                                 </td>
@@ -174,14 +172,15 @@
 
     <div layout="row" layout-margin layout-fill>
         <div flex>
-            <div class="grid-tile" layout="column" layout-align="space-around start" layout-padding>
+            <div class="grid-tile" layout="column" layout-align="space-around start" layout-padding layout-fill>
                 <div flex="5">
                     <h4>Документы:</h4>
                 </div>
                 <div flex>
                     <table class="Documents">
-                        <col width="5%" />
-                        <col width="95%" />
+                        <col width="20%" />
+                        <col width="60%" />
+                        <col width="20%" />
                         <tbody>
                             <tr ng-repeat="item in participant.documents">
                                 <td>
@@ -190,7 +189,12 @@
                                     <div ng-show="item.extension == '.jpg' || item.extension == '.jpeg' || item.extension == '.png'  " title="Сохранить в .pdf" class="BtnPhoto" ng-click="handlers.GetDocument(item.documentId)"></div>
                                 </td>
                                 <td>
-                                    <a ng-click="handlers.GetDocument(item.documentId)">{{item.name}}</a>
+                                    <a ng-click="handlers.GetDocument(item.documentId)" ng-class="{deletefile:handlers.isDocDeleted(item)}">{{item.name}}</a>
+                                </td>
+                                <td ng-show="editMode" style="color:gray;">
+                                    <md-button class="md-raised md-primary" ng-click="handlers.unDeleteDocument(item)" ng-show="handlers.isDocDeleted(item)">Отменить</md-button>
+                                    <md-button class="md-raised md-primary" ng-click="handlers.DeleteDocument(item)" ng-hide="handlers.isDocDeleted(item)">Удалить&nbsp;</md-button>
+                                    <!--<span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="handlers.DeleteDocument(item)" style="cursor:pointer;" title="Удалить документ"></span>-->
                                 </td>
                             </tr>
                         </tbody>
@@ -202,15 +206,13 @@
                     <div style="color:gray;">Документы для загрузки:</div>
                     <br />
                     <table class="Documents">
-                        <col width="25%" />
-                        <col width="60%" />
+                        <col width="85%" />
                         <col width="15%" />
                         <tbody>
                             <tr ng-repeat="item in docFile" style="border:1px dashed gray; border-collapse:separate; color:gray;">
                                 <td>
                                     {{item.name}}
                                 </td>
-                                <td></td>
                                 <td style="text-align:right">
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="handlers.RemoveFromDocSelected($index)" style="cursor:pointer;" title="Удалить из загрузки"></span>
                                 </td>
