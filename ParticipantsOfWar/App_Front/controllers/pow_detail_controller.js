@@ -2,8 +2,8 @@
     var app = angular.module('pow_app');
 
     app.controller('powDetailsCtrl', ['$rootScope', '$log', '$scope', 'ParticipantsService', 'participantsVM',
-        '$state', '$timeout', 'DateToStr', 'photoSlider',
-    function ($rootScope, $log, $scope, participantsService, participantsVM, $state, $timeout, DateToStr, photoSlider) {
+        '$state', '$timeout', 'DateToStr', 'photoSlider', '$mdToast',
+    function ($rootScope, $log, $scope, participantsService, participantsVM, $state, $timeout, DateToStr, photoSlider, $mdToast) {
 
         $scope.participant = $rootScope.pow_details;
         $scope.types = participantsVM.ParticipantsTypes;
@@ -110,6 +110,15 @@
         };
         $scope.addSlides();
 
+        $scope.showSimpleToast = function (text) {
+            $mdToast.show(
+              $mdToast.simple()
+                .content(text)
+                .position('top right')
+                .hideDelay(3000)
+            );
+        };
+
         $scope.handlers = {
             onGetBackClick: function () {
                 this.onCancelClick();
@@ -138,6 +147,23 @@
 
             },
             onSaveClick: function () {
+
+                //validation
+                if (typeof $scope.new_record.surname === "undefined") {
+                    $scope.showSimpleToast('Не задана фамилия!');
+                    return;
+                }
+
+                if ($scope.new_record.surname && $scope.new_record.surname.length == 0) {
+                    $scope.showSimpleToast('Не задана фамилия!');
+                    return;
+                }
+                if ($scope.new_record.type.value <= 0) {
+                    $scope.showSimpleToast('Не установлен статус!');
+                    return;
+                }
+
+
                 //todo start loader
                 $rootScope.editMode = false;//todo move to success, add loader
 
@@ -184,6 +210,10 @@
                 $scope.photoFile = [];
                 $scope.docForDelete = [];
                 $scope.photoForDelete = [];
+                if ($rootScope.createMode === true) {
+                    $rootScope.createMode = false;
+                    $state.go("participants");
+                }
             },
             PhotoFileSelected: function (files) {
                 if (files && files.length) {

@@ -97,11 +97,12 @@
                         </md-input-container>
                         <md-input-container md-no-float ng-show="editMode">
                             <label>Фамилия</label>
-                            <input ng-model="new_record.surname" required name="surname" autofocus="editMode">
+                            <input ng-model="new_record.surname" name="surname" autofocus="createMode" type="text" required ng-pattern="/^(\D)+$/">
                             <div ng-messages="detailsForm.surname.$error">
                                 <div ng-message="required">Обязательное поле</div>
+                                <div ng-message="pattern">Разрешены только буквы</div>
                             </div>
-                        </md-input-container>
+                           </md-input-container>
                         <md-input-container ng-hide="editMode">
                             <label>Имя</label>
                             <input ng-model="participant.firstname" ng-readonly="!editMode">
