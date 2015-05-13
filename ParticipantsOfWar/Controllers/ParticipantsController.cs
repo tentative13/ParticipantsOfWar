@@ -69,6 +69,24 @@ namespace ParticipantsOfWar.Controllers
             dbEntity.Birthday = participant.Birthday;
             dbEntity.Deathday = participant.Deathday;
 
+            if (participant.Birthday == DateTime.MinValue) 
+            {
+                dbEntity.Birthday = null;
+            }
+            else
+            {
+                dbEntity.Birthday = participant.Birthday;
+            }
+
+            if (participant.Deathday == DateTime.MinValue)
+            {
+                dbEntity.Deathday = null;
+            }
+            else
+            {
+                dbEntity.Deathday = participant.Deathday;
+            }
+
 
             var newtype = _archiveRepo.List<ParticipantType>(x => x.Name == participant.Type.Name).FirstOrDefault();
             if (newtype != null)
@@ -106,6 +124,7 @@ namespace ParticipantsOfWar.Controllers
 
             Participant newone = new Participant();
 
+//<<<<<<< HEAD
             newone.Birthday = participant.Birthday;
             newone.Deathday = participant.Deathday;
             newone.Firstname = participant.Firstname == null ? "" : participant.Firstname;
@@ -115,6 +134,25 @@ namespace ParticipantsOfWar.Controllers
             newone.ShortName = participant.ShortName == null ? "" : participant.ShortName;
             newone.BirthPlace = "";
             newone.Rank = "";
+
+            if (participant.Birthday == DateTime.MinValue) 
+            {
+                newone.Birthday = null;
+            }
+            else
+            {
+                newone.Birthday = participant.Birthday;
+            }
+
+            if (participant.Deathday == DateTime.MinValue)
+            {
+                newone.Deathday = null;
+            }
+            else
+            {
+                newone.Deathday = participant.Deathday;
+            }
+
 
 
             if (participant.Type != null)

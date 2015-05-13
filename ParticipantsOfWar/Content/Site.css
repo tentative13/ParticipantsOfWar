@@ -288,7 +288,8 @@ md-grid-tile {
     background: url("../Content/images/ico_docx.png") no-repeat;
     background-size: 18px 18px;
 }
-.BtnPhoto{
+
+.BtnPhoto {
     width: 18px;
     height: 18px;
     float: left;
@@ -323,6 +324,7 @@ md-grid-tile {
     background: url("../Content/images/ico_pdf.png") no-repeat;
     background-size: 18px 18px;
 }
+
 .drop-box {
     background: #F8F8F8;
     border: 5px dashed #DDD;
@@ -333,25 +335,29 @@ md-grid-tile {
     /*padding-top: 25px;
     margin: 10px;*/
 }
+
 .dragover {
     border: 5px dashed blue;
 }
+
 .slider {
-    width: 400px;
-    max-width:400px;
-    height: 400px;
+    width: 320px;
+    max-width:90%;
+    height: auto;
+    max-height: 400px;
     overflow: hidden;
     position: relative;
     background: #EFEBE9;
+    display: flex;
+    justify-content: center;
     /*border: 20px solid #FFF;
     margin-top: 20px;*/
 }
 
 .slide {
-    position: absolute;
-    top: 0;
-    left: 0;
+    width:100%;
 }
+
 .arrow {
     position: absolute;
     z-index: 1002;
@@ -365,29 +371,29 @@ md-grid-tile {
     background: url(../Content/images/blank.gif) no-repeat;
 }
 
-.arrow.prev {
-    opacity: 0.2;
-    left: 20px;
-    background-image: url(../Content/images/paddle_prev_999.png);
-    transition: 0.2s linear all;
-}
+    .arrow.prev {
+        opacity: 0.2;
+        left: 20px;
+        background-image: url(../Content/images/paddle_prev_999.png);
+        transition: 0.2s linear all;
+    }
 
-.arrow.next {
-    opacity: 0.2;
-    right: 20px;
-    background-image: url(../Content/images/paddle_next_999.png);
-    transition: 0.2s linear all;
-}
+    .arrow.next {
+        opacity: 0.2;
+        right: 20px;
+        background-image: url(../Content/images/paddle_next_999.png);
+        transition: 0.2s linear all;
+    }
 
-.arrow.prev:hover {
-    opacity: 1;
-    background-image: url(../Content/images/paddle_prev_fff.png);
-}
+    .arrow.prev:hover {
+        opacity: 1;
+        background-image: url(../Content/images/paddle_prev_fff.png);
+    }
 
-.arrow.next:hover {
-    opacity: 1;
-    background-image: url(../Content/images/paddle_next_fff.png);
-}
+    .arrow.next:hover {
+        opacity: 1;
+        background-image: url(../Content/images/paddle_next_fff.png);
+    }
 /*---------------------------------------------------------
 NAV
 ---------------------------------------------------------*/
@@ -403,7 +409,7 @@ NAV
     height: 48px;
 }
 
-.nonDraggableImage{
+.nonDraggableImage {
     -webkit-user-drag: none;
 }
 
@@ -430,30 +436,44 @@ NAV
     height: 12px;
 }
 
-.dots .dot a {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 6px;
-    height: 6px;
-    text-indent: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    background: #FFF;
-    border: 1px solid transparent;
-    outline: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    -webkit-transition: background-color 0.25s, border-color 0.25s;
-    -moz-transition: background-color 0.25s, border-color 0.25s;
-    transition: background-color 0.25s, border-color 0.25s;
+    .dots .dot a {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 6px;
+        height: 6px;
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        background: #FFF;
+        border: 1px solid transparent;
+        outline: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        -webkit-transition: background-color 0.25s, border-color 0.25s;
+        -moz-transition: background-color 0.25s, border-color 0.25s;
+        transition: background-color 0.25s, border-color 0.25s;
+    }
+
+        .dots .dot a.active {
+            border-color: #FFF;
+            background-color: transparent;
+        }
+
+.inputdemoErrors .inputErrorsApp {
+    min-height: 48px;
 }
 
-.dots .dot a.active {
-    border-color: #FFF;
-    background-color: transparent;
+.deletefile {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.spacer {
+    flex: auto;
+    background-color: black;
 }
