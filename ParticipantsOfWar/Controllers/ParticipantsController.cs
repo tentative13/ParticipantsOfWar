@@ -124,7 +124,6 @@ namespace ParticipantsOfWar.Controllers
 
             Participant newone = new Participant();
 
-//<<<<<<< HEAD
             newone.Birthday = participant.Birthday;
             newone.Deathday = participant.Deathday;
             newone.Firstname = participant.Firstname == null ? "" : participant.Firstname;
