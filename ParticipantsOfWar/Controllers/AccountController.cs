@@ -10,11 +10,13 @@ using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using ParticipantsOfWar.Models;
 using ParticipantsOfWar.Results;
+using ParticipantsOfWar.Providers;
 
 namespace ParticipantsOfWar.Controllers
 {
@@ -23,20 +25,31 @@ namespace ParticipantsOfWar.Controllers
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
+        private ApplicationUserManager _userManager;
 
         public AccountController()
-            : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
         {
         }
 
-        public AccountController(UserManager<IdentityUser> userManager,
+        public AccountController(ApplicationUserManager userManager,
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
         }
 
-        public UserManager<IdentityUser> UserManager { get; private set; }
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // GET api/Account/UserInfo
@@ -149,17 +162,13 @@ namespace ParticipantsOfWar.Controllers
                 return BadRequest(ModelState);
             }
 
-            IdentityUser user = new IdentityUser
-            {
-                UserName = model.UserName
-            };
+            var user = new ApplicationUser() { UserName = model.UserName};
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-            IHttpActionResult errorResult = GetErrorResult(result);
 
-            if (errorResult != null)
+            if (!result.Succeeded)
             {
-                return errorResult;
+                return GetErrorResult(result);
             }
 
             return Ok();
