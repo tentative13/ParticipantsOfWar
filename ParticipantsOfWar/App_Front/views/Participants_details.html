@@ -164,10 +164,11 @@
                     <div layout="row" layout-wrap>
                         <md-input-container flex ng-hide="editMode">
                             <label>Биография</label>
-                            <textarea ng-model="participant.description" columns="1" ng-readonly="!editMode" style="margin: 0px -0.5px 0px 0px; width: 95%; height: 100px; max-height:250px; max-width:100%; background:transparent;  cursor: default;"></textarea>
+                            <textarea ng-model="participant.description" columns="1" ng-readonly="!editMode"style="margin: 0px -0.5px 0px 0px; width: 95%; height: 100px; max-height:150px; max-width:100%; background:transparent;  cursor: default;
+overflow-y:auto;"></textarea>
                         </md-input-container>
 
-                        <textarea ng-show="editMode" ng-readonly="!editMode" editmode"" ng-model="new_record.description" class="form-control" placeholder="Биография" style="width: 95%; height: 100px; max-height:200px; max-width:100%;"></textarea>
+                        <textarea ng-show="editMode" ng-readonly="!editMode" ng-model="new_record.description" class="form-control" placeholder="Биография" style="width: 95%; height: 100px; max-height:150px; max-width:100%;"></textarea>
                     </div>
                 </form>
             </div>
