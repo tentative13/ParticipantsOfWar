@@ -48,6 +48,7 @@ namespace ParticipantsOfWar
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+                // Note: Remove the following line before you deploy to production:
                 AllowInsecureHttp = true
             };
 
