@@ -272,6 +272,7 @@ md-grid-tile {
 .grid-tile {
     transition: all 400ms ease-out 50ms;
     background-color: #EFEBE9;
+    min-height:300px;
 }
 
 .lenta {
@@ -341,14 +342,13 @@ md-grid-tile {
 }
 
 .slider {
-    width: 320px;
+    width: auto;
     max-width:90%;
+    max-height:90%;
     height: auto;
-    max-height: 400px;
     overflow: hidden;
     position: relative;
     background: #EFEBE9;
-    display: flex;
     justify-content: center;
     /*border: 20px solid #FFF;
     margin-top: 20px;*/
@@ -476,4 +476,19 @@ NAV
 .spacer {
     flex: auto;
     background-color: black;
+}
+
+.inner {
+  -ms-flex: 1;
+  flex: 1;
+}
+ .fix  {
+    -ms-flex: 1 auto;
+    flex: 1 auto;
+  }
+.column {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
