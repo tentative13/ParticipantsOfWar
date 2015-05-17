@@ -10,6 +10,7 @@ using System.Net.Http.Headers;
 using System.Data.Entity;
 using ParticipantsOfWar.DAL;
 using System.Data.Entity.Core.EntityClient;
+using ParticipantsOfWar.Filters;
 
 namespace ParticipantsOfWar
 {
@@ -21,6 +22,7 @@ namespace ParticipantsOfWar
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            config.Filters.Add(new RequireHttpsAttribute());
 
             // Web API configuration and services
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;

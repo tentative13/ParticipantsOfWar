@@ -35,10 +35,7 @@ namespace ParticipantsOfWar
             {
                 TokenEndpointPath = new PathString("/Token"),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
-               // AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                // Note: Remove the following line before you deploy to production:
-                AllowInsecureHttp = true
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1)
             };
 
             // Enable the application to use bearer tokens to authenticate users
