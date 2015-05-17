@@ -15,7 +15,10 @@
             '$stateProvider',
             '$urlRouterProvider',
             '$compileProvider',
-            function ($stateProvider, $urlRouterProvider, $compileProvider) {
+            '$httpProvider',
+            function ($stateProvider, $urlRouterProvider, $compileProvider, $httpProvider) {
+
+                $httpProvider.interceptors.push('authInterceptorService');
 
                 $urlRouterProvider.otherwise("/participants");
 
@@ -43,6 +46,19 @@
 
             $log.log('starting angularjs app...');
 
+            $rootScope.authentication = {
+                isAuthorized: false,
+                userName: ''
+            };
+
+            var token = sessionStorage.getItem('accessToken');
+            if (token) {
+                $rootScope.authentication.isAuthorized = true;
+            }
+            var userName = sessionStorage.getItem('userName');
+            if (userName) {
+                $rootScope.authentication.userName = userName;
+            }
 
             $rootScope.powHub = $.connection.powHub;
             $rootScope.powHub.client.ErrorSendMessage = function () {

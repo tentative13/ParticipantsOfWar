@@ -213,7 +213,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BLL\ArchiveRepository.cs" />
     <Compile Include="BLL\IArchiveRepository.cs" />
-    <Compile Include="Challenge\ChallengeResult.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -224,6 +223,7 @@
     <Compile Include="Dto\ParticipantTypeDto.cs" />
     <Compile Include="Dto\PhotoDto.cs" />
     <Compile Include="Dto\TableFilter.cs" />
+    <Compile Include="Filters\RequireHttpsAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -233,7 +233,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="DAL\ArchiveContext.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\Extensions.cs" />
@@ -251,6 +250,7 @@
     <Content Include="App_Front\animation\slider_animation.js" />
     <Content Include="App_Front\controllers\pow_detail_controller.js" />
     <Content Include="App_Front\directives\common_directives.js" />
+    <Content Include="App_Front\services\authInterceptorService.js" />
     <Content Include="App_Front\services\common_factories.js" />
     <Content Include="App_Front\views\Participants_details.html" />
     <Content Include="Content\bootstrap-theme.css" />
