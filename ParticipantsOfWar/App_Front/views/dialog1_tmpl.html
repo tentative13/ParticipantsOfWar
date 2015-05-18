@@ -1,0 +1,36 @@
+﻿<md-dialog aria-label="Authorization" style="height:300px;width:570px;">
+    <form >
+        <md-dialog-content class="sticky-container">
+            <md-subheader class="md-sticky-no-effect">Книга памяти жителей Кудымкарского района</md-subheader>
+            <div layout="column" layout-margin layout-align="space-around start" style="width: 100%; padding-left: 30pt; padding-top:25pt; height:80%">
+                <div layout="row" layout-margin layout-align="space-around start">
+                    <div>
+                        <ng-md-icon icon="perm_identity" style="fill:rgb(141,110,99);" size="32"></ng-md-icon>
+                    </div>
+                    <div>
+                        <input ng-model="login" class="loginIn" placeholder="Пользователь" value="">
+                    </div>
+                </div>
+                <div layout="row" layout-margin layout-align="space-around start">
+                    <div>
+                        <ng-md-icon icon="lock_open" style="fill:rgb(141,110,99);" size="32"></ng-md-icon>
+                    </div>
+                    <div>
+                        <input ng-model="password" class="loginIn" placeholder="Пароль" type="password" value="">
+                    </div>
+                </div>
+                <div layout="row" layout-margin layout-align="space-between start" >
+                    <div flex="15">
+                        <md-button ng-click="onloginClick()" class="md-raised md-primary">&nbsp;&nbsp;Войти&nbsp;&nbsp;</md-button>
+                    </div>
+                    <div flex="15">
+                        <md-button ng-click="oncancelClick()" class="md-raised md-primary">Отмена</md-button>
+                    </div>
+                </div>
+                <div class="validation-summary-errors" ng-show="valid_error">
+                    Неверное имя пользователя или пароль
+                </div>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>

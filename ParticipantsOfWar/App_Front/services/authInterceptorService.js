@@ -5,7 +5,7 @@
         '$q', '$rootScope', '$log', function ($q, $rootScope, $log) {
             return {
                 request: function (config) {
-                    //$rootScope.loadingClass = 'block-displ';
+                    //$rootScope.loadingClass = 'loader';
                     config.headers = config.headers || {};
                     var token = sessionStorage.getItem('accessToken');
                     if (token) {
@@ -28,12 +28,7 @@
 
                     if (rejection.status === 403 || rejection.status === 401) {
                         $log.warn(rejection.status, rejection.data);
-                        //$mdToast.show(
-                        //   $mdToast.simple()
-                        //     .content('У Вас недостаточно прав на выполение данной операции')
-                        //     .position('top right')
-                        //     .hideDelay(3000)
-                        // );
+                        $rootScope.showSimpleToast('У Вас недостаточно прав на выполение данной операции!');
                     }
 
                     return $q.reject(rejection);

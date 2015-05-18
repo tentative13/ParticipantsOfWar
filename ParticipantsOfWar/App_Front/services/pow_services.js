@@ -5,6 +5,24 @@
 
         var url = 'api/Participants';
 
+        this.LogIn = function (login, password) {
+            return $http({
+                method: 'POST',
+                url: '/Token',
+                data: "userName=" + login + "&password=" + password + "&grant_type=password"
+            }).success(function (data, status) {
+                $log.info('LogIn', status);
+                // Cache the access token in session storage.
+                sessionStorage.setItem('accessToken', data.access_token);
+                sessionStorage.setItem('userName', data.userName);
+                $rootScope.authentication.isAuthorized = true;
+                $rootScope.authentication.userName = data.userName;
+            }).error(function (data, status) {
+                $log.error('LogIn', status, data);
+                $rootScope.authentication.isAuthorized = false;
+            });
+        };
+
         this.getTypes = function (callback) {
             $http({
                 method: 'GET',

@@ -252,6 +252,7 @@
     <Content Include="App_Front\directives\common_directives.js" />
     <Content Include="App_Front\services\authInterceptorService.js" />
     <Content Include="App_Front\services\common_factories.js" />
+    <Content Include="App_Front\views\dialog1_tmpl.html" />
     <Content Include="App_Front\views\Participants_details.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -324,6 +325,7 @@
     <Content Include="Scripts\angular-csp.css" />
     <Content Include="Scripts\angular-loader.js" />
     <Content Include="Scripts\angular-loader.min.js" />
+    <Content Include="Scripts\angular-material-icons.min.js" />
     <Content Include="Scripts\angular-material.js" />
     <Content Include="Scripts\angular-material.min.js" />
     <Content Include="Scripts\angular-messages.js" />

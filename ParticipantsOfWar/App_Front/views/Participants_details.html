@@ -4,7 +4,7 @@
             <md-button class="md-raised md-primary" ng-click="handlers.onGetBackClick()">&nbsp;&nbsp;Вернуться&nbsp;&nbsp;</md-button>
         </div>
         <div flex="60"></div>
-        <div flex="20" style="text-align:right">
+        <div flex="20" style="text-align:right" ng-if="authentication.isAuthorized">
             <md-button class="md-raised md-primary" ng-hide="editMode" ng-click="handlers.onEditClick()">&nbsp;&nbsp;Редактировать&nbsp;&nbsp;</md-button>
             <md-button class="md-raised md-primary" ng-show="editMode" ng-click="handlers.onSaveClick()">&nbsp;&nbsp;Сохранить&nbsp;&nbsp;</md-button>
             <md-button class="md-raised md-primary" ng-show="editMode" ng-click="handlers.onCancelClick()">&nbsp;&nbsp;Отменить&nbsp;&nbsp;</md-button>

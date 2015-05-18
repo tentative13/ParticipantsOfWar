@@ -110,15 +110,6 @@
         };
         $scope.addSlides();
 
-        $scope.showSimpleToast = function (text) {
-            $mdToast.show(
-              $mdToast.simple()
-                .content(text)
-                .position('top right')
-                .hideDelay(3000)
-            );
-        };
-
         $scope.handlers = {
             onGetBackClick: function () {
                 this.onCancelClick();
@@ -150,16 +141,16 @@
 
                 //validation
                 if (typeof $scope.new_record.surname === "undefined") {
-                    $scope.showSimpleToast('Не задана фамилия!');
+                    $rootScope.showSimpleToast('Не задана фамилия!');
                     return;
                 }
 
                 if ($scope.new_record.surname && $scope.new_record.surname.length == 0) {
-                    $scope.showSimpleToast('Не задана фамилия!');
+                    $rootScope.showSimpleToast('Не задана фамилия!');
                     return;
                 }
                 if ($scope.new_record.type.value <= 0) {
-                    $scope.showSimpleToast('Не установлен статус!');
+                    $rootScope.showSimpleToast('Не установлен статус!');
                     return;
                 }
 

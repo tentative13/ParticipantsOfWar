@@ -477,3 +477,26 @@ NAV
     flex: auto;
     background-color: black;
 }
+
+.md-subheader.md-default-theme  {
+  background-color: rgb(141,110,99);
+  color:white;
+  text-align:center;
+  margin: 0; }
+
+.loginIn {
+  width: 370px;
+  height: 32px;
+  font-size: 14px;
+  background-color: #fff;
+  padding: 5px;
+    color: #d0d0d0;
+}
+
+
+.validation-summary-errors {
+      margin-left: 10px;
+  font-size: 12px;
+  color: #b94a48;
+}
+

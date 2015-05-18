@@ -8,7 +8,8 @@
             'ui.date',
             'ngFileUpload',
             'ngAnimate',
-            'ngMessages'
+            'ngMessages',
+            'ngMdIcons'
        ])
        .config(
        [
@@ -42,7 +43,7 @@
                 $compileProvider.aHrefSanitizationWhitelist(/^\s*(|unsafe|http|blob|):/);
             }
        ])
-       .run(['$log', '$rootScope', 'participantsVM', function ($log, $rootScope, participantsVM) {
+       .run(['$log', '$rootScope', 'participantsVM', '$mdToast', function ($log, $rootScope, participantsVM, $mdToast) {
 
             $log.log('starting angularjs app...');
 
@@ -116,6 +117,17 @@
 
                 }, 20000); // Restart connection after 20 seconds.
             });
+
+            $rootScope.showSimpleToast = function (text) {
+                $mdToast.show(
+                  $mdToast.simple()
+                    .content(text)
+                    .position('top right')
+                    .hideDelay(3000)
+                );
+            };
+
+
         }
        ]);
 })();
