@@ -47,6 +47,9 @@
 
             $log.log('starting angularjs app...');
 
+            $rootScope.loadingClass = '';
+            $rootScope.loader_text = '';
+
             $rootScope.authentication = {
                 isAuthorized: false,
                 userName: ''

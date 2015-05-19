@@ -43,6 +43,12 @@
         <div flex="5"></div>
         <div flex="90">
             <div ui-view></div>
+            <div transfer-loading class="loading-div" ng-class="loadingClass">
+                <md-progress-circular md-mode="indeterminate" md-diameter="50" class="loading-spiner"></md-progress-circular>
+                <div class="loading-text-container">
+                    <div class="text-container">{{loader_text}}</div>
+                </div>
+            </div>
         </div>
         <div flex="5"></div>
     </div>
