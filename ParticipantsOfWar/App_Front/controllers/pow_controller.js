@@ -37,16 +37,20 @@
                         locals: { participantsService: participantsService },
                         controller: function DialogController($scope, $mdDialog, participantsService) {
                             $scope.valid_error = false;
+                            $scope.login_loader = false;
                             $scope.onloginClick = function () {
+                                $scope.login_loader = true;
                                 participantsService.LogIn($scope.login, $scope.password)
                                 .then(
                                     function () {
                                         //auth ok
                                         $mdDialog.hide();
+                                        $scope.login_loader = false;
                                     },
                                     function () {
                                         //auth not ok
                                         $scope.valid_error = true;
+                                        $scope.login_loader = false;
                                     });
                             };
                             $scope.oncancelClick = function () {

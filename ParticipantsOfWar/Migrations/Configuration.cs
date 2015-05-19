@@ -33,8 +33,21 @@ namespace ParticipantsOfWar.Migrations
                 context.SaveChanges();
 
 
+                var user = new ApplicationUser();
+                user.Email="publisher@publisher.com";
+                user.EmailConfirmed=true;
+                user.Id="8e5f38f9-a130-4959-8384-afdd39c5fd00";
+                user.PasswordHash="AO8s6q7m52G4E21wbtzomj0xE8Ffe8taWQhx1+EHlm5CgKUgaFgzFYMd9LY2SOCafA==";
+                user.SecurityStamp="a29d580d-cc02-4cdf-8b96-557dc15e9034";
+                user.TwoFactorEnabled=false;
+                user.LockoutEnabled=false;
+                user.UserName="publisher";
+                context.Users.Add(user);
+                context.SaveChanges();
 
-                var p = new List<Participant>
+
+
+            var p = new List<Participant>
             {
             new Participant
             {                
