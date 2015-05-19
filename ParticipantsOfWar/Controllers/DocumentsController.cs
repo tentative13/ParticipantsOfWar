@@ -28,6 +28,7 @@ namespace ParticipantsOfWar.Controllers
             _archiveRepo = archiveRepo;
         }
 
+        [AllowAnonymous]
         [Route("GetPhoto/{id:guid}")]
         public HttpResponseMessage GetPhoto(Guid id)
         {
@@ -51,6 +52,7 @@ namespace ParticipantsOfWar.Controllers
             return response;
         }
 
+        [AllowAnonymous]
         [Route("GetDocument/{id:guid}")]
         public HttpResponseMessage GetDocument(Guid id)
         {
@@ -75,6 +77,7 @@ namespace ParticipantsOfWar.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ResponseType(typeof(PhotoDto[]))]
         [Route("UploadPhoto")]
         public IHttpActionResult UploadPhoto()
@@ -127,6 +130,7 @@ namespace ParticipantsOfWar.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ResponseType(typeof(DocumentsDto[]))]
         [Route("UploadDocument")]
         public IHttpActionResult UploadDocument()
@@ -178,8 +182,8 @@ namespace ParticipantsOfWar.Controllers
             return Ok(response.ToArray());
         }
 
-
         [HttpDelete]
+        [Authorize]
         [Route("DeleteDocument/{id:guid}")]
         public IHttpActionResult DeleteDocument(Guid id)
         {
@@ -199,6 +203,7 @@ namespace ParticipantsOfWar.Controllers
         }
 
         [HttpDelete]
+        [Authorize]
         [Route("DeletePhoto/{id:guid}")]
         public IHttpActionResult DeletePhoto(Guid id)
         {
