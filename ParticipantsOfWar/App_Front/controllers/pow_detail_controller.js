@@ -69,11 +69,9 @@
         };
         $scope.uploadFiles = function (participant) {
             if ($scope.photoFile && $scope.photoFile.length && participant && participant.guid) {
-                //todo start loader
                 for (var i = 0; i < $scope.photoFile.length; i++) {
                     var file = $scope.photoFile[i];
                     participantsService.UploadPhoto(file, participant.guid, function (data) {
-                        //todo disable loader
                         $log.info('participantsService.UploadPhoto success', data);
                         angular.forEach(data, function (item) {
                             participant.photos.push(item);
@@ -87,11 +85,9 @@
 
 
             if ($scope.docFile && $scope.docFile.length && participant && participant.guid) {
-                //todo start loader
                 for (var i = 0; i < $scope.docFile.length; i++) {
                     var file = $scope.docFile[i];
                     participantsService.UploadDocument(file, participant.guid, function (data) {
-                        //todo disable loader
                         $log.info('participantsService.UploadDocument success', data);
                         angular.forEach(data, function (item) {
                             participant.documents.push(item);
@@ -109,15 +105,6 @@
             }
         };
         $scope.addSlides();
-
-        $scope.showSimpleToast = function (text) {
-            $mdToast.show(
-              $mdToast.simple()
-                .content(text)
-                .position('top right')
-                .hideDelay(3000)
-            );
-        };
 
         $scope.handlers = {
             onGetBackClick: function () {
@@ -150,22 +137,20 @@
 
                 //validation
                 if (typeof $scope.new_record.surname === "undefined") {
-                    $scope.showSimpleToast('Не задана фамилия!');
+                    $rootScope.showSimpleToast('Не задана фамилия!');
                     return;
                 }
 
                 if ($scope.new_record.surname && $scope.new_record.surname.length == 0) {
-                    $scope.showSimpleToast('Не задана фамилия!');
+                    $rootScope.showSimpleToast('Не задана фамилия!');
                     return;
                 }
                 if ($scope.new_record.type.value <= 0) {
-                    $scope.showSimpleToast('Не установлен статус!');
+                    $rootScope.showSimpleToast('Не установлен статус!');
                     return;
                 }
 
-
-                //todo start loader
-                $rootScope.editMode = false;//todo move to success, add loader
+                
 
                 if ($scope.new_record.birthday) {
                     $scope.new_record.birthday = (new Date($scope.new_record.birthday)).toJSON();
@@ -177,10 +162,11 @@
                     $scope.death_str = DateToStr($scope.new_record.deathday);
                 }
 
+                
                 if ($rootScope.createMode === true) {
                     participantsService.createParticipant($scope.new_record, function (data) {
-                        //todo disable loader
                         $log.info('success createParticipant');
+                        $rootScope.editMode = false;
                         $scope.participant = angular.copy(data);
                         $scope.new_record = {};
                         $scope.participant.photos = [];
@@ -192,7 +178,7 @@
                 }
                 else{
                     participantsService.updateParticipant($scope.new_record.guid, $scope.new_record, function () {
-                        //todo disable loader
+                        $rootScope.editMode = false;
                         $log.info('success update participant');
                         $scope.participant = angular.copy($scope.new_record);
                         $scope.new_record = {};

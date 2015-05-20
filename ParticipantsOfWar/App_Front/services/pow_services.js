@@ -5,7 +5,27 @@
 
         var url = 'api/Participants';
 
+        this.LogIn = function (login, password) {
+            return $http({
+                method: 'POST',
+                url: '/Token',
+                data: "userName=" + login + "&password=" + password + "&grant_type=password"
+            }).success(function (data, status) {
+                $log.info('LogIn', status);
+                // Cache the access token in session storage.
+                sessionStorage.setItem('accessToken', data.access_token);
+                sessionStorage.setItem('userName', data.userName);
+                $rootScope.authentication.isAuthorized = true;
+                $rootScope.authentication.userName = data.userName;
+            }).error(function (data, status) {
+                $log.error('LogIn', status, data);
+                $rootScope.showSimpleToast('Ошибка авторизации!');
+                $rootScope.authentication.isAuthorized = false;
+            });
+        };
+
         this.getTypes = function (callback) {
+            $rootScope.loader_text = 'Получаем данные...';
             $http({
                 method: 'GET',
                 url: url + '/GetTypes'
@@ -15,10 +35,12 @@
             }).
             error(function (data, status, headers, config) {
                 $log.error('GetTypes', status, data);
+                $rootScope.showSimpleToast('Ошибка получения данных!');
             });
         };
         //move to $resource
         this.updateParticipant = function (id, item, callback) {
+            $rootScope.loader_text = 'Обновляем запись...';
             $http({
                 method: 'PUT',
                 url: url + '/' + id,
@@ -30,10 +52,12 @@
             }).
             error(function (data, status, headers, config) {
                 $log.error('updateParticipant', status, data);
+                $rootScope.showSimpleToast('Ошибка получения данных!');
             });
         };
         //move to $resource
         this.createParticipant = function (item, callback) {
+            $rootScope.loader_text = 'Сохраняем запись...';
             $http({
                 method: 'POST',
                 url: url,
@@ -45,14 +69,13 @@
             }).
             error(function (data, status, headers, config) {
                 $log.error('createParticipant', status, data);
+                $rootScope.showSimpleToast('Ошибка получения данных!');
             });
         };
-
 
         this.getDocument = function (documentid) {
             window.location.href = 'api/Documents/GetDocument/' + documentid;
         };
-
         this.getParticipants = function (filter, number) {
             return $rootScope.powHub.server.getParticipants(filter, number);
         };
@@ -67,10 +90,12 @@
         };
 
         this.UploadDocument = function (file, guid, callback) {
+            $rootScope.loader_text = 'Загружаем документы...';
             this.UploadFile('api/Documents/UploadDocument', file, guid, callback);
         };
 
         this.UploadPhoto = function (file, guid, callback) {
+            $rootScope.loader_text = 'Загружаем фотографии...';
             this.UploadFile('api/Documents/UploadPhoto', file, guid, callback);
         };
 
@@ -89,12 +114,12 @@
                 callback(data);
             }).error(function (data, status, headers, config) {
                 $log.error('Upload error', status, data, headers, config);
+                $rootScope.showSimpleToast('Ошибка получения данных!');
             });
 
         };
 
         this.TimeZoneFixer = function (item) {
-
             if (typeof item.birthday != "undefined" && (item.birthday instanceof Date)) {
                 var offset = new Date().getTimezoneOffset();
                 offset = (offset / 60) * (-1);
@@ -103,6 +128,7 @@
         };
 
         this.deleteDocument = function (id, callback) {
+            $rootScope.loader_text = 'Удаляем документы...';
             return $http({
                 url: 'api/Documents/DeleteDocument/' + id,
                 method: 'delete'
@@ -113,11 +139,13 @@
             })
             .error(function (data, status) {
                 $log.error('deleteDocument', status, data);
+                $rootScope.showSimpleToast('Ошибка удаления данных!');
             });
         };
 
 
         this.deletePhoto = function (id, callback) {
+            $rootScope.loader_text = 'Удаляем фотографии...';
             return $http({
                 url: 'api/Documents/DeletePhoto/' + id,
                 method: 'delete'
@@ -128,6 +156,7 @@
             })
             .error(function (data, status) {
                 $log.error('deletePhoto', status, data);
+                $rootScope.showSimpleToast('Ошибка удаления данных!');
             });
         };
 

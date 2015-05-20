@@ -8,14 +8,18 @@
             'ui.date',
             'ngFileUpload',
             'ngAnimate',
-            'ngMessages'
+            'ngMessages',
+            'ngMdIcons'
        ])
        .config(
        [
             '$stateProvider',
             '$urlRouterProvider',
             '$compileProvider',
-            function ($stateProvider, $urlRouterProvider, $compileProvider) {
+            '$httpProvider',
+            function ($stateProvider, $urlRouterProvider, $compileProvider, $httpProvider) {
+
+                $httpProvider.interceptors.push('authInterceptorService');
 
                 $urlRouterProvider.otherwise("/participants");
 
@@ -39,10 +43,26 @@
                 $compileProvider.aHrefSanitizationWhitelist(/^\s*(|unsafe|http|blob|):/);
             }
        ])
-       .run(['$log', '$rootScope', 'participantsVM', function ($log, $rootScope, participantsVM) {
+       .run(['$log', '$rootScope', 'participantsVM', '$mdToast', function ($log, $rootScope, participantsVM, $mdToast) {
 
             $log.log('starting angularjs app...');
 
+            $rootScope.loadingClass = '';
+            $rootScope.loader_text = '';
+
+            $rootScope.authentication = {
+                isAuthorized: false,
+                userName: ''
+            };
+
+            var token = sessionStorage.getItem('accessToken');
+            if (token) {
+                $rootScope.authentication.isAuthorized = true;
+            }
+            var userName = sessionStorage.getItem('userName');
+            if (userName) {
+                $rootScope.authentication.userName = userName;
+            }
 
             $rootScope.powHub = $.connection.powHub;
             $rootScope.powHub.client.ErrorSendMessage = function () {
@@ -100,6 +120,17 @@
 
                 }, 20000); // Restart connection after 20 seconds.
             });
+
+            $rootScope.showSimpleToast = function (text) {
+                $mdToast.show(
+                  $mdToast.simple()
+                    .content(text)
+                    .position('top right')
+                    .hideDelay(3000)
+                );
+            };
+
+
         }
        ]);
 })();

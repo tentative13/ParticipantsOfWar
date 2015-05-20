@@ -25,6 +25,7 @@ namespace ParticipantsOfWar.Controllers
             _archiveRepo = archiveRepo;
         }
 
+        [AllowAnonymous]
         [Route("GetTypes")]
         [ResponseType(typeof(ParticipantTypeDto[]))]
         public HttpResponseMessage GetAllTypes()
@@ -42,6 +43,7 @@ namespace ParticipantsOfWar.Controllers
         }
 
         // GET: api/Participants/5
+        [AllowAnonymous]
         [ResponseType(typeof(ParticipantsDto))]
         public IHttpActionResult GetParticipant(Guid id)
         {
@@ -51,6 +53,7 @@ namespace ParticipantsOfWar.Controllers
         }
 
         // PUT: api/Participants/5
+        [Authorize]
         public IHttpActionResult PutParticipant(Guid id, ParticipantsDto participant)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -117,6 +120,7 @@ namespace ParticipantsOfWar.Controllers
 
         // POST: api/Participants
         [HttpPost]
+        [Authorize]
         [ResponseType(typeof(ParticipantsDto))]
         public IHttpActionResult PostParticipant(ParticipantsDto participant)
         {
