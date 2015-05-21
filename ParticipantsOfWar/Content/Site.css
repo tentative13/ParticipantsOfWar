@@ -298,6 +298,14 @@ md-grid-tile {
 	background: url("../Content/images/ico_photo.png") no-repeat;
 	background-size: 18px 18px;
 }
+.BtnUnknown{
+	width: 18px;
+	height: 18px;
+	float: left;
+	margin-left: 10px;
+	background: url("../Content/images/ico_unknown.png") no-repeat;
+	background-size: 18px 18px;
+}
 
 .BtnXml {
 	width: 18px;

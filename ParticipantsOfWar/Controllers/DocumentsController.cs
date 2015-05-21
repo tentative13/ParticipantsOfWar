@@ -9,12 +9,10 @@ using ParticipantsOfWar.Models;
 using ParticipantsOfWar.BLL;
 using ParticipantsOfWar.Dto;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.IO;
 using System.Web;
-using System.Collections.Specialized;
 
 namespace ParticipantsOfWar.Controllers
 {
@@ -63,9 +61,11 @@ namespace ParticipantsOfWar.Controllers
 
             try
             {
+                string filename = doc.DocumentName + doc.Extension;
                 response.Content = new StreamContent(new MemoryStream(doc.DocumentBytes));
                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                response.Content.Headers.ContentDisposition.FileName = doc.DocumentName + doc.Extension;
+                response.Content.Headers.ContentDisposition.FileName = HttpContext.Current.Server.UrlEncode(filename);
+             
             }
             catch (FileNotFoundException)
             {
@@ -162,8 +162,17 @@ namespace ParticipantsOfWar.Controllers
                     Document newdoc = new Document();
 
                     newdoc.DocumentBytes = data;
-                    newdoc.DocumentName = file.FileName;
-                    newdoc.Extension = '.' + file.FileName.Split('.')[1];
+
+                    if (file.FileName.LastIndexOf('.') > 0)
+                    {
+                        int index = file.FileName.LastIndexOf('.');
+                        newdoc.DocumentName = file.FileName.Substring(0, index);
+                        newdoc.Extension = file.FileName.Substring(index, file.FileName.Length - index);
+                    }
+                    else
+                    {
+                        newdoc.DocumentName = file.FileName;
+                    }
 
                     _archiveRepo.Add<Document>(newdoc);
                     participant.Documents.Add(newdoc);

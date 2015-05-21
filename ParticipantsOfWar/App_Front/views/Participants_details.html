@@ -235,9 +235,17 @@
                 <div>
                     <div layout="row" layout-align="start center" layout-padding ng-repeat="item in participant.documents">
                         <div style="width:35px">
-                            <div ng-show="item.extension == '.docx' || item.extension == '.doc'" title="Сохранить в .docx" class="BtnWord" ng-click="handlers.GetDocument(item.documentId)"></div>
-                            <div ng-show="item.extension == '.pdf'" title="Сохранить в .pdf" class="BtnPdf" ng-click="handlers.GetDocument(item.documentId)"></div>
-                            <div ng-show="item.extension == '.jpg' || item.extension == '.jpeg' || item.extension == '.png'  " title="Сохранить в .pdf" class="BtnPhoto" ng-click="handlers.GetDocument(item.documentId)"></div>
+                            <div ng-switch="item.extension">
+                                <div ng-switch-when=".docx" title="Сохранить в .docx" class="BtnWord" ng-click="handlers.GetDocument(item.documentId)"></div>
+                                <div ng-switch-when=".doc" title="Сохранить в .doc" class="BtnWord" ng-click="handlers.GetDocument(item.documentId)"></div>
+                                <div ng-switch-when=".pdf" title="Сохранить в .pdf" class="BtnPdf" ng-click="handlers.GetDocument(item.documentId)"></div>
+                                <div ng-switch-when=".jpg" title="Сохранить в .jpg" class="BtnPhoto" ng-click="handlers.GetDocument(item.documentId)"></div>
+                                <div ng-switch-when=".jpeg" title="Сохранить в .jpeg" class="BtnPhoto" ng-click="handlers.GetDocument(item.documentId)"></div>
+                                <div ng-switch-when=".png" title="Сохранить в .png" class="BtnPhoto" ng-click="handlers.GetDocument(item.documentId)"></div>
+                                <div ng-switch-when=".bmp" title="Сохранить в .bmp" class="BtnPhoto" ng-click="handlers.GetDocument(item.documentId)"></div>
+                                <div ng-switch-when=".xml" title="Сохранить в .xml" class="BtnXml" ng-click="handlers.GetDocument(item.documentId)"></div>
+                                <div ng-switch-default title="Сохранить файл" class="BtnUnknown" ng-click="handlers.GetDocument(item.documentId)"></div>
+                            </div>
                         </div>
                         <div>
                             <a ng-click="handlers.GetDocument(item.documentId)" ng-class="{deletefile:handlers.isDocDeleted(item)}">{{item.name}}</a>
