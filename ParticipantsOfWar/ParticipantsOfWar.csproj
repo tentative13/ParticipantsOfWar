@@ -250,6 +250,7 @@
     <Content Include="App_Front\animation\slider_animation.js" />
     <Content Include="App_Front\controllers\pow_detail_controller.js" />
     <Content Include="App_Front\directives\common_directives.js" />
+    <Content Include="App_Front\filters\common_filters.js" />
     <Content Include="App_Front\services\authInterceptorService.js" />
     <Content Include="App_Front\services\common_factories.js" />
     <Content Include="App_Front\views\dialog1_tmpl.html" />

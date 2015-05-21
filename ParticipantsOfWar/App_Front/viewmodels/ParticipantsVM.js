@@ -13,6 +13,7 @@
 
         self.GetPageParticipants = function (filter, number) {
             $log.info('calling getParticipants');
+            $rootScope.table_loader = false;
             participantsService.getParticipants(filter, number)
                 .done(function (data) {
                     $log.log('getParticipants recieved data:', data);
@@ -22,7 +23,10 @@
                     });
                     $rootScope.table_loader = true;
                     $rootScope.$apply();
-            });
+                })
+                .fail(function () {
+                    $rootScope.table_loader = true;
+                });
         };
         
         self.GetTotalFilteredParticipants = function (filter) {
@@ -37,8 +41,10 @@
 
         self.GetAllParticipants = function (filter) {
             $log.info('calling getAllParticipants');
+            $rootScope.table_loader = false;
             participantsService.getAllParticipants(filter)
                 .done(function (data) {
+                    $rootScope.table_loader = true;
                     $log.log('getAllParticipants recieved data:', data);
                     angular.forEach(data, function (item) {
                         var check = $.grep(self.Participants, function (f) { return f.guid == item.guid; });
@@ -46,6 +52,9 @@
 
                     });
                     $rootScope.$apply();
+                })
+                .fail(function () {
+                    $rootScope.table_loader = true;
                 });
         };
 

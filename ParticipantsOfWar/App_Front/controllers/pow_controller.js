@@ -58,6 +58,16 @@
                             };
                         }
                     })
+                },
+                shortedCheck: function (item) {
+
+                    if (item.length > 1000) return true;
+
+                    var crlfCount = item.match(/[\n\r]|[\r\n]/g);
+
+                    if (crlfCount && crlfCount.length > 5) return true;
+
+                    return false;
                 }
 
             };

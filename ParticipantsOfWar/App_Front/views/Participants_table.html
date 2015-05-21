@@ -33,8 +33,8 @@
                     <div class="icon-delete" title="Очистить поле" ng-click="filter.middlename=''">&times;</div>
                 </td>
                 <td>
-                    <input class="input-filter" type="date" ng-model="filter.birthday" ng-change="handlers.onDateInputChange()" />
-                      <div class="icon-delete" title="Очистить поле" ng-click="filter.birthday=undefined">&times;</div>
+                    <input ui-date="dateOptions" class="input-filter" ng-model="filter.birthday" ng-change="handlers.onDateInputChange()">
+                    <div class="icon-delete" title="Очистить поле" ng-click="filter.birthday=undefined">&times;</div>
                 </td>
                 &nbsp;
             </tr>
@@ -78,14 +78,6 @@
             </tr>
         </table>
 
-        <div ng-hide="table_loader">
-            &nbsp;
-            <div layout="row" layout-sm="column" layout-align="space-around">
-                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
-            </div>
-            &nbsp;
-        </div>
-
         <table class="Repeater">
             <col width="12%" />
             <col width="26%" />
@@ -117,13 +109,13 @@
                         <div layout="column">
                             <div layout="row" layout-wrap>
                                 <div flex="30"><img ng-src="api/Documents/GetPhoto/{{item.photos[0].photoId}}" alt="Фотография" style="width:auto; height:auto; max-height:200px; " /></div>
-                                <div flex="70">Биография: {{ item.description }}</div>
+                                <div flex="70" style="white-space: pre-wrap;text-align: justify;text-justify:distribute;"><b>Биография:</b>&nbsp;{{ item.description | shortTextToLines:5 }}<p style="display : inline;" ng-show="handlers.shortedCheck(item.description)">(см. подробнее)...</p></div>
                             </div>
                             <div>&nbsp;</div>
                             <div layout="row" layout-wrap>
                                 <div flex="90"></div>
-                                <div flex="10">
-                                    <md-button class="md-raised md-primary" ng-click="handlers.onDocumentClick(item)">&nbsp;&nbsp;Документы&nbsp;&nbsp;</md-button>
+                                <div flex="10" style="margin-bottom:10px;">
+                                    <md-button class="md-raised md-primary" ng-click="handlers.onDocumentClick(item)">&nbsp;&nbsp;Подбробнее&nbsp;&nbsp;</md-button>
                                 </div>
                             </div>
                         </div>
@@ -132,6 +124,14 @@
             </tbody>
         </table>
         
+        <div ng-hide="table_loader">
+            &nbsp;
+            <div layout="row" layout-sm="column" layout-align="space-around">
+                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </div>
+            &nbsp;
+        </div>
+
         <div layout="row">
             <p style="width:100%; text-align:center; margin:0 auto;">
                 <a ng-href="" ng-repeat="letter in alphabet" ng-click="handlers.letterFilter(letter)">&nbsp;<b>{{letter}}</b>&nbsp;</a>

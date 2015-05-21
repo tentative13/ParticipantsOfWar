@@ -13,12 +13,6 @@
         $timeout(function () {
             $scope.new_record.type = $scope.types[1];
         }, 50);
-        $scope.dateOptions = {
-            changeYear: true,
-            changeMonth: true,
-            yearRange: '1900:-0',
-            dateFormat: 'dd.mm.yy'
-        };
         $scope.docFile = [];
         $scope.photoFile = [];
         $scope.docForDelete = [];

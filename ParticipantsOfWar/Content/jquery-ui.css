@@ -852,13 +852,13 @@ body .ui-tooltip {
 	color: #333333;
 }
 .ui-widget-header {
-	border: 1px solid #e78f08;
-	background: #f6a828 url("images/ui-bg_gloss-wave_35_f6a828_500x100.png") 50% 50% repeat-x;
-	color: #ffffff;
+	border: 1px solid rgb(141,110,99);
+	background: rgb(141,110,99); 
+	color:  black;
 	font-weight: bold;
 }
 .ui-widget-header a {
-	color: #ffffff;
+	color: rgb(141,110,99);
 }
 
 /* Interaction states

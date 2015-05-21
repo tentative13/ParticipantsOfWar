@@ -70,7 +70,7 @@
             }
 
             $.connection.hub.error(function (error) { $log.warn('SignalR error: ', error) });
-
+            $.connection.hub.logging = true;
             $.connection.hub.start()
                 .done(function () {
                     $rootScope.signalrConnectionId = $.connection.hub.id;
@@ -130,6 +130,17 @@
                 );
             };
 
+
+            $rootScope.dateOptions = {
+                changeYear: true,
+                changeMonth: true,
+                yearRange: '1900:-0',
+                dateFormat: 'dd.mm.yy',
+                firstDay: 1,
+                dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
+                dayNamesMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+                monthNamesShort: ["Янв", "Фев", "Март", "Апр", "Май", "Июнь", "Июль", "Авг", "Сеп", "Окт", "Нояб", "Дек"]
+            };
 
         }
        ]);

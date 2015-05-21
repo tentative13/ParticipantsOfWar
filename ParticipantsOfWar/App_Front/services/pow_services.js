@@ -12,7 +12,6 @@
                 data: "userName=" + login + "&password=" + password + "&grant_type=password"
             }).success(function (data, status) {
                 $log.info('LogIn', status);
-                // Cache the access token in session storage.
                 sessionStorage.setItem('accessToken', data.access_token);
                 sessionStorage.setItem('userName', data.userName);
                 $rootScope.authentication.isAuthorized = true;
@@ -23,7 +22,6 @@
                 $rootScope.authentication.isAuthorized = false;
             });
         };
-
         this.getTypes = function (callback) {
             $rootScope.loader_text = 'Получаем данные...';
             $http({
@@ -38,7 +36,6 @@
                 $rootScope.showSimpleToast('Ошибка получения данных!');
             });
         };
-        //move to $resource
         this.updateParticipant = function (id, item, callback) {
             $rootScope.loader_text = 'Обновляем запись...';
             $http({
@@ -55,7 +52,6 @@
                 $rootScope.showSimpleToast('Ошибка получения данных!');
             });
         };
-        //move to $resource
         this.createParticipant = function (item, callback) {
             $rootScope.loader_text = 'Сохраняем запись...';
             $http({
@@ -72,10 +68,10 @@
                 $rootScope.showSimpleToast('Ошибка получения данных!');
             });
         };
-
         this.getDocument = function (documentid) {
             window.location.href = 'api/Documents/GetDocument/' + documentid;
         };
+
         this.getParticipants = function (filter, number) {
             return $rootScope.powHub.server.getParticipants(filter, number);
         };
@@ -93,12 +89,10 @@
             $rootScope.loader_text = 'Загружаем документы...';
             this.UploadFile('api/Documents/UploadDocument', file, guid, callback);
         };
-
         this.UploadPhoto = function (file, guid, callback) {
             $rootScope.loader_text = 'Загружаем фотографии...';
             this.UploadFile('api/Documents/UploadPhoto', file, guid, callback);
         };
-
         this.UploadFile = function (url, file, guid, callback) {
             Upload.upload({
                 url: url,
@@ -118,7 +112,6 @@
             });
 
         };
-
         this.TimeZoneFixer = function (item) {
             if (typeof item.birthday != "undefined" && (item.birthday instanceof Date)) {
                 var offset = new Date().getTimezoneOffset();
@@ -126,7 +119,6 @@
                 item.birthday.setHours(item.birthday.getHours() + offset);
             }
         };
-
         this.deleteDocument = function (id, callback) {
             $rootScope.loader_text = 'Удаляем документы...';
             return $http({
@@ -142,8 +134,6 @@
                 $rootScope.showSimpleToast('Ошибка удаления данных!');
             });
         };
-
-
         this.deletePhoto = function (id, callback) {
             $rootScope.loader_text = 'Удаляем фотографии...';
             return $http({
@@ -159,7 +149,6 @@
                 $rootScope.showSimpleToast('Ошибка удаления данных!');
             });
         };
-
 
     }]);
 })();

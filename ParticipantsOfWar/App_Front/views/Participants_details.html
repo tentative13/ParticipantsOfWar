@@ -4,36 +4,43 @@
             <md-button class="md-raised md-primary" ng-click="handlers.onGetBackClick()">&nbsp;&nbsp;Вернуться&nbsp;&nbsp;</md-button>
         </div>
         <div flex="50"></div>
-        <div flex="30" style="text-align:right" ng-if="authentication.isAuthorized">
-            <md-button class="md-raised md-primary" ng-hide="editMode" ng-click="handlers.onEditClick()">&nbsp;&nbsp;Редактировать&nbsp;&nbsp;</md-button>
-            <md-button class="md-raised md-primary" ng-show="editMode" ng-click="handlers.onSaveClick()">&nbsp;&nbsp;Сохранить&nbsp;&nbsp;</md-button>
-            <md-button class="md-raised md-primary" ng-show="editMode" ng-click="handlers.onCancelClick()">&nbsp;&nbsp;Отменить&nbsp;&nbsp;</md-button>
+        <div flex="30"  ng-if="authentication.isAuthorized">
+            <div layout="row" layout-align="end center">
+                <div ng-show="editMode">
+                    <md-button class="md-raised md-primary" ng-click="handlers.onSaveClick()">&nbsp;&nbsp;Сохранить&nbsp;&nbsp;</md-button>
+                    <md-button class="md-raised md-primary" ng-click="handlers.onCancelClick()">&nbsp;&nbsp;Отменить&nbsp;&nbsp;</md-button>
+                </div>
+                <div ng-hide="editMode">
+                    <md-button class="md-raised md-primary" ng-click="handlers.onEditClick()">&nbsp;&nbsp;Редактировать&nbsp;&nbsp;</md-button>
+                </div>
+            </div>
+            
         </div>
     </div>
 
     <div layout="row" layout-margin layout-fill>
         <div flex="25" class="grid-tile">
             <div class="grid-tile" layout="column" layout-padding layout-align="space-around center">
-                
+                <div>
                     <div class="container slider">
                         <img ng-repeat="slide in photoSlider.slides" class="slide slide-animation nonDraggableImage"
                              ng-hide="!photoSlider.isCurrentSlideIndex($index)" ng-src="{{slide.image}}">
-                        <a class="arrow prev" href="#" ng-click="photoSlider.nextSlide()"></a>
-                        <a class="arrow next" href="#" ng-click="photoSlider.prevSlide()"></a>
+                        <a class="arrow prev" ng-click="photoSlider.nextSlide()"></a>
+                        <a class="arrow next" ng-click="photoSlider.prevSlide()"></a>
                         <nav class="nav">
                             <div class="wrapper">
                                 <ul class="dots">
                                     <li class="dot" ng-repeat="slide in photoSlider.slides">
-                                        <a href="#" ng-class="{'active':photoSlider.isCurrentSlideIndex($index)}"
+                                        <a ng-class="{'active':photoSlider.isCurrentSlideIndex($index)}"
                                            ng-click="photoSlider.setCurrentSlideIndex($index);">{{slide.description}}</a>
                                     </li>
                                 </ul>
                             </div>
                         </nav>
                     </div>
+                </div>
 
-                    <!--<img ng-src="api/Documents/GetPhoto/{{participant.photos[0].photoId}}" style="width:100%; max-width:300px; height:auto;" />-->
- 
+                 
                 <div flex="10" ng-show="editMode">
                     <md-divider style="width:90%;"></md-divider>
                     <br />
@@ -55,80 +62,133 @@
                         </tbody>
                     </table>
                 </div>
+
+                <div ng-show="editMode" style="margin: 5px 5px 5px 5px;width:90%">
+                    <div ngf-drop class="drop-box"
+                         ngf-drag-over-class="dragover"
+                         ngf-multiple="true"
+                         ngf-allow-dir="true"
+                         ngf-max-size='31457280'
+                         ngf-hide-on-drop-not-available="true"
+                         ngf-change="handlers.PhotoFileSelected($files, $event)"
+                         ngf-accept="'image/*'"><p style="padding-top:8%">Перетащите фотографии сюда, чтобы загрузить</p></div>
+                </div>
+
+                <div ng-show="editMode" style="text-align:center;margin: 10px 10px 10px 10px;">
+                    <md-button style="position:relative" class="md-raised md-primary" ng-show="editMode" type="file" accept="image/*" ngf-select ngf-change="handlers.PhotoFileSelected($files, $event)" ngf-multiple="false" ngf-max-size='31457280'>Добавить фотографию</md-button>
+                </div>
+
             </div>
-            <div flex="10" ng-show="editMode">
-                <div ngf-drop class="drop-box"
-                     ngf-drag-over-class="dragover"
-                     ngf-multiple="true"
-                     ngf-allow-dir="true"
-                     ngf-max-size='31457280'
-                     ngf-hide-on-drop-not-available="true"
-                     ngf-change="handlers.PhotoFileSelected($files, $event)"
-                     ngf-accept="'image/*'"><p>Перетащите фотографии сюда, чтобы загрузить</p></div>
-            </div>
-            <div flex="10" ng-show="editMode" style="text-align:center;">
-                <md-button style="position:relative" class="md-raised md-primary" ng-show="editMode" type="file" accept="image/*" ngf-select ngf-change="handlers.PhotoFileSelected($files, $event)" ngf-multiple="false" ngf-max-size='31457280'>Добавить фотографию</md-button>
-            </div>
+
         </div>
         <div flex class="grid-tile">
-            <div layout="column" layout-padding layout-align="left" style="width: 100%; padding-left: 20pt; height:80%">
-                <form name="detailsForm">
-                    <div layout="row">
-                        <md-input-container md-no-float ng-hide="editMode">
+            <div layout="column" layout-padding layout-margin layout-align="left" style="width: 100%; padding-left: 20pt; height:80%" ng-hide="editMode">
+                <div layout="row" layout-align="start center">
+                    <div>
+                        <md-input-container>
                             <label>Статус</label>
                             <input ng-model="participant.type.name" ng-readonly="!editMode">
                         </md-input-container>
-                        <md-select name="selector" ng-show="editMode" ng-model="new_record.type" ng-required="new_record.type.value > 0" placeholder="Статус" style="width:200px;">
-                            <md-option ng-value="opt" ng-repeat="opt in types" ng-selected="parseInt(opt.value)===parseInt(new_record.type.value)">{{ opt.name }}</md-option>
-                        </md-select>
-                        <md-input-container md-no-float ng-hide="editMode">
+                    </div>
+                    <div>
+                        <md-input-container>
                             <label>Звание/Должность</label>
                             <input ng-model="participant.rank" ng-readonly="!editMode">
                         </md-input-container>
-                        <md-input-container md-no-float ng-show="editMode">
-                            <label>Звание/Должность</label>
-                            <input ng-model="new_record.rank" ng-readonly="!editMode">
-                        </md-input-container>
-
                     </div>
-                    <div layout="row">
-                        <md-input-container md-no-float ng-hide="editMode">
+                </div>
+                <div layout="row" layout-align="start center">
+                    <div>
+                        <md-input-container>
                             <label>Фамилия</label>
                             <input ng-model="participant.surname" ng-readonly="!editMode">
                         </md-input-container>
-                        <md-input-container md-no-float ng-show="editMode">
-                            <label>Фамилия</label>
-                            <input ng-model="new_record.surname" name="surname" autofocus="createMode" type="text" required ng-pattern="/^(\D)+$/">
-                            <div ng-messages="detailsForm.surname.$error">
-                                <div ng-message="required">Обязательное поле</div>
-                                <div ng-message="pattern">Разрешены только буквы</div>
-                            </div>
-                        </md-input-container>
-                        <md-input-container ng-hide="editMode">
+                    </div>
+                    <div>
+                        <md-input-container>
                             <label>Имя</label>
                             <input ng-model="participant.firstname" ng-readonly="!editMode">
                         </md-input-container>
-                        <md-input-container md-no-float ng-show="editMode">
-                            <label>Имя</label>
-                            <input ng-model="new_record.firstname" ng-readonly="!editMode">
-                        </md-input-container>
-                        <md-input-container md-no-float ng-hide="editMode">
+                    </div>
+                    <div>
+                        <md-input-container>
                             <label>Отчество</label>
                             <input ng-model="participant.middlename" ng-readonly="!editMode">
                         </md-input-container>
-                        <md-input-container md-no-float ng-show="editMode">
-                            <label>Отчество</label>
-                            <input ng-model="new_record.middlename" ng-readonly="!editMode">
+                    </div>
+                </div>
+                <div layout="row" layout-align="start center">
+                    <div flex="20" style="width:20%">
+                        <md-input-container>
+                            <label>Дата рождения</label>
+                            <input ng-model="birthday_str" ng-readonly="!editMode">
                         </md-input-container>
                     </div>
-                    <div layout="row">
-                        <div flex="20">
-                            <md-input-container md-no-float ng-hide="editMode">
-                                <label>Дата рождения</label>
-                                <input ng-model="birthday_str" ng-readonly="!editMode">
-                            </md-input-container>
+                    <div flex="20" style="width:20%">
+                        <md-input-container>
+                            <label>Дата смерти</label>
+                            <input ng-model="death_str" ng-readonly="!editMode">
+                        </md-input-container>
+                    </div>
+                    <div flex="30" style="width:30%">
+                        <md-input-container>
+                            <label>Место рождения</label>
+                            <input ng-model="participant.birthplace" ng-readonly="!editMode">
+                        </md-input-container>
+                    </div>
+                </div>
+                <div layout="row">
+                    <div style="width:100%">
+                        <label style="color:rgba(0,0,0,0.54);">Биография:</label>
+                        <md-content layout-padding ng-bind="participant.description" ng-readonly="!editMode" style="white-space: pre-wrap;width: 100%;
+                                        background-color: transparent;padding-right: 20px;text-align: justify;text-justify:distribute;max-height:600px;"></md-content>
+                    </div>
+                </div>
+            </div>
 
-                            <md-input-container ng-show="editMode">
+
+            <div layout="column" layout-padding layout-align="left" style="width: 100%; padding-left: 20pt; height:80%" ng-show="editMode">
+                <form name="detailsForm" style="padding-top: 8px; padding-left: 9px;">
+                    <div layout="row" layout-align="start center">
+                        <div style="padding-bottom: 18px;">
+                            <md-select name="selector" ng-model="new_record.type" ng-required="new_record.type.value > 0" placeholder="Статус" style="width:200px;">
+                                <md-option ng-value="opt" ng-repeat="opt in types" ng-selected="parseInt(opt.value)===parseInt(new_record.type.value)">{{ opt.name }}</md-option>
+                            </md-select>
+                        </div>
+                        <div>
+                            <md-input-container>
+                                <label>Звание/Должность</label>
+                                <input ng-model="new_record.rank">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div layout="row" layout-align="start center">
+                        <div>
+                            <md-input-container>
+                                <label>Фамилия</label>
+                                <input ng-model="new_record.surname" name="surname" autofocus="createMode" type="text" required ng-pattern="/^(\D)+$/">
+                                <div ng-messages="detailsForm.surname.$error">
+                                    <div ng-message="required">Обязательное поле</div>
+                                    <div ng-message="pattern">Разрешены только буквы</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div>
+                            <md-input-container>
+                                <label>Имя</label>
+                                <input ng-model="new_record.firstname">
+                            </md-input-container>
+                        </div>
+                        <div>
+                            <md-input-container>
+                                <label>Отчество</label>
+                                <input ng-model="new_record.middlename">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div layout="row" layout-align="start center">
+                        <div flex="20" style="width:20%;">
+                            <md-input-container>
                                 <label>Дата рождения</label>
                                 <input ui-date="dateOptions"
                                        style="width:200px;"
@@ -136,13 +196,8 @@
                                        ui-date-format="yy-mm-dd">
                             </md-input-container>
                         </div>
-                        <div flex="20">
-                            <md-input-container md-no-float ng-hide="editMode">
-                                <label>Дата смерти</label>
-                                <input ng-model="death_str" ng-readonly="!editMode">
-                            </md-input-container>
-
-                            <md-input-container ng-show="editMode">
+                        <div flex="20" style="width:20%;">
+                            <md-input-container>
                                 <label>Дата смерти</label>
                                 <input ui-date="dateOptions"
                                        style="width:200px;"
@@ -150,59 +205,59 @@
                                        ui-date-format="yy-mm-dd">
                             </md-input-container>
                         </div>
-                        <div flex="30">
-                            <md-input-container md-no-float ng-hide="editMode">
+                        <div flex="30" style="width:30%;">
+                            <md-input-container>
                                 <label>Место рождения</label>
-                                <input ng-model="participant.birthplace" ng-readonly="!editMode">
-                            </md-input-container>
-                            <md-input-container md-no-float ng-show="editMode">
-                                <label>Место рождения</label>
-                                <input ng-model="new_record.birthplace" ng-readonly="!editMode">
+                                <input ng-model="new_record.birthplace">
                             </md-input-container>
                         </div>
                     </div>
-                    <div layout="row" layout-wrap>
-                        <md-input-container flex ng-hide="editMode">
-                            <label>Биография</label>
-                            <textarea ng-model="participant.description" columns="1" ng-readonly="!editMode" style="margin: 0px -0.5px 0px 0px; width: 95%; height: 100px; max-height:250px; max-width:100%; background:transparent;  cursor: default;"></textarea>
-                        </md-input-container>
-
-                        <textarea ng-show="editMode" ng-readonly="!editMode" editmode"" ng-model="new_record.description" class="form-control" placeholder="Биография" style="width: 95%; height: 100px; max-height:200px; max-width:100%;"></textarea>
+                    <div layout="row">
+                        <div style="width:100%;height:100%;">
+                            <label style="color:rgba(0,0,0,0.54);">Биография:</label>
+                            <textarea ng-model="new_record.description" class="form-control" placeholder="Биография" rows="20"
+                                      style="width:100%; height:100%; max-height:400px; max-width:1200px; white-space: pre-wrap;background-color: transparent;
+                                        padding-right: 20px;text-align: justify;text-justify:distribute;"></textarea>
+                        </div>
                     </div>
                 </form>
             </div>
+
         </div>
     </div>
 
-    <div layout="row" layout-margin layout-fill>
-        <div flex>
-            <div class="grid-tile" layout="column" layout-align="space-around start" layout-padding layout-fill>
-                <h4 ng-show="!editMode">Документы:</h4>
-                <table class="Documents" ng-show="!editMode">
-                    <col width="20%" />
-                    <col width="60%" />
-                    <col width="20%" />
-                    <tbody>
-                        <tr ng-repeat="item in participant.documents">
-                            <td>
-                                <div ng-show="item.extension == '.docx' || item.extension == '.doc'" title="Сохранить в .docx" class="BtnWord" ng-click="handlers.GetDocument(item.documentId)"></div>
-                                <div ng-show="item.extension == '.pdf'" title="Сохранить в .pdf" class="BtnPdf" ng-click="handlers.GetDocument(item.documentId)"></div>
-                                <div ng-show="item.extension == '.jpg' || item.extension == '.jpeg' || item.extension == '.png'  " title="Сохранить в .pdf" class="BtnPhoto" ng-click="handlers.GetDocument(item.documentId)"></div>
-                            </td>
-                            <td>
-                                <a ng-click="handlers.GetDocument(item.documentId)" ng-class="{deletefile:handlers.isDocDeleted(item)}">{{item.name}}</a>
-                            </td>
-                            <td ng-show="editMode" style="color:gray;">
-                                <md-button class="md-raised md-primary" ng-click="handlers.unDeleteDocument(item)" ng-show="handlers.isDocDeleted(item)">Отменить</md-button>
-                                <md-button class="md-raised md-primary" ng-click="handlers.DeleteDocument(item)" ng-hide="handlers.isDocDeleted(item)">Удалить&nbsp;</md-button>
-                                <!--<span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="handlers.DeleteDocument(item)" style="cursor:pointer;" title="Удалить документ"></span>-->
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div flex="10" ng-show="editMode" style="text-align:center;">
-                    <md-divider style="width:90%;"></md-divider>
-                    <h4 style="color:grey;">Документы:</h4>
+    <div layout="row">
+        <div flex style="width:100%">
+            <div class="grid-tile" layout="column" layout-margin layout-padding>
+                <div style="margin-left:10px;">
+                    <h2>Документы:</h2>
+                </div>
+                <div>
+                    <div layout="row" layout-align="start center" layout-padding ng-repeat="item in participant.documents">
+                        <div style="width:35px">
+                            <div ng-show="item.extension == '.docx' || item.extension == '.doc'" title="Сохранить в .docx" class="BtnWord" ng-click="handlers.GetDocument(item.documentId)"></div>
+                            <div ng-show="item.extension == '.pdf'" title="Сохранить в .pdf" class="BtnPdf" ng-click="handlers.GetDocument(item.documentId)"></div>
+                            <div ng-show="item.extension == '.jpg' || item.extension == '.jpeg' || item.extension == '.png'  " title="Сохранить в .pdf" class="BtnPhoto" ng-click="handlers.GetDocument(item.documentId)"></div>
+                        </div>
+                        <div>
+                            <a ng-click="handlers.GetDocument(item.documentId)" ng-class="{deletefile:handlers.isDocDeleted(item)}">{{item.name}}</a>
+                        </div>
+                        <div ng-show="editMode" style="padding-left:10px;">
+                            <md-button class="md-raised md-primary" ng-click="handlers.unDeleteDocument(item)" ng-show="handlers.isDocDeleted(item)">Отменить</md-button>
+                            <md-button class="md-raised md-primary" ng-click="handlers.DeleteDocument(item)" ng-hide="handlers.isDocDeleted(item)">Удалить&nbsp;</md-button>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="editMode" style="margin:10px 10px 10px 10px;">
+                    <md-divider style="width:100%;"></md-divider>
+                </div>
+
+                <div style="margin-left:10px;color:gray;" ng-show="editMode">
+                    <h4>Документы для загрузки:</h4>
+                </div>
+
+                <div ng-show="editMode" style="text-align:center; margin: 5px 20px 10px 20px;width:25%;">
                     <table class="Documents">
                         <col width="85%" />
                         <col width="15%" />
@@ -217,6 +272,9 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <div ng-show="editMode" style="text-align:center; vertical-align:central; margin: 20px 20px 20px 20px;">
                     <div ngf-drop class="drop-box"
                          ngf-drag-over-class="dragover"
                          ngf-multiple="true"
@@ -224,41 +282,17 @@
                          ngf-max-size='31457280'
                          ngf-hide-on-drop-not-available="true"
                          ngf-change="handlers.DocumentFileSelected($files, $event)"
-                         ngf-accept="'image/*,.doc,.docx,.pdf,.txt,.ppt,.pptx,.xls,.xlsx,.rtf'"><p>Перетащите документы сюда, чтобы загрузить</p>
+                         ngf-accept="'image/*,.doc,.docx,.pdf,.txt,.ppt,.pptx,.xls,.xlsx,.rtf'">
+                        <p style="padding-top:2%">Перетащите документы сюда, чтобы загрузить</p>
                     </div>
+                </div>
+
+                <div ng-show="editMode" style="margin: 20px 20px 20px 20px;">
                     <md-button class="md-raised md-primary" ng-show="editMode" type="file" ngf-select ngf-change="handlers.DocumentFileSelected($files, $event)" ngf-multiple="false" ngf-max-size='31457280' ngf-accept="'image/*,.doc,.docx,.pdf,.txt,.ppt,.pptx,.xls,.xlsx,.rtf'">Добавить файл</md-button>
                 </div>
             </div>
 
         </div>
-    </div>
-
-
-
-    <div ng-hide="1===1">
-        <md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
-                      md-row-height="3:5"
-                      md-gutter="12px" md-gutter-gt-sm="8px">
-
-            <md-grid-tile class="md-primary" md-rowspan="1" md-colspan="2" md-colspan-sm="1">
-                <md-grid-tile-header style="z-index: 2;">
-                    <h3>Фотография</h3>
-                </md-grid-tile-header>
-            </md-grid-tile>
-
-            <md-grid-tile class="md-primary" md-colspan="4" md-colspan-sm="1" md-colspan-md="2" md-rowspan="1">
-                <md-grid-tile-header>
-                    <h3>Персональные данные:</h3>
-                </md-grid-tile-header>
-            </md-grid-tile>
-
-            <md-grid-tile class="md-primary" md-colspan="6" md-rowspan="1" md-colspan-sm="1" md-colspan-md="2">
-                <md-grid-tile-header>
-                    <h3>Документы:</h3>
-                </md-grid-tile-header>
-
-            </md-grid-tile>
-        </md-grid-list>
     </div>
 </div>
 
