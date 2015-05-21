@@ -43,7 +43,7 @@
                 $compileProvider.aHrefSanitizationWhitelist(/^\s*(|unsafe|http|blob|):/);
             }
        ])
-       .run(['$log', '$rootScope', 'participantsVM', '$mdToast', function ($log, $rootScope, participantsVM, $mdToast) {
+       .run(['$log', '$rootScope', 'participantsVM', '$mdToast', '$mdDialog', 'ParticipantsService', function ($log, $rootScope, participantsVM, $mdToast, $mdDialog, participantsService) {
 
             $log.log('starting angularjs app...');
 
@@ -141,6 +141,39 @@
                 dayNamesMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
                 monthNamesShort: ["Янв", "Фев", "Март", "Апр", "Май", "Июнь", "Июль", "Авг", "Сеп", "Окт", "Нояб", "Дек"]
             };
+
+
+            $rootScope.$on('onLoginClickedEvent', function () {
+                $mdDialog.show({
+                    templateUrl: '/App_Front/views/dialog1_tmpl.html',
+                    targetEvent: event,
+                    locals: { participantsService: participantsService },
+                    controller: function DialogController($scope, $mdDialog, participantsService) {
+                        $scope.valid_error = false;
+                        $scope.login_loader = false;
+                        $scope.onloginClick = function () {
+                            $scope.login_loader = true;
+                            participantsService.LogIn($scope.login, $scope.password)
+                            .then(
+                                function () {
+                                    //auth ok
+                                    $mdDialog.hide();
+                                    $scope.login_loader = false;
+                                },
+                                function () {
+                                    //auth not ok
+                                    $scope.valid_error = true;
+                                    $scope.login_loader = false;
+                                });
+                        };
+                        $scope.oncancelClick = function () {
+                            $mdDialog.cancel();
+                        };
+                    }
+                });
+            });
+
+
 
         }
        ]);

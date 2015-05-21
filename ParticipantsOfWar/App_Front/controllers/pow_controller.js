@@ -1,8 +1,8 @@
 ﻿(function () {
     var app = angular.module('pow_app');
 
-    app.controller('powCtrl', ['$rootScope', '$log', '$scope', 'ParticipantsService', 'participantsVM', '$state', '$mdDialog',
-        function ($rootScope, $log, $scope, participantsService, participantsVM, $state, $mdDialog) {
+    app.controller('powCtrl', ['$rootScope', '$log', '$scope', 'ParticipantsService', 'participantsVM', '$state',
+        function ($rootScope, $log, $scope, participantsService, participantsVM, $state) {
             $scope.participantsVM = participantsVM;
             $scope.Participants = participantsVM.Participants;
             $scope.predicate = '-type.value';
@@ -29,35 +29,6 @@
                 },
                 onDateInputChange: function () {
                     participantsService.TimeZoneFixer($scope.filter);
-                },
-                onLoginClick: function (event) {
-                    $mdDialog.show({
-                        templateUrl: '/App_Front/views/dialog1_tmpl.html',
-                        targetEvent: event,
-                        locals: { participantsService: participantsService },
-                        controller: function DialogController($scope, $mdDialog, participantsService) {
-                            $scope.valid_error = false;
-                            $scope.login_loader = false;
-                            $scope.onloginClick = function () {
-                                $scope.login_loader = true;
-                                participantsService.LogIn($scope.login, $scope.password)
-                                .then(
-                                    function () {
-                                        //auth ok
-                                        $mdDialog.hide();
-                                        $scope.login_loader = false;
-                                    },
-                                    function () {
-                                        //auth not ok
-                                        $scope.valid_error = true;
-                                        $scope.login_loader = false;
-                                    });
-                            };
-                            $scope.oncancelClick = function () {
-                                $mdDialog.cancel();
-                            };
-                        }
-                    })
                 },
                 shortedCheck: function (item) {
 

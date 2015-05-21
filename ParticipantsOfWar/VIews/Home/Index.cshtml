@@ -50,7 +50,15 @@
                 </div>
             </div>
         </div>
-        <div flex="5"></div>
+        <div flex="5">
+            <div layout="column" layout-align="start center">
+                <div>
+                    <md-button class="md-icon-button" aria-label="login" ng-click="$emit('onLoginClickedEvent')" ng-hide="authentication.isAuthorized">
+                        <ng-md-icon icon="vpn_key" style="fill:rgb(141,110,99);" size="25"></ng-md-icon>
+                    </md-button>
+                </div>
+            </div>
+        </div>
     </div>
     &nbsp;
     <div layout="row" layout-wrap>

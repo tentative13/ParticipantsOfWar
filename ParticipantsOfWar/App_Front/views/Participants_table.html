@@ -1,11 +1,6 @@
 ﻿<div class="mainContainer" style="top:50px;" ui-view>
     <div>
-        <md-button class="md-icon-button" style=" float: right; margin-top: 30px;" aria-label="login" ng-click="handlers.onLoginClick($event)" ng-hide="authentication.isAuthorized">
-            <ng-md-icon icon="vpn_key" style="fill:rgb(141,110,99);" size="25"></ng-md-icon>
-        </md-button>
-
         <md-button class="md-raised md-primary" ng-if="authentication.isAuthorized" ng-click="handlers.onCreateClick()" style="float: right; margin-top: 30px;">&nbsp;&nbsp;Создать новую запись&nbsp;&nbsp;</md-button>
-
     </div>
     <div class="tableDiv tableDiv-header">
         <table class="objList">

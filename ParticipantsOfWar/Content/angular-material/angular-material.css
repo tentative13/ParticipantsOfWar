@@ -3583,7 +3583,7 @@ md-input-container {
   md-input-container:not(.md-input-has-value) input:not(:focus) {
     color: transparent; }
   md-input-container .md-input {
-      flex: none !important; 
+      
     -webkit-flex: 1;
         -ms-flex: 1;
             flex: 1;
