@@ -14,23 +14,19 @@ namespace ParticipantsOfWar.BLL
     {
         private ArchiveContext db = new ArchiveContext();
 
-        public IEnumerable<Participant> GetAll()
+        public IQueryable<Participant> GetAll()
         {
-            return db.Set<Participant>().Include(x => x.type).Include(x => x.Photos).Include(x => x.Documents);
+            return db.Set<Participant>().Include(x => x.type).Include(x => x.Photos).Include(x => x.Documents).AsNoTracking();
            
         }
-
         public IEnumerable<ParticipantType> GetAllTypes()
         {
             return db.Set<ParticipantType>();
         }
-
         public ArchiveContext Dbcontext()
         {
             return db;
         }
-
-
         public void Add<T>(T entity) where T : class
         {
             var dbEntityEntry = db.Entry(entity);
@@ -44,7 +40,6 @@ namespace ParticipantsOfWar.BLL
                 db.Set<T>().Add(entity);
             }
         }
-
         public void Update<T>(T entity) where T : class
         {
             var entry = db.Entry(entity);
@@ -56,77 +51,51 @@ namespace ParticipantsOfWar.BLL
 
             entry.State = EntityState.Modified;
         }
-
         public IQueryable<T> Get<T>() where T : class
         {
             return db.Set<T>();
         }
-
-        /// <summary>
-        /// Моментально забирает из контекста если есть, если нет то из базы и добавляет в контекст
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public T Get<T>(decimal id) where T : class
         {
             return db.Set<T>().Find(id);
         }
-
         public T Get<T>(Guid id) where T : class
         {
             return db.Set<T>().Find(id);
         }
-
-        /// <summary>
-        /// AsNoTracking ВКЛ. Попадает в контекст. Для работы с сущностями
-        /// </summary>
-        /// <param name="filter"></param>
-        /// <returns></returns>
         public IQueryable<T> Get<T>(Expression<Func<T, bool>> filter) where T : class
         {
             return db.Set<T>().Where(filter);
         }
-
         public void Commit()
         {
             db.SaveChanges();
         }
-
-
         public IEnumerable<TElement> ExecuteSql<TElement>(string sql, params object[] parameters)
         {
             return db.Database.SqlQuery<TElement>(sql, parameters);
         }
-
         public IQueryable<T> Include<T>(IQueryable<T> query, params Expression<Func<T, object>>[] include) where T : class
         {
             if (include == null) return query;
 
             return include.Aggregate(query, (current, includes) => current.Include(includes));
         }
-
         public IQueryable<T> Include<T>(IQueryable<T> query, params string[] include) where T : class
         {
             if (include == null) return query;
 
             return include.Aggregate(query, (current, includes) => current.Include(includes));
         }
-
-
         public List<T> List<T>(Expression<Func<T, bool>> filters) where T : class
         {
             return List(filters, null);
         }
-
         public List<T> List<T>(Expression<Func<T, bool>> filters, string sorting) where T : class
         {
             return List(filters, sorting, new Expression<Func<T, object>>[0]);
         }
-
-        public virtual List<T> List<T>(
-            Expression<Func<T, bool>> filters,
-            string sorting,
-            params Expression<Func<T, object>>[] include) where T : class
+        public virtual List<T> List<T>(Expression<Func<T, bool>> filters,string sorting, params Expression<Func<T, object>>[] include) where T : class
         {
             var objectSet = db.Set<T>().AsQueryable();
             var query = objectSet.Where(filters ?? (t => true));
@@ -138,11 +107,7 @@ namespace ParticipantsOfWar.BLL
 
             return query.ToList();
         }
-
-
-        public virtual List<T> List<T>(
-            Expression<Func<T, bool>> filters,
-            string sorting, params string[] include) where T : class
+        public virtual List<T> List<T>(Expression<Func<T, bool>> filters,string sorting, params string[] include) where T : class
         {
             var objectSet = db.Set<T>().AsQueryable();
             var query = objectSet.Where(filters ?? (t => true));
@@ -154,13 +119,7 @@ namespace ParticipantsOfWar.BLL
 
             return query.ToList();
         }
-
-        public virtual PagedList<T> Search<T>(
-            Expression<Func<T, bool>> filters,
-            string sorting,
-            int currentPageNumber,
-            int pageSize,
-            params Expression<Func<T, object>>[] include) where T : class
+        public virtual PagedList<T> Search<T>(Expression<Func<T, bool>> filters,string sorting,int currentPageNumber,int pageSize, params Expression<Func<T, object>>[] include) where T : class
         {
             var objectSet = db.Set<T>().AsQueryable();
             var query = objectSet.Where(filters ?? (t => true));
@@ -172,14 +131,7 @@ namespace ParticipantsOfWar.BLL
 
             return query.ToPagedList(currentPageNumber, pageSize);
         }
-
-
-        public virtual PagedList<T> Search<T>(
-            Expression<Func<T, bool>> filters,
-            string sorting,
-            int currentPageNumber,
-            int pageSize,
-            params string[] include) where T : class
+        public virtual PagedList<T> Search<T>(Expression<Func<T, bool>> filters,string sorting,int currentPageNumber,int pageSize,params string[] include) where T : class
         {
             var objectSet = db.Set<T>().AsQueryable();
             var query = objectSet.Where(filters ?? (t => true));
@@ -191,9 +143,6 @@ namespace ParticipantsOfWar.BLL
 
             return query.ToPagedList(currentPageNumber, pageSize);
         }
-
-
-
         protected void Dispose(bool disposing)
         {
             if (disposing)
@@ -205,49 +154,46 @@ namespace ParticipantsOfWar.BLL
                 }
             }
         }
-
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-
         public List<ParticipantsDto> GetFiltered(TableFilter filter)
         {
-            Participant[] participants = new Participant[] { };
+            IQueryable<Participant> participants;
             List<ParticipantsDto> participantsDto = new List<ParticipantsDto>();
             try
             {
-                participants = this.GetAll().OrderBy(x=>x.type.Priority).ThenBy(x=>x.Surname).ToArray();
+                participants = this.GetAll().OrderBy(x=>x.type.Priority).ThenBy(x=>x.Surname);
 
 
                 if (!String.IsNullOrEmpty(filter.firstname))
                 {
-                    participants = participants.Where(x => x.Firstname.ToLower().StartsWith(filter.firstname.ToLower())).ToArray();
+                    participants = participants.Where(x => x.Firstname.ToLower().StartsWith(filter.firstname.ToLower()));
                 }
                
                 if (!String.IsNullOrEmpty(filter.middlename))
                 {
-                    participants = participants.Where(x => x.Middlename.ToLower().StartsWith(filter.middlename.ToLower())).ToArray();
+                    participants = participants.Where(x => x.Middlename.ToLower().StartsWith(filter.middlename.ToLower()));
                 }
                 
                 if (!String.IsNullOrEmpty(filter.surname))
                 {
-                    participants = participants.Where(x => x.Surname.ToLower().StartsWith(filter.surname.ToLower())).ToArray();
+                    participants = participants.Where(x => x.Surname.ToLower().StartsWith(filter.surname.ToLower()));
                 }
                 if (filter.birthday != null && filter.birthday != DateTime.MinValue)
                 {
-                    participants = participants.Where(x => x.Birthday != null).ToArray();
-                    participants = participants.Where(x => x.Birthday.Value.Date == filter.birthday.Date).ToArray();
+                    participants = participants.Where(x => x.Birthday != null);
+                    participants = participants.Where(x => x.Birthday.Value.Date == filter.birthday.Date);
                 }
 
                 if (filter.ParticipantsTypes > 0)
                 {
-                    participants = participants.Where(x => x.type.Priority == filter.ParticipantsTypes).ToArray();
+                    participants = participants.Where(x => x.type.Priority == filter.ParticipantsTypes);
                 }
 
-                foreach (var item in participants)
+                foreach (var item in participants.ToArray())
                 {
                     participantsDto.Add(ParticipantsDto.MapToDto(item));
                 }
@@ -259,26 +205,104 @@ namespace ParticipantsOfWar.BLL
 
             return participantsDto;
         }
+        public List<ParticipantsDto> GetFiltered(TableFilter filter, List<Guid> guidscache)
+        {
+            IQueryable<Participant> participants;
+            List<ParticipantsDto> participantsDto = new List<ParticipantsDto>();
+            try
+            {
+                participants = this.GetAll().OrderBy(x => x.type.Priority).ThenBy(x => x.Surname);
 
+                participants = participants.Where(x => !guidscache.Contains(x.ParticipantId)).AsQueryable();
 
+                if (!String.IsNullOrEmpty(filter.firstname))
+                {
+                    participants = participants.Where(x => x.Firstname.ToLower().StartsWith(filter.firstname.ToLower()));
+                }
+
+                if (!String.IsNullOrEmpty(filter.middlename))
+                {
+                    participants = participants.Where(x => x.Middlename.ToLower().StartsWith(filter.middlename.ToLower()));
+                }
+
+                if (!String.IsNullOrEmpty(filter.surname))
+                {
+                    participants = participants.Where(x => x.Surname.ToLower().StartsWith(filter.surname.ToLower()));
+                }
+                if (filter.birthday != null && filter.birthday != DateTime.MinValue)
+                {
+                    participants = participants.Where(x => x.Birthday != null);
+                    participants = participants.Where(x => x.Birthday.Value.Date == filter.birthday.Date);
+                }
+
+                if (filter.ParticipantsTypes > 0)
+                {
+                    participants = participants.Where(x => x.type.Priority == filter.ParticipantsTypes);
+                }
+
+                foreach (var item in participants.ToArray())
+                {
+                    participantsDto.Add(ParticipantsDto.MapToDto(item));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return participantsDto;
+        }
+        public int GetFilteredTotal(TableFilter filter)
+        {
+            IQueryable<Participant> participants = this.GetAll();
+            try
+            {
+                if (!String.IsNullOrEmpty(filter.firstname))
+                {
+                    participants = participants.Where(x => x.Firstname.ToLower().StartsWith(filter.firstname.ToLower()));
+                }
+
+                if (!String.IsNullOrEmpty(filter.middlename))
+                {
+                    participants = participants.Where(x => x.Middlename.ToLower().StartsWith(filter.middlename.ToLower()));
+                }
+
+                if (!String.IsNullOrEmpty(filter.surname))
+                {
+                    participants = participants.Where(x => x.Surname.ToLower().StartsWith(filter.surname.ToLower()));
+                }
+                if (filter.birthday != null && filter.birthday != DateTime.MinValue)
+                {
+                    participants = participants.Where(x => x.Birthday != null);
+                    participants = participants.Where(x => x.Birthday.Value.Date == filter.birthday.Date);
+                }
+
+                if (filter.ParticipantsTypes > 0)
+                {
+                    participants = participants.Where(x => x.type.Priority == filter.ParticipantsTypes);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return participants.Count();
+        }
         public void Delete<T>(decimal id) where T : class
         {
             var dbEntityEntry = db.Set<T>().Find(id);
             db.Set<T>().Remove(dbEntityEntry);
         }
-
         public void Delete<T>(Guid id) where T : class
         {
             var dbEntityEntry = db.Set<T>().Find(id);
             db.Set<T>().Remove(dbEntityEntry);
         }
-
         public void Delete<T>(T entity) where T : class
         {
             db.Set<T>().Remove(entity);
         }
-
-
     }
 
 }

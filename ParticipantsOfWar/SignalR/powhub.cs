@@ -23,7 +23,6 @@ namespace ParticipantsOfWar
         {
             _archiveRepo = new ArchiveRepository();
         }
-
         public override Task OnConnected()
         {
             if(!_keepers.Any(x => x.ConnectionId == Context.ConnectionId))
@@ -58,11 +57,11 @@ namespace ParticipantsOfWar
         {
             var already_send_guids = _keepers.Where(x => x.ConnectionId == Context.ConnectionId).Select(x => x.partisipants).FirstOrDefault();
 
-            var response = _archiveRepo.GetFiltered(filter).Where(x => !already_send_guids.Any(y => y.ToString().Contains(x.guid))).ToArray();
+            var response = _archiveRepo.GetFiltered(filter, already_send_guids);
 
             if (response.Count() > 0)
             {
-                if (response.Count() > number) response = response.Take(number).ToArray();
+                if (response.Count() > number) response = response.Take(number).ToList();
 
                 int? i = _keepers.IndexOf(_keepers.Where(x => x.ConnectionId == Context.ConnectionId).FirstOrDefault());
                 if (i != null) _keepers[i.Value].partisipants.AddRange(response.Select(x => new Guid(x.guid)));
@@ -74,7 +73,7 @@ namespace ParticipantsOfWar
         {
             var already_send_guids = _keepers.Where(x => x.ConnectionId == Context.ConnectionId).Select(x => x.partisipants).FirstOrDefault();
 
-            var response = _archiveRepo.GetFiltered(filter).Where(x => !already_send_guids.Any(y => y.ToString().Contains(x.guid))).ToArray();
+            var response = _archiveRepo.GetFiltered(filter, already_send_guids);
 
             if (response.Count() > 0)
             {
@@ -83,23 +82,14 @@ namespace ParticipantsOfWar
             }
             return response.ToArray();
         }
-
-
         public int GetTotalFilteredParticipants(TableFilter filter)
         {
-            int total =0;
-            total = _archiveRepo.GetFiltered(filter).Count;
-            return total;
+            return _archiveRepo.GetFilteredTotal(filter);
         }
-
         public int GetTotalParticipants()
         {
-            int total = 0;
-            total = _archiveRepo.GetAll().Count();
-            return total;
+            return _archiveRepo.GetAll().Count();
         }
-
-
         public void guidscache(string[] guids)
         {
             int index = _keepers.IndexOf(_keepers.Where(x => x.ConnectionId == Context.ConnectionId).FirstOrDefault());

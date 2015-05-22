@@ -10,7 +10,7 @@ namespace ParticipantsOfWar.BLL
 {
     public interface IArchiveRepository
     {
-        IEnumerable<Participant> GetAll();
+        IQueryable<Participant> GetAll();
 
         IEnumerable<ParticipantType> GetAllTypes();
 
@@ -61,6 +61,8 @@ namespace ParticipantsOfWar.BLL
         IEnumerable<TElement> ExecuteSql<TElement>(string sql, params object[] parameters);
 
         List<ParticipantsDto> GetFiltered(TableFilter filter);
+        List<ParticipantsDto> GetFiltered(TableFilter filter, List<Guid> guidscache);
+        int GetFilteredTotal(TableFilter filter);
 
          void Delete<T>(decimal id) where T : class;
          void Delete<T>(Guid id) where T : class;
