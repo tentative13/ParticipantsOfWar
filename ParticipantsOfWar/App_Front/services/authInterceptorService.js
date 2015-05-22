@@ -1,8 +1,7 @@
 ﻿(function () {
     var app = angular.module('pow_app');
 
-    app.factory('authInterceptorService', [
-        '$q', '$rootScope', '$log', function ($q, $rootScope, $log) {
+    app.factory('authInterceptorService', ['$q', '$rootScope', '$log', function ($q, $rootScope, $log) {
             return {
                 request: function (config) {
                     

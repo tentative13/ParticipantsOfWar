@@ -40,6 +40,30 @@
                     </div>
                 </div>
 
+                <div style="margin-left:10px;">
+                    <h2>Фотографии:</h2>
+                </div>
+                <div>
+                    <div layout="row" layout-align="start center" layout-padding ng-repeat="item in participant.photos" style="width:400px;">
+                        <div flex="10" style="width:10%">
+                            <img ng-src="api/Documents/GetPhoto/{{item.photoId}}" ng-click="handlers.GetPhoto(item.photoId)" alt="Фотография" style="width:auto; height:auto; max-height:40px;max-width:30px;" />
+                            <!--<div title="Сохранить фотографию" class="BtnPhoto" ng-click="handlers.GetPhoto(item.photoId)"></div>-->
+                        </div>
+                        <div flex="60" style="width:60%">
+                            <a ng-click="handlers.GetPhoto(item.photoId)" ng-class="{deletefile:handlers.isPhotoDeleted(item)}">{{item.description}}</a>
+                        </div>
+                        <div flex="30" style="width:30%" ng-show="editMode">
+                            <md-button class="md-raised md-primary" ng-click="handlers.unDeletePhoto(item)" ng-show="handlers.isPhotoDeleted(item)">Отменить</md-button>
+                            <md-button class="md-raised md-primary" ng-click="handlers.DeletePhoto(item)" ng-hide="handlers.isPhotoDeleted(item)">Удалить&nbsp;</md-button>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="editMode" style="margin:10px 10px 10px 10px;">
+                    <md-divider style="width:100%;"></md-divider>
+                </div>
+
+
                  
                 <div flex="10" ng-show="editMode">
                     <md-divider style="width:90%;"></md-divider>
@@ -151,7 +175,7 @@
                 <form name="detailsForm" style="padding-top: 8px; padding-left: 9px;">
                     <div layout="row" layout-align="start center">
                         <div style="padding-bottom: 18px;">
-                            <md-select name="selector" ng-model="new_record.type" ng-required="new_record.type.value > 0" placeholder="Статус" style="width:200px;">
+                            <md-select name="selector" ng-model="new_record.type" ng-required="new_record.type.value > 0" ng-attr-placeholder="Статус" style="width:200px;">
                                 <md-option ng-value="opt" ng-repeat="opt in types" ng-selected="parseInt(opt.value)===parseInt(new_record.type.value)">{{ opt.name }}</md-option>
                             </md-select>
                         </div>
@@ -215,7 +239,7 @@
                     <div layout="row">
                         <div style="width:100%;height:100%;">
                             <label style="color:rgba(0,0,0,0.54);">Биография:</label>
-                            <textarea ng-model="new_record.description" class="form-control" placeholder="Биография" rows="20"
+                            <textarea ng-model="new_record.description" class="form-control" ng-attr-placeholder="Биография" rows="20"
                                       style="width:100%; height:100%; max-height:400px; max-width:1200px; white-space: pre-wrap;background-color: transparent;
                                         padding-right: 20px;text-align: justify;text-justify:distribute;"></textarea>
                         </div>

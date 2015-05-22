@@ -17,24 +17,27 @@
             '$urlRouterProvider',
             '$compileProvider',
             '$httpProvider',
-            function ($stateProvider, $urlRouterProvider, $compileProvider, $httpProvider) {
+            '$mdThemingProvider',
+            function ($stateProvider, $urlRouterProvider, $compileProvider, $httpProvider, $mdThemingProvider) {
+
+                $mdThemingProvider.theme('default').primaryPalette('brown');
 
                 $httpProvider.interceptors.push('authInterceptorService');
 
-                $urlRouterProvider.otherwise("/participants");
+                $urlRouterProvider.otherwise("/participants/");
 
                 $stateProvider.state('participants', {
-                    url: "/participants",
+                    url: "/participants/",
                     templateUrl: "/App_Front/views/Participants_table.html",
                     controller: 'powCtrl'
                 })
                 .state('participants.details', {
-                    url: "/details",
+                    url: "/details/",
                     templateUrl: "/App_Front/views/Participants_details.html",
                     controller: 'powDetailsCtrl'
                 })
                 .state('participants.create', {
-                    url: "/create",
+                    url: "/create/",
                     templateUrl: "/App_Front/views/Participants_details.html",
                     controller: 'powDetailsCtrl'
                 });
@@ -43,7 +46,8 @@
                 $compileProvider.aHrefSanitizationWhitelist(/^\s*(|unsafe|http|blob|):/);
             }
        ])
-       .run(['$log', '$rootScope', 'participantsVM', '$mdToast', '$mdDialog', 'ParticipantsService', function ($log, $rootScope, participantsVM, $mdToast, $mdDialog, participantsService) {
+       .run(['$log', '$rootScope', 'participantsVM', '$mdToast', '$mdDialog', 'ParticipantsService', '$state',
+           function ($log, $rootScope, participantsVM, $mdToast, $mdDialog, participantsService, $state) {
 
             $log.log('starting angularjs app...');
 
@@ -99,11 +103,9 @@
 
             $.connection.hub.disconnected(function () {
 
-                if ($.connection.hub.lastError)
-                { $log.error("Disconnected. Reason: ", $.connection.hub.lastError.message); }
+                if ($.connection.hub.lastError){ $log.error("Disconnected. Reason: ", $.connection.hub.lastError.message); }
 
                 setTimeout(function () {
-
                     $.connection.hub.start()
                         .done(function () {
                             $rootScope.signalrConnectionId = $.connection.hub.id;
@@ -142,39 +144,47 @@
                 monthNamesShort: ["Янв", "Фев", "Март", "Апр", "Май", "Июнь", "Июль", "Авг", "Сеп", "Окт", "Нояб", "Дек"]
             };
 
-
-            $rootScope.$on('onLoginClickedEvent', function () {
+            $rootScope.onLoginClickedEvent = function () {
+                function DialogController($scope, $mdDialog, participantsService) {
+                    $scope.valid_error = false;
+                    $scope.login_loader = false;
+                    $scope.onloginClick = function () {
+                        $scope.login_loader = true;
+                        participantsService.LogIn($scope.login, $scope.password)
+                        .then(
+                            function () {
+                                //auth ok
+                                $mdDialog.hide();
+                                $scope.login_loader = false;
+                            },
+                            function () {
+                                //auth not ok
+                                $scope.valid_error = true;
+                                $scope.login_loader = false;
+                            });
+                    };
+                    $scope.oncancelClick = function () {
+                        $mdDialog.cancel();
+                    };
+                };
+                DialogController.$inject = ['$scope', '$mdDialog', 'participantsService'];
                 $mdDialog.show({
                     templateUrl: '/App_Front/views/dialog1_tmpl.html',
                     targetEvent: event,
                     locals: { participantsService: participantsService },
-                    controller: function DialogController($scope, $mdDialog, participantsService) {
-                        $scope.valid_error = false;
-                        $scope.login_loader = false;
-                        $scope.onloginClick = function () {
-                            $scope.login_loader = true;
-                            participantsService.LogIn($scope.login, $scope.password)
-                            .then(
-                                function () {
-                                    //auth ok
-                                    $mdDialog.hide();
-                                    $scope.login_loader = false;
-                                },
-                                function () {
-                                    //auth not ok
-                                    $scope.valid_error = true;
-                                    $scope.login_loader = false;
-                                });
-                        };
-                        $scope.oncancelClick = function () {
-                            $mdDialog.cancel();
-                        };
-                    }
+                    controller: DialogController
                 });
+            };
+
+            $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+
+                if (toState.name === 'participants.details')
+                {
+                    if (typeof $rootScope.pow_details === "undefined") {
+                        $state.go('participants');
+                    }
+                }
             });
-
-
-
         }
        ]);
 })();

@@ -36,10 +36,8 @@ namespace ParticipantsOfWar
                 "~/Scripts/angular-animate.js",
                 "~/Scripts/angular-route.js",
                 "~/Scripts/angular-ui-router.js",
-                "~/Scripts/angular-cookies.js",
                 "~/Scripts/angular-messages.js",
                 "~/Scripts/angular-material-icons.min.js",
-                "~/Scripts/angular-highcharts.js",
                 "~/Scripts/ng-file-upload.js",
                 "~/Scripts/ng-file-upload-shim.js",
                 "~/Scripts/TweenMax.min.js",
@@ -66,6 +64,7 @@ namespace ParticipantsOfWar
             bundles.Add(new PartialsBundle("pow_app", "~/bundles/partials")
             .IncludeDirectory("~/App_Front/views", "*.html", true));
 
+            BundleTable.EnableOptimizations = true;
         }
     }
 

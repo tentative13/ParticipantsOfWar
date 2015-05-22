@@ -1,8 +1,6 @@
 ﻿(function () {
     var app = angular.module('pow_app');
-    app.directive('autofocus', Autofocus);
-
-    function Autofocus($timeout) {
+    app.directive('autofocus', ['$timeout', function ($timeout) {
         function link($scope, $element, $attrs) {
             var dom = $element[0];
 
@@ -24,7 +22,7 @@
             restrict: 'A',
             link: link
         };
-    }
+    }]);
 
 })();
 

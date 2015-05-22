@@ -219,7 +219,7 @@ namespace ParticipantsOfWar.BLL
             List<ParticipantsDto> participantsDto = new List<ParticipantsDto>();
             try
             {
-                participants = this.GetAll().OrderBy(x=>x.type.Priority).ToArray();
+                participants = this.GetAll().OrderBy(x=>x.type.Priority).ThenBy(x=>x.Surname).ToArray();
 
 
                 if (!String.IsNullOrEmpty(filter.firstname))

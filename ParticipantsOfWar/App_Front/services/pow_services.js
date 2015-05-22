@@ -71,6 +71,9 @@
         this.getDocument = function (documentid) {
             window.location.href = 'api/Documents/GetDocument/' + documentid;
         };
+        this.downloadPhoto = function (photoId) {
+            window.location.href = 'api/Documents/DownloadPhoto/' + photoId;
+        };
 
         this.getParticipants = function (filter, number) {
             return $rootScope.powHub.server.getParticipants(filter, number);

@@ -25,6 +25,7 @@ namespace ParticipantsOfWar.Controllers
             _archiveRepo = archiveRepo;
         }
 
+        [HttpGet]
         [AllowAnonymous]
         [Route("GetTypes")]
         [ResponseType(typeof(ParticipantTypeDto[]))]
@@ -43,6 +44,7 @@ namespace ParticipantsOfWar.Controllers
         }
 
         // GET: api/Participants/5
+        [HttpGet]
         [AllowAnonymous]
         [ResponseType(typeof(ParticipantsDto))]
         public IHttpActionResult GetParticipant(Guid id)
@@ -53,6 +55,7 @@ namespace ParticipantsOfWar.Controllers
         }
 
         // PUT: api/Participants/5
+        [HttpPut]
         [Authorize]
         public IHttpActionResult PutParticipant(Guid id, ParticipantsDto participant)
         {
@@ -68,6 +71,8 @@ namespace ParticipantsOfWar.Controllers
             dbEntity.Surname = participant.Surname == null ? "" : participant.Surname; 
             dbEntity.Description = participant.Description == null ? "" : participant.Description;
             dbEntity.ShortName = participant.ShortName == null ? "" : participant.ShortName;
+            dbEntity.Rank = participant.Rank == null ? "" : participant.Rank;
+            dbEntity.BirthPlace = participant.BirthPlace == null ? "" : participant.BirthPlace;
 
             dbEntity.Birthday = participant.Birthday;
             dbEntity.Deathday = participant.Deathday;
@@ -135,8 +140,8 @@ namespace ParticipantsOfWar.Controllers
             newone.Surname = participant.Surname == null ? "" : participant.Surname;
             newone.Description = participant.Description == null ? "" : participant.Description;
             newone.ShortName = participant.ShortName == null ? "" : participant.ShortName;
-            newone.BirthPlace = "";
-            newone.Rank = "";
+            newone.Rank = participant.Rank == null ? "" : participant.Rank;
+            newone.BirthPlace = participant.BirthPlace == null ? "" : participant.BirthPlace;
 
             if (participant.Birthday == DateTime.MinValue) 
             {

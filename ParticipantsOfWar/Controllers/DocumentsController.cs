@@ -26,6 +26,7 @@ namespace ParticipantsOfWar.Controllers
             _archiveRepo = archiveRepo;
         }
 
+        [HttpGet]
         [AllowAnonymous]
         [Route("GetPhoto/{id:guid}")]
         public HttpResponseMessage GetPhoto(Guid id)
@@ -39,7 +40,6 @@ namespace ParticipantsOfWar.Controllers
             {
                 response.Content = new StreamContent(new MemoryStream(photo.PhotoBytes));
                 response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("image/png");
-               // response.Content.Headers.ContentDisposition.FileName = photo.Description + photo.Extension;
             }
             catch (FileNotFoundException)
             {
@@ -50,6 +50,32 @@ namespace ParticipantsOfWar.Controllers
             return response;
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        [Route("DownloadPhoto/{id:guid}")]
+        public HttpResponseMessage DownloadPhoto(Guid id)
+        {
+            var photo = _archiveRepo.Get<Photo>(id);
+            if (photo == null) return new HttpResponseMessage(HttpStatusCode.NotFound);
+
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+
+            try
+            {
+                response.Content = new StreamContent(new MemoryStream(photo.PhotoBytes));
+                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                response.Content.Headers.ContentDisposition.FileName = HttpContext.Current.Server.UrlEncode(photo.Description + photo.Extension);
+            }
+            catch (FileNotFoundException)
+            {
+                response = new HttpResponseMessage(HttpStatusCode.BadRequest);
+                return response;
+            }
+
+            return response;
+        }
+
+        [HttpGet]
         [AllowAnonymous]
         [Route("GetDocument/{id:guid}")]
         public HttpResponseMessage GetDocument(Guid id)
@@ -61,10 +87,9 @@ namespace ParticipantsOfWar.Controllers
 
             try
             {
-                string filename = doc.DocumentName + doc.Extension;
                 response.Content = new StreamContent(new MemoryStream(doc.DocumentBytes));
                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                response.Content.Headers.ContentDisposition.FileName = HttpContext.Current.Server.UrlEncode(filename);
+                response.Content.Headers.ContentDisposition.FileName = HttpContext.Current.Server.UrlEncode(doc.DocumentName + doc.Extension);
              
             }
             catch (FileNotFoundException)
@@ -107,8 +132,17 @@ namespace ParticipantsOfWar.Controllers
 
                     Photo newphoto = new Photo();
                     newphoto.PhotoBytes = data;
-                    newphoto.Extension = '.' +  file.FileName.Split('.')[1];
-                    newphoto.Description = "Фотография";
+
+                    if (file.FileName.LastIndexOf('.') > 0)
+                    {
+                        int index = file.FileName.LastIndexOf('.');
+                        newphoto.Description = file.FileName.Substring(0, index);
+                        newphoto.Extension = file.FileName.Substring(index, file.FileName.Length - index);
+                    }
+                    else
+                    {
+                        newphoto.Description = file.FileName;
+                    }
 
                     _archiveRepo.Add<Photo>(newphoto);
                     participant.Photos.Add(newphoto);

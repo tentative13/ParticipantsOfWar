@@ -51,6 +51,7 @@
                         $log.info('participantsService.deletePhoto success', photoId, data);
                         for (var j = 0; j < participant.photos.length; j++) {
                             if (participant.photos[j].photoId == photoId) {
+                                photoSlider.removeSlide(participant.photos[j]);
                                 participant.photos.splice(j, 1);
                                 break;
                             }
@@ -98,6 +99,7 @@
                 photoSlider.addSlides($scope.participant.photos);
             }
         };
+
         $scope.addSlides();
 
         $scope.handlers = {
@@ -107,8 +109,10 @@
                 $state.go("participants");
             },
             GetDocument: function (documentId) {
-                if (typeof documentId === "undefined") return;
-                participantsService.getDocument(documentId);
+                if (documentId)participantsService.getDocument(documentId);
+            },
+            GetPhoto: function (photoId) {
+                if (photoId) participantsService.downloadPhoto(photoId);
             },
             onEditClick: function () {
                 $rootScope.editMode = true;
@@ -230,6 +234,14 @@
             isDocDeleted: function(item){
 
                 var check = $.grep($scope.docForDelete, function (f) { return f.documentId == item.documentId; });
+                if (check.length === 0)
+                    return false;
+                else
+                    return true;
+            },
+            isPhotoDeleted: function (item) {
+
+                var check = $.grep($scope.photoForDelete, function (f) { return f.photoId == item.photoId; });
                 if (check.length === 0)
                     return false;
                 else

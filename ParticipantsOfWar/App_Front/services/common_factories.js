@@ -29,7 +29,20 @@
                 });
             });
         };
-                
+
+        self.removeSlide = function (photo) {
+            if (photo && photo.photoId) {
+
+                for (var j = 0; j < self.slides.length; j++) {
+                    if (self.slides[j].image == 'api/Documents/GetPhoto/' + photo.photoId) {
+                        self.slides.splice(j, 1);
+                        break;
+                    }
+                }
+
+            }
+        };
+                        
         self.setCurrentSlideIndex = function (index) {
             self.direction = (index > self.currentIndex) ? 'left' : 'right';
             self.currentIndex = index;
