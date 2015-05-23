@@ -52,28 +52,10 @@ namespace ParticipantsOfWar
             }
             return base.OnReconnected();
         }
-
         public ParticipantsDto[] GetParticipants(TableFilter filter, int number)
         {
             var already_send_guids = _keepers.Where(x => x.ConnectionId == Context.ConnectionId).Select(x => x.partisipants).FirstOrDefault();
-
-            var response = _archiveRepo.GetFiltered(filter, already_send_guids);
-
-            if (response.Count() > 0)
-            {
-                if (response.Count() > number) response = response.Take(number).ToList();
-
-                int? i = _keepers.IndexOf(_keepers.Where(x => x.ConnectionId == Context.ConnectionId).FirstOrDefault());
-                if (i != null) _keepers[i.Value].partisipants.AddRange(response.Select(x => new Guid(x.guid)));
-            }
-            return response.ToArray();
-        }
-
-        public ParticipantsDto[] GetAllParticipants(TableFilter filter)
-        {
-            var already_send_guids = _keepers.Where(x => x.ConnectionId == Context.ConnectionId).Select(x => x.partisipants).FirstOrDefault();
-
-            var response = _archiveRepo.GetFiltered(filter, already_send_guids);
+            var response = _archiveRepo.GetFiltered(filter, already_send_guids, number);
 
             if (response.Count() > 0)
             {

@@ -61,7 +61,7 @@ namespace ParticipantsOfWar.BLL
         IEnumerable<TElement> ExecuteSql<TElement>(string sql, params object[] parameters);
 
         List<ParticipantsDto> GetFiltered(TableFilter filter);
-        List<ParticipantsDto> GetFiltered(TableFilter filter, List<Guid> guidscache);
+        List<ParticipantsDto> GetFiltered(TableFilter filter, List<Guid> guidscache, int number);
         int GetFilteredTotal(TableFilter filter);
 
          void Delete<T>(decimal id) where T : class;

@@ -205,7 +205,7 @@ namespace ParticipantsOfWar.BLL
 
             return participantsDto;
         }
-        public List<ParticipantsDto> GetFiltered(TableFilter filter, List<Guid> guidscache)
+        public List<ParticipantsDto> GetFiltered(TableFilter filter, List<Guid> guidscache, int number)
         {
             IQueryable<Participant> participants;
             List<ParticipantsDto> participantsDto = new List<ParticipantsDto>();
@@ -213,7 +213,7 @@ namespace ParticipantsOfWar.BLL
             {
                 participants = this.GetAll().OrderBy(x => x.type.Priority).ThenBy(x => x.Surname);
 
-                participants = participants.Where(x => !guidscache.Contains(x.ParticipantId)).AsQueryable();
+                participants = participants.Where(x => !guidscache.Contains(x.ParticipantId));
 
                 if (!String.IsNullOrEmpty(filter.firstname))
                 {
@@ -240,9 +240,12 @@ namespace ParticipantsOfWar.BLL
                     participants = participants.Where(x => x.type.Priority == filter.ParticipantsTypes);
                 }
 
+                int i = 0;
                 foreach (var item in participants.ToArray())
                 {
                     participantsDto.Add(ParticipantsDto.MapToDto(item));
+                    i++;
+                    if (i == number) break;
                 }
             }
             catch (Exception ex)

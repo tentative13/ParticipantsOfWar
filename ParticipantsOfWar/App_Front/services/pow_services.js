@@ -79,7 +79,7 @@
             return $rootScope.powHub.server.getParticipants(filter, number);
         };
         this.getAllParticipants = function (filter) {
-            return $rootScope.powHub.server.getAllParticipants(filter);
+            return $rootScope.powHub.server.getParticipants(filter, -1);
         };
         this.getTotalFilteredParticipants = function (filter) {
             return $rootScope.powHub.server.getTotalFilteredParticipants(filter);
