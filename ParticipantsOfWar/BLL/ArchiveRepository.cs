@@ -240,12 +240,11 @@ namespace ParticipantsOfWar.BLL
                     participants = participants.Where(x => x.type.Priority == filter.ParticipantsTypes);
                 }
 
-                int i = 0;
+                if(number > 0 ) participants = participants.Take(number);
+
                 foreach (var item in participants.ToArray())
                 {
                     participantsDto.Add(ParticipantsDto.MapToDto(item));
-                    i++;
-                    if (i == number) break;
                 }
             }
             catch (Exception ex)
