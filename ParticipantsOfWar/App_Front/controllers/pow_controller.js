@@ -28,6 +28,21 @@
                     $scope.filter.surname = letter;
                 },
                 onDateInputChange: function () {
+                    console.log($scope.filter);
+                    if (typeof $scope.filter.birthday === "undefined") {
+                        delete $scope.filter.birthday;
+                        return;
+                    }
+                    if ($scope.filter.birthday === "") {
+                        delete $scope.filter.birthday;
+                        return;
+                    }
+                    if ($scope.filter.birthday === null) {
+                        delete $scope.filter.birthday;
+                        return;
+                    }
+
+
                     participantsService.TimeZoneFixer($scope.filter);
                 },
                 shortedCheck: function (item) {

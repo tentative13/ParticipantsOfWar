@@ -24,5 +24,51 @@
         };
     }]);
 
+
+    app.directive('adjuster', ["$window", function ($window) {
+        return {
+            restrict: 'EA',
+            link: function postLink(scope, element, attrs) {
+                scope.onResizeFunction = function () {
+                    var width = $('#photoGrid').width();
+                    if (typeof width === "undefined") width = 250;
+                    
+                    $('#mainCarusel').width(width);
+                    $('#mainCarusel').height(width);
+                    
+
+                };
+                angular.element($window).bind('resize', function () {
+                    scope.onResizeFunction();
+                    scope.$apply();
+                });
+
+            }
+        }
+    }]);
+
+    app.directive('adjustertext', ["$window", function ($window) {
+        return {
+            restrict: 'EA',
+            link: function postLink(scope, element, attrs) {
+                scope.onResizeFunction = function () {
+                    var width = $('#photoGrid').width();
+                    if (typeof width === "undefined") width = 250;
+
+                    $('#mainCarusel').width(width);
+                    $('#mainCarusel').height(width);
+
+
+                };
+                angular.element($window).bind('resize', function () {
+                    scope.onResizeFunction();
+                    scope.$apply();
+                });
+
+            }
+        }
+    }]);
+
+
 })();
 

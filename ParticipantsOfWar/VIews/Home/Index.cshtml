@@ -40,8 +40,13 @@
 
         
     <div layout="row" layout-wrap>
-        <div flex="5"></div>
-        <div flex="90">
+        <div flex-gt-lg="5" flex="0"></div>
+        <div flex-gt-lg="90" flex="100">
+            <div style="float:right; margin-right:20px;">
+                <md-button class="md-icon-button" aria-label="login" ng-click="onLoginClickedEvent()" ng-hide="authentication.isAuthorized">
+                    <ng-md-icon icon="vpn_key" style="fill:rgb(141,110,99);" size="25"></ng-md-icon>
+                </md-button>
+            </div>
             <div ui-view></div>
             <div transfer-loading class="loading-div" ng-class="loadingClass">
                 <md-progress-circular md-mode="indeterminate" md-diameter="50" class="loading-spiner"></md-progress-circular>
@@ -50,22 +55,10 @@
                 </div>
             </div>
         </div>
-        <div flex="5">
-            <div layout="column" layout-align="start center">
-                <div>
-                    <md-button class="md-icon-button" aria-label="login" ng-click="onLoginClickedEvent()" ng-hide="authentication.isAuthorized">
-                        <ng-md-icon icon="vpn_key" style="fill:rgb(141,110,99);" size="25"></ng-md-icon>
-                    </md-button>
-                </div>
-            </div>
+        <div flex-gt-lg="5" flex="0">
         </div>
     </div>
     &nbsp;
-    <div layout="row" layout-wrap>
-        <div flex="5"></div>
-        <div flex="90"></div>
-        <div flex="5"></div>
-    </div>
     <script src="~/signalr/hubs"></script>
 </body>
 </html>

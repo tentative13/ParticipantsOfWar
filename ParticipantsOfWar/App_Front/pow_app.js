@@ -184,7 +184,27 @@
                         $state.go('participants');
                     }
                 }
+                if (toState.name === 'participants.create') {
+                    if (typeof $rootScope.createMode === "undefined") {
+                        $state.go('participants');
+                    }
+                    if (typeof $rootScope.createMode === false) {
+                        $state.go('participants');
+                    }
+                }
             });
+
+            $rootScope.CaruselStyle = function () {
+                var width = $('#photoGrid').width();
+                if (typeof width === "undefined") width = 250;
+                return {
+                    'height': width + 'px',
+                    'width': width +'px',
+                    'overflow': 'hidden',
+                    'position': 'relative',
+                    'margin-top': '20px'
+                };
+            };
         }
        ]);
 })();

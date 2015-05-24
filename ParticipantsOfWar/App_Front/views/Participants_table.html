@@ -1,6 +1,6 @@
-﻿<div class="mainContainer" style="top:50px;" ui-view>
+﻿<div class="mainContainer" ui-view>
     <div>
-        <md-button class="md-raised md-primary" ng-if="authentication.isAuthorized" ng-click="handlers.onCreateClick()" style="float: right; margin-top: 30px;">&nbsp;&nbsp;Создать новую запись&nbsp;&nbsp;</md-button>
+        <md-button class="md-raised md-primary" ng-if="authentication.isAuthorized" ng-click="handlers.onCreateClick()" style="float: right; margin-top: 20px;">&nbsp;&nbsp;Создать новую запись&nbsp;&nbsp;</md-button>
     </div>
     <div class="tableDiv tableDiv-header">
         <table class="objList">
@@ -108,8 +108,8 @@
                             </div>
                             <div>&nbsp;</div>
                             <div layout="row" layout-wrap>
-                                <div flex="90"></div>
-                                <div flex="10" style="margin-bottom:10px;">
+                                <div flex="86"></div>
+                                <div flex="15" style="margin-bottom:10px;">
                                     <md-button class="md-raised md-primary" ng-click="handlers.onDocumentClick(item)">&nbsp;&nbsp;Подбробнее&nbsp;&nbsp;</md-button>
                                 </div>
                             </div>

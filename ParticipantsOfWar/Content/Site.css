@@ -35,7 +35,7 @@ input[type="checkbox"].input-validation-error {
 
 .tableDiv {
 	width: 100%;
-	min-width: 1024px;
+	min-width: 1020px;
 	background-color: #ffffff;
 	overflow-y: auto;
 }
@@ -150,7 +150,7 @@ input[type="checkbox"].input-validation-error {
 }
 
 	.mainContainer .objList .td-light-grey td {
-		padding: 20px 0 10px 0;
+		padding: 0 0 10px 0;
 	}
 
 		.mainContainer .objList .td-light-grey td div.icon-delete,

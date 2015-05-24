@@ -1,10 +1,10 @@
-﻿<div layout="column">
+﻿<div layout="column" style="width:100%">
     <div layout="row" layout-padding>
         <div flex="20">
             <md-button class="md-raised md-primary" ng-click="handlers.onGetBackClick()">&nbsp;&nbsp;Вернуться&nbsp;&nbsp;</md-button>
         </div>
-        <div flex="50"></div>
-        <div flex="30"  ng-if="authentication.isAuthorized">
+        <div flex="40"></div>
+        <div flex="40" ng-if="authentication.isAuthorized">
             <div layout="row" layout-align="end center">
                 <div ng-show="editMode">
                     <md-button class="md-raised md-primary" ng-click="handlers.onSaveClick()">&nbsp;&nbsp;Сохранить&nbsp;&nbsp;</md-button>
@@ -14,15 +14,15 @@
                     <md-button class="md-raised md-primary" ng-click="handlers.onEditClick()">&nbsp;&nbsp;Редактировать&nbsp;&nbsp;</md-button>
                 </div>
             </div>
-            
+
         </div>
     </div>
 
     <div layout="row" layout-margin layout-fill>
-        <div flex="25" class="grid-tile">
+        <div flex="25" class="grid-tile" id="photoGrid">
             <div class="grid-tile" layout="column" layout-padding layout-align="space-around center">
                 <div>
-                    <div class="container slider">
+                    <div ng-style="CaruselStyle()" id="mainCarusel" adjuster>
                         <img ng-repeat="slide in photoSlider.slides" class="slide slide-animation nonDraggableImage"
                              ng-hide="!photoSlider.isCurrentSlideIndex($index)" ng-src="{{slide.image}}">
                         <a class="arrow prev" ng-click="photoSlider.nextSlide()"></a>
@@ -43,32 +43,30 @@
                 <div style="margin-left:10px;">
                     <h2>Фотографии:</h2>
                 </div>
-                <div>
-                    <div layout="row" layout-align="start center" layout-padding ng-repeat="item in participant.photos" style="width:400px;">
-                        <div flex="10" style="width:10%">
-                            <img ng-src="api/Documents/GetPhoto/{{item.photoId}}" ng-click="handlers.GetPhoto(item.photoId)" alt="Фотография" style="width:auto; height:auto; max-height:40px;max-width:30px;" />
-                            <!--<div title="Сохранить фотографию" class="BtnPhoto" ng-click="handlers.GetPhoto(item.photoId)"></div>-->
+                <div style="width:100%" id="miniphotodesc">
+                    <div layout="row" ng-repeat="item in participant.photos" style="width:100%">
+                        <div flex-gt-lg="5" flex="0"></div>
+                        <div flex="15">
+                            <img ng-src="api/Documents/GetPhoto/{{item.photoId}}" ng-click="handlers.GetPhoto(item.photoId)" alt="Фотография" style="max-height:40px;max-width:30px;" />
                         </div>
-                        <div flex="60" style="width:60%">
-                            <a ng-click="handlers.GetPhoto(item.photoId)" ng-class="{deletefile:handlers.isPhotoDeleted(item)}">{{item.description}}</a>
+                        <div flex="50">
+                            <a ng-click="handlers.GetPhoto(item.photoId)" ng-class="{deletefile:handlers.isPhotoDeleted(item)}">
+                                <div>
+                                    {{item.description|limitTo:20}}
+                                </div>
+                            </a>
                         </div>
-                        <div flex="30" style="width:30%" ng-show="editMode">
+                        <div flex="35" ng-show="editMode">
                             <md-button class="md-raised md-primary" ng-click="handlers.unDeletePhoto(item)" ng-show="handlers.isPhotoDeleted(item)">Отменить</md-button>
                             <md-button class="md-raised md-primary" ng-click="handlers.DeletePhoto(item)" ng-hide="handlers.isPhotoDeleted(item)">Удалить&nbsp;</md-button>
                         </div>
                     </div>
                 </div>
 
-                <div ng-show="editMode" style="margin:10px 10px 10px 10px;">
+                <div ng-show="editMode" style="width:100%; margin-top:5px;">
                     <md-divider style="width:100%;"></md-divider>
-                </div>
-
-
-                 
-                <div flex="10" ng-show="editMode">
-                    <md-divider style="width:90%;"></md-divider>
                     <br />
-                    <div style="color:gray;">Фотографии для загрузки:</div>
+                    <div style="color:gray;text-align:center">Фотографии для загрузки:</div>
                     <br />
 
                     <table class="Documents">
@@ -77,9 +75,9 @@
                         <tbody>
                             <tr ng-repeat="item in photoFile" style="border:1px dashed gray; border-collapse:separate; color:gray;">
                                 <td>
-                                    {{item.name}}
+                                    {{item.name|shortPhotoDesc}}
                                 </td>
-                                <td style="text-align:right">
+                                <td style="text-align:center">
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="handlers.RemoveFromPhotoSelected($index)" style="cursor:pointer;" title="Удалить из загрузки"></span>
                                 </td>
                             </tr>
@@ -87,7 +85,7 @@
                     </table>
                 </div>
 
-                <div ng-show="editMode" style="margin: 5px 5px 5px 5px;width:90%">
+                <div ng-show="editMode" style="margin: 15px 5px 5px 5px; width:90%">
                     <div ngf-drop class="drop-box"
                          ngf-drag-over-class="dragover"
                          ngf-multiple="true"
