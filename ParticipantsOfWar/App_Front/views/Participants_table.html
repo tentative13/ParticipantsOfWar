@@ -1,6 +1,6 @@
 ﻿<div class="mainContainer" ui-view>
     <div>
-        <md-button class="md-raised md-primary" ng-if="authentication.isAuthorized" ng-click="handlers.onCreateClick()" style="float: right; margin-top: 20px;">&nbsp;&nbsp;Создать новую запись&nbsp;&nbsp;</md-button>
+        <md-button class="md-raised md-primary" ng-if="authentication.isAuthorized" ng-cloak ng-click="handlers.onCreateClick()" style="float: right; margin-top: 20px;">&nbsp;&nbsp;Создать новую запись&nbsp;&nbsp;</md-button>
     </div>
     <div class="tableDiv tableDiv-header">
         <table class="objList">
@@ -38,36 +38,36 @@
                 <td>
                     Статус участника
                     <div class="row-block">
-                        <div ng-class="{'selected': predicate == 'type.value'}" title="Сортировать по возрастанию" class="row-up" ng-click="predicate = 'type.value'"></div>
-                        <div ng-class="{'selected': predicate == '-type.value'}" title="Сортировать по убыванию" class="row-down" ng-click="predicate = '-type.value'"></div>
+                        <div ng-class="{'selected': $parent.predicate == 'type.value'}" title="Сортировать по возрастанию" class="row-up" ng-click="$parent.predicate = 'type.value'; grid.closeAllRows()"></div>
+                        <div ng-class="{'selected': $parent.predicate == '-type.value'}" title="Сортировать по убыванию" class="row-down" ng-click="$parent.predicate = '-type.value'; grid.closeAllRows()"></div>
                     </div>
                 </td>
                 <td>
                     Фамилия
                     <div class="row-block">
-                        <div ng-class="{'selected': predicate == 'surname'}" title="Сортировать по возрастанию" class="row-up" ng-click="predicate = 'surname'"></div>
-                        <div ng-class="{'selected': predicate == '-surname'}" title="Сортировать по убыванию" class="row-down" ng-click="predicate = '-surname'"></div>
+                        <div ng-class="{'selected': $parent.predicate == 'surname'}" title="Сортировать по возрастанию" class="row-up" ng-click="$parent.predicate = 'surname'; grid.closeAllRows()"></div>
+                        <div ng-class="{'selected': $parent.predicate == '-surname'}" title="Сортировать по убыванию" class="row-down" ng-click="$parent.predicate = '-surname'; grid.closeAllRows()"></div>
                     </div>
                 </td>
                 <td>
                     Имя
                     <div class="row-block">
-                        <div ng-class="{'selected': predicate == '-firstname'}" title="Сортировать по возрастанию" class="row-up" ng-click="predicate = '-firstname'"></div>
-                        <div ng-class="{'selected': predicate == 'firstname'}" title="Сортировать по убыванию" class="row-down" ng-click="predicate = 'firstname'"></div>
+                        <div ng-class="{'selected': $parent.predicate == '-firstname'}" title="Сортировать по возрастанию" class="row-up" ng-click="$parent.predicate = '-firstname'; grid.closeAllRows()"></div>
+                        <div ng-class="{'selected': $parent.predicate == 'firstname'}" title="Сортировать по убыванию" class="row-down" ng-click="$parent.predicate = 'firstname'; grid.closeAllRows()"></div>
                     </div>
                 </td>
                 <td>
                     Отчество
                     <div class="row-block">
-                        <div ng-class="{'selected': predicate == '-middlename'}" title="Сортировать по возрастанию" class="row-up" ng-click="predicate = '-middlename'"></div>
-                        <div ng-class="{'selected': predicate == 'middlename'}" title="Сортировать по убыванию" class="row-down" ng-click="predicate = 'middlename'"></div>
+                        <div ng-class="{'selected': $parent.predicate == '-middlename'}" title="Сортировать по возрастанию" class="row-up" ng-click="$parent.predicate = '-middlename'; grid.closeAllRows()"></div>
+                        <div ng-class="{'selected': $parent.predicate == 'middlename'}" title="Сортировать по убыванию" class="row-down" ng-click="$parent.predicate = 'middlename'; grid.closeAllRows()"></div>
                     </div>
                 </td>
                 <td>
                     Дата рождения
                     <div class="row-block">
-                        <div class="row-up" ng-class="{'selected': predicate == '-birthday'}" title="Сортировать по возрастанию" ng-click="predicate = '-birthday'"></div>
-                        <div class="row-down" ng-class="{'selected': predicate == 'birthday'}" title="Сортировать по убыванию" ng-click="predicate = 'birthday'"></div>
+                        <div class="row-up" ng-class="{'selected': $parent.predicate == '-birthday'}" title="Сортировать по возрастанию" ng-click="$parent.predicate = '-birthday'; grid.closeAllRows()"></div>
+                        <div class="row-down" ng-class="{'selected': $parent.predicate == 'birthday'}" title="Сортировать по убыванию" ng-click="$parent.predicate = 'birthday'; grid.closeAllRows()"></div>
                     </div>
                 </td>
             </tr>
@@ -79,7 +79,7 @@
             <col width="25%" />
             <col width="25%" />
             <col width="12%" />
-            <tbody ng-repeat="item in filtered = ( Participants | participantsTableFilter:filter | orderBy : predicate : true)">
+            <tbody ng-repeat="item in filtered = ( Participants | participantsTableFilter:filter | orderBy : $parent.predicate : true)">
 
                 <tr ng-click="grid.expandRow(item, $index)" ng-class="{part_selected: item.guid === idSelectedRow}">
 

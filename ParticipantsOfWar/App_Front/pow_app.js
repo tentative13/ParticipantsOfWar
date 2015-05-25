@@ -32,12 +32,12 @@
                     controller: 'powCtrl'
                 })
                 .state('participants.details', {
-                    url: "/details/",
+                    url: "details/",
                     templateUrl: "/App_Front/views/Participants_details.html",
                     controller: 'powDetailsCtrl'
                 })
                 .state('participants.create', {
-                    url: "/create/",
+                    url: "create/",
                     templateUrl: "/App_Front/views/Participants_details.html",
                     controller: 'powDetailsCtrl'
                 });
@@ -50,6 +50,7 @@
            function ($log, $rootScope, participantsVM, $mdToast, $mdDialog, participantsService, $state) {
 
             $log.log('starting angularjs app...');
+            
 
             $rootScope.loadingClass = '';
             $rootScope.loader_text = '';

@@ -154,10 +154,17 @@
                     $scope.new_record.birthday = (new Date($scope.new_record.birthday)).toJSON();
                     $scope.birthday_str = DateToStr($scope.new_record.birthday);
                 }
+                else {
+                    $scope.birthday_str = '';
+                }
+
 
                 if ($scope.new_record.deathday) {
                     $scope.new_record.deathday = (new Date($scope.new_record.deathday)).toJSON();
                     $scope.death_str = DateToStr($scope.new_record.deathday);
+                }
+                else {
+                    $scope.death_str = '';
                 }
 
                 

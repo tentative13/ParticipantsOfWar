@@ -77,24 +77,8 @@ namespace ParticipantsOfWar.Controllers
             dbEntity.Birthday = participant.Birthday;
             dbEntity.Deathday = participant.Deathday;
 
-            if (participant.Birthday == DateTime.MinValue) 
-            {
-                dbEntity.Birthday = null;
-            }
-            else
-            {
-                dbEntity.Birthday = participant.Birthday;
-            }
-
-            if (participant.Deathday == DateTime.MinValue)
-            {
-                dbEntity.Deathday = null;
-            }
-            else
-            {
-                dbEntity.Deathday = participant.Deathday;
-            }
-
+            if (participant.Birthday == DateTime.MinValue) dbEntity.Birthday = null;
+            if (participant.Deathday == DateTime.MinValue) dbEntity.Deathday = null;
 
             var newtype = _archiveRepo.List<ParticipantType>(x => x.Name == participant.Type.Name).FirstOrDefault();
             if (newtype != null)
@@ -142,26 +126,8 @@ namespace ParticipantsOfWar.Controllers
             newone.ShortName = participant.ShortName == null ? "" : participant.ShortName;
             newone.Rank = participant.Rank == null ? "" : participant.Rank;
             newone.BirthPlace = participant.BirthPlace == null ? "" : participant.BirthPlace;
-
-            if (participant.Birthday == DateTime.MinValue) 
-            {
-                newone.Birthday = null;
-            }
-            else
-            {
-                newone.Birthday = participant.Birthday;
-            }
-
-            if (participant.Deathday == DateTime.MinValue)
-            {
-                newone.Deathday = null;
-            }
-            else
-            {
-                newone.Deathday = participant.Deathday;
-            }
-
-
+            if (participant.Birthday == DateTime.MinValue) newone.Birthday = null;
+            if (participant.Deathday == DateTime.MinValue) newone.Deathday = null;
 
             if (participant.Type != null)
             {

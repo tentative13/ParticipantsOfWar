@@ -5,19 +5,25 @@
         function ($rootScope, $log, $scope, participantsService, participantsVM, $state) {
             $scope.participantsVM = participantsVM;
             $scope.Participants = participantsVM.Participants;
-            $scope.predicate = '-type.value';
             $scope.idSelectedRow = null;
             $scope.filter = {};
             $scope.alphabet = ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ы', 'Э', 'Ю', 'Я'];
+            $scope.predicate = '-type.value';
+
+            if ($rootScope.predicate_holder) $scope.predicate = $rootScope.predicate_holder;
 
             $scope.handlers = {
                 LoadPage: function () { },
                 onDocumentClick: function (item) {
                     $rootScope.pow_details = item;
+                  //  $scope.grid.openRows = [];
+                    $rootScope.predicate_holder = $scope.predicate;
                     $rootScope.editMode = false;
                     $state.go("participants.details");
                 },
                 onCreateClick: function () {
+                  //  $scope.grid.openRows = [];
+                    $rootScope.predicate_holder = $scope.predicate;
                     $rootScope.pow_details = {};
                     $rootScope.editMode = true;
                     $rootScope.createMode = true;
@@ -61,6 +67,9 @@
             $scope.grid = {
                 openRows: [],
                 rowindex: -1,
+                closeAllRows: function(){
+                    this.openRows = [];
+                },
                 showData: function (value) {
                     if (this.openRows.length > 0 && this.openRows.indexOf(value) > -1)
                         return true;

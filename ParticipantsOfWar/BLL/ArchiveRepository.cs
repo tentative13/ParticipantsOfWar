@@ -4,6 +4,7 @@ using ParticipantsOfWar.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Linq.Expressions;
@@ -207,41 +208,13 @@ namespace ParticipantsOfWar.BLL
         }
         public List<ParticipantsDto> GetFiltered(TableFilter filter, List<Guid> guidscache, int number)
         {
-            IQueryable<Participant> participants;
             List<ParticipantsDto> participantsDto = new List<ParticipantsDto>();
             try
             {
-                participants = this.GetAll().OrderBy(x => x.type.Priority).ThenBy(x => x.Surname);
-
+                IQueryable<Participant>  participants = this.GetAll().OrderBy(x => x.type.Priority).ThenBy(x => x.Surname);
                 participants = participants.Where(x => !guidscache.Contains(x.ParticipantId));
-
-                if (!String.IsNullOrEmpty(filter.firstname))
-                {
-                    participants = participants.Where(x => x.Firstname.ToLower().StartsWith(filter.firstname.ToLower()));
-                }
-
-                if (!String.IsNullOrEmpty(filter.middlename))
-                {
-                    participants = participants.Where(x => x.Middlename.ToLower().StartsWith(filter.middlename.ToLower()));
-                }
-
-                if (!String.IsNullOrEmpty(filter.surname))
-                {
-                    participants = participants.Where(x => x.Surname.ToLower().StartsWith(filter.surname.ToLower()));
-                }
-                if (filter.birthday != null && filter.birthday != DateTime.MinValue)
-                {
-                    participants = participants.Where(x => x.Birthday != null);
-                    participants = participants.Where(x => x.Birthday.Value.Date == filter.birthday.Date);
-                }
-
-                if (filter.ParticipantsTypes > 0)
-                {
-                    participants = participants.Where(x => x.type.Priority == filter.ParticipantsTypes);
-                }
-
+                participants = ApplyFilter(participants, filter);
                 if(number > 0 ) participants = participants.Take(number);
-
                 foreach (var item in participants.ToArray())
                 {
                     participantsDto.Add(ParticipantsDto.MapToDto(item));
@@ -256,19 +229,31 @@ namespace ParticipantsOfWar.BLL
         }
         public int GetFilteredTotal(TableFilter filter)
         {
-            IQueryable<Participant> participants = this.GetAll();
+            int count = 0;
             try
             {
+                IQueryable<Participant> participants = this.GetAll();
+                participants = ApplyFilter(participants, filter);
+                count = participants.Count();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return count;
+        }
+
+        private IQueryable<Participant> ApplyFilter (IQueryable<Participant> participants, TableFilter filter)
+        {
                 if (!String.IsNullOrEmpty(filter.firstname))
                 {
                     participants = participants.Where(x => x.Firstname.ToLower().StartsWith(filter.firstname.ToLower()));
                 }
-
                 if (!String.IsNullOrEmpty(filter.middlename))
                 {
                     participants = participants.Where(x => x.Middlename.ToLower().StartsWith(filter.middlename.ToLower()));
                 }
-
                 if (!String.IsNullOrEmpty(filter.surname))
                 {
                     participants = participants.Where(x => x.Surname.ToLower().StartsWith(filter.surname.ToLower()));
@@ -276,21 +261,17 @@ namespace ParticipantsOfWar.BLL
                 if (filter.birthday != null && filter.birthday != DateTime.MinValue)
                 {
                     participants = participants.Where(x => x.Birthday != null);
-                    participants = participants.Where(x => x.Birthday.Value.Date == filter.birthday.Date);
+                    participants = participants.Where(x => DbFunctions.TruncateTime(x.Birthday) == DbFunctions.TruncateTime(filter.birthday));
                 }
-
                 if (filter.ParticipantsTypes > 0)
                 {
                     participants = participants.Where(x => x.type.Priority == filter.ParticipantsTypes);
                 }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
 
-            return participants.Count();
+                return participants;
+
         }
+
         public void Delete<T>(decimal id) where T : class
         {
             var dbEntityEntry = db.Set<T>().Find(id);

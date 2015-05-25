@@ -25,10 +25,10 @@ namespace ParticipantsOfWar.Dto
         public string ShortName { get; set; }
 
         [JsonProperty(PropertyName = "birthday")]
-        public DateTime Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
 
         [JsonProperty(PropertyName = "deathday")]
-        public DateTime Deathday { get; set; }
+        public DateTime? Deathday { get; set; }
 
         [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
