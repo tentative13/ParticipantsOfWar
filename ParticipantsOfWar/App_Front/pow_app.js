@@ -51,6 +51,20 @@
 
             $log.log('starting angularjs app...');
             
+            $mdDialog.show({
+                templateUrl: '/App_Front/views/first_page.html',
+                clickOutsideToClose: true,
+                escapeToClose: true,
+                controller: function ($scope, $mdDialog) {
+
+                    $scope.oncancelClick = function () {
+                        $mdDialog.cancel();
+                    };
+
+                }
+            });
+
+
 
             $rootScope.loadingClass = '';
             $rootScope.loader_text = '';

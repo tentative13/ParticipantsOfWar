@@ -254,6 +254,7 @@
     <Content Include="App_Front\services\authInterceptorService.js" />
     <Content Include="App_Front\services\common_factories.js" />
     <Content Include="App_Front\views\dialog1_tmpl.html" />
+    <Content Include="App_Front\views\first_page.html" />
     <Content Include="App_Front\views\Participants_details.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
