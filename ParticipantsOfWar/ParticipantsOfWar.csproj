@@ -268,6 +268,7 @@
     <Content Include="Content\images\ico_xlsx.png" />
     <Content Include="Content\images\ico_xml.png" />
     <Content Include="Content\images\klogo.png" />
+    <Content Include="Content\images\landing-main.jpg" />
     <Content Include="Content\images\paddle_next_999.png" />
     <Content Include="Content\images\paddle_next_fff.png" />
     <Content Include="Content\images\paddle_prev_999.png" />
