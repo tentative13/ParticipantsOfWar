@@ -8,7 +8,7 @@ namespace ParticipantsOfWar.DAL
     public class ArchiveContext : IdentityDbContext<ApplicationUser> //DbContext
     {
         public ArchiveContext()
-            : base("name=ArchiveLocal")
+            : base("name=Archive")
         {
 
         }

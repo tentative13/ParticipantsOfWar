@@ -64,7 +64,9 @@ namespace ParticipantsOfWar
             bundles.Add(new PartialsBundle("pow_app", "~/bundles/partials")
             .IncludeDirectory("~/App_Front/views", "*.html", true));
 
-            BundleTable.EnableOptimizations =false;
+            var enableOpt = false;
+            bool.TryParse(ConfigurationManager.AppSettings["BundleOptimisation"], out enableOpt );
+            BundleTable.EnableOptimizations = enableOpt;
         }
     }
 
