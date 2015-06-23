@@ -51,17 +51,18 @@
 
             $log.log('starting angularjs app...');
             
+            function FirstPageDialogController($scope, $mdDialog) {
+                $scope.oncancelClick = function () {
+                    $mdDialog.cancel();
+                };
+            }
+            FirstPageDialogController.$inject = ['$scope', '$mdDialog'];
+
             $mdDialog.show({
                 templateUrl: '/App_Front/views/first_page.html',
                 clickOutsideToClose: true,
                 escapeToClose: true,
-                controller: function ($scope, $mdDialog) {
-
-                    $scope.oncancelClick = function () {
-                        $mdDialog.cancel();
-                    };
-
-                }
+                controller: FirstPageDialogController
             });
 
 
