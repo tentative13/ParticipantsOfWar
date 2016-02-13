@@ -49,14 +49,23 @@
        .run(['$log', '$rootScope', 'participantsVM', '$mdToast', '$mdDialog', 'ParticipantsService', '$state',
            function ($log, $rootScope, participantsVM, $mdToast, $mdDialog, participantsService, $state) {
 
-            $log.log('starting angularjs app...');
-            
-            function FirstPageDialogController($scope, $mdDialog) {
-                $scope.oncancelClick = function () {
-                    $mdDialog.cancel();
-                };
-            }
-            FirstPageDialogController.$inject = ['$scope', '$mdDialog'];
+               function FirstPageDialogController($scope, $mdDialog, photoSlider) {
+                   $scope.photoSlider = photoSlider;
+                   $scope.photoSlider.slides.push({ image: 'Content/images/3.jpg', description: '3' });
+                   $scope.photoSlider.slides.push({ image: 'Content/images/1.jpg', description: '1' });
+                   $scope.photoSlider.slides.push({ image: 'Content/images/2.jpg', description: '2' });
+                   $scope.photoSlider.slides.push({ image: 'Content/images/4.jpg', description: '4' });
+
+                   setInterval(function () {
+                       $rootScope.$apply(photoSlider.prevSlide());
+                   }, 5000);
+                   $scope.oncancelClick = function () {
+                       $scope.photoSlider.clearSlides();
+                       $mdDialog.cancel();
+                   };
+               }
+
+            FirstPageDialogController.$inject = ['$scope', '$mdDialog', 'photoSlider'];
 
             $mdDialog.show({
                 templateUrl: '/App_Front/views/first_page.html',

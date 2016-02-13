@@ -1,16 +1,25 @@
 ﻿<md-dialog aria-label="FirstPage" style="height:100%;width:100%;">
     <md-dialog-content class="sticky-container">
         <div class="mainFirstPageContainer">
-            <div class="mainFirstPageHeader">
-                Книга памяти жителей Кудымкарского района
-            </div>
-
+            <img class="slide slide-animation nonDraggableImage" 
+                 ng-repeat="slide in photoSlider.slides" 
+                 ng-src="{{slide.image}}" 
+                 ng-hide="!photoSlider.isCurrentSlideIndex($index)">
+            <nav class="nav" ng-hide="photoSlider.slides.length <= 1">
+                <div class="wrapper">
+                    <ul class="dots">
+                        <li class="dot" ng-repeat="slide in photoSlider.slides">
+                            <a ng-class="{'active':photoSlider.isCurrentSlideIndex($index)}"
+                                ng-click="photoSlider.setCurrentSlideIndex($index);">{{slide.description}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
-        <main>
-            <p>
+        <main style="margin: 0 0 0 0; text-align: justify;"> 
+            <h2>
                 Электронная Книга Памяти Кудымкарского района.
-            </p>
-            <br/>
+            </h2>
             <p>
                 Этот проект начат в 2015 году в год семидесятилетия победы в Великой Отечественной Войне. Книга
                 создается в память о наших героических земляках, трудившихся в тылу, сражавшихся и погибших на фронтах
@@ -20,6 +29,7 @@
                 рассказать о них. Это наш посильный вклад в то, чтобы увековечить в памяти будущих поколений
                 беспримерный подвиг солдат и народа, совершенный в годы Великой Отечественной Войны.
             </p>
+            <br />
             <p>
                 «Книга Памяти Кудымкарского района» - результат усилий многих людей, которые собирали и вносили в нее
                 информацию. Создание Книги Памяти не быстрый процесс, работа ведется постоянно, база пополняется. Если
