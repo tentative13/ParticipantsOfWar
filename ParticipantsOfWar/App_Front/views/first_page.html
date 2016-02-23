@@ -1,26 +1,26 @@
 ﻿<md-dialog aria-label="FirstPage" style="height:100%;width:100%;">
-    <md-dialog-content class="sticky-container">
-        <div class="mainFirstPageContainer">
-            <img class="slide slide-animation nonDraggableImage" 
-                 ng-repeat="slide in photoSlider.slides" 
-                 ng-src="{{slide.image}}" 
-                 ng-hide="!photoSlider.isCurrentSlideIndex($index)">
-            <nav class="nav" ng-hide="photoSlider.slides.length <= 1">
-                <div class="wrapper">
-                    <ul class="dots">
-                        <li class="dot" ng-repeat="slide in photoSlider.slides">
-                            <a ng-class="{'active':photoSlider.isCurrentSlideIndex($index)}"
-                                ng-click="photoSlider.setCurrentSlideIndex($index);">{{slide.description}}</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-        <main style="margin: 0 0 0 0; text-align: justify;"> 
-            <h2 style="text-align:center;">
+    <div layout="column">
+            <div class="mainFirstPageContainer">
+                <img class="slide slide-animation nonDraggableImage"
+                     ng-repeat="slide in photoSlider.slides"
+                     ng-src="{{slide.image}}"
+                     ng-hide="!photoSlider.isCurrentSlideIndex($index)">
+                <nav class="nav" ng-hide="photoSlider.slides.length <= 1">
+                    <div class="wrapper">
+                        <ul class="dots">
+                            <li class="dot" ng-repeat="slide in photoSlider.slides">
+                                <a ng-class="{'active':photoSlider.isCurrentSlideIndex($index)}"
+                                   ng-click="photoSlider.setCurrentSlideIndex($index);">{{slide.description}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        <!--<md-content flex layout-padding style="overflow-y:visible;">-->
+            <p style="text-align: center;font-size: x-large;">
                 Электронная Книга Памяти Кудымкарского района
-            </h2>
-            <p>
+            </p>
+            <textarea readonly style="width: 100%;min-height:200px;border:none;height:auto;">
                 Этот проект начат в 2015 году в год семидесятилетия победы в Великой Отечественной Войне. Книга
                 создается в память о наших героических земляках, трудившихся в тылу, сражавшихся и погибших на фронтах
                 самой страшной войны в истории человечества, выполнявших в разные годы свой гражданский долг в
@@ -28,19 +28,29 @@
                 фотографии, информация об этих людях, чтобы потомки могли найти фамилии своих предков, узнать и
                 рассказать о них. Это наш посильный вклад в то, чтобы увековечить в памяти будущих поколений
                 беспримерный подвиг солдат и народа, совершенный в годы Великой Отечественной Войны.
-            </p>
-            <br />
-            <p>
+
                 «Книга Памяти Кудымкарского района» - результат усилий многих людей, которые собирали и вносили в нее
-                информацию. Создание Книги Памяти не быстрый процесс, работа ведется постоянно, база пополняется. Если
-                в базе нет искомых Вами имён, или у Вас есть информация для Книги, Вы можете связаться с нами: адрес
-                электронной почты, тел.
-            </p>
-
-        </main>
-        <div class="buttonFirstPage">
-            <md-button ng-click="oncancelClick()" class="md-raised md-primary">Продолжить</md-button>
-        </div>
-
-    </md-dialog-content>
+                информацию. Создание Книги Памяти не быстрый процесс, работа ведется постоянно, база пополняется. 
+                Если в базе нет искомых Вами имён, или у Вас есть информация для Книги, Вы можете связаться с нами:
+                адрес электронной почты, тел.
+            </textarea>
+                <!--<div style="text-align: justify;">
+                    Этот проект начат в 2015 году в год семидесятилетия победы в Великой Отечественной Войне. Книга
+                    создается в память о наших героических земляках, трудившихся в тылу, сражавшихся и погибших на фронтах
+                    самой страшной войны в истории человечества, выполнявших в разные годы свой гражданский долг в
+                    «горячих» точках, пострадавших от репрессий… В знак уважения к ним здесь собраны документы,
+                    фотографии, информация об этих людях, чтобы потомки могли найти фамилии своих предков, узнать и
+                    рассказать о них. Это наш посильный вклад в то, чтобы увековечить в памяти будущих поколений
+                    беспримерный подвиг солдат и народа, совершенный в годы Великой Отечественной Войны.
+                </div>
+                <br />
+                <div style="text-align: justify;">
+                    «Книга Памяти Кудымкарского района» - результат усилий многих людей, которые собирали и вносили в нее
+                    информацию. Создание Книги Памяти не быстрый процесс, работа ведется постоянно, база пополняется. Если
+                    в базе нет искомых Вами имён, или у Вас есть информация для Книги, Вы можете связаться с нами: адрес
+                    электронной почты, тел.
+                </div>-->
+            <md-button ng-click="oncancelClick()" class="md-raised md-primary" style="left: 45%;     top: 95%; position: absolute;">Продолжить</md-button>
+        <!--</md-content>-->
+    </div>
 </md-dialog>  
