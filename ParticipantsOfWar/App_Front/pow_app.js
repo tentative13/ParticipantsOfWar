@@ -51,10 +51,17 @@
 
                function FirstPageDialogController($scope, $mdDialog, photoSlider) {
                    $scope.photoSlider = photoSlider;
-                   $scope.photoSlider.slides.push({ image: 'Content/images/3.jpg', description: '3' });
                    $scope.photoSlider.slides.push({ image: 'Content/images/1.jpg', description: '1' });
                    $scope.photoSlider.slides.push({ image: 'Content/images/2.jpg', description: '2' });
+                   $scope.photoSlider.slides.push({ image: 'Content/images/3.jpg', description: '3' });
                    $scope.photoSlider.slides.push({ image: 'Content/images/4.jpg', description: '4' });
+                   $scope.photoSlider.slides.push({ image: 'Content/images/5.jpg', description: '5' });
+                   $scope.photoSlider.slides.push({ image: 'Content/images/6.jpg', description: '6' });
+                   $scope.photoSlider.slides.push({ image: 'Content/images/7.jpg', description: '7' });
+                   $scope.photoSlider.slides.push({ image: 'Content/images/8.jpg', description: '8' });
+                   $scope.photoSlider.slides.push({ image: 'Content/images/9.jpg', description: '9' });
+                   $scope.photoSlider.slides.push({ image: 'Content/images/10.jpg', description: '10' });
+                   $scope.photoSlider.slides.push({ image: 'Content/images/11.jpg', description: '11' });
 
                    setInterval(function () {
                        $rootScope.$apply(photoSlider.prevSlide());
