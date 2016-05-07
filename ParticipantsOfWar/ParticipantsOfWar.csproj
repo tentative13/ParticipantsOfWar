@@ -260,9 +260,16 @@
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\images\1.jpg" />
+    <Content Include="Content\images\10.jpg" />
+    <Content Include="Content\images\11.jpg" />
     <Content Include="Content\images\2.jpg" />
     <Content Include="Content\images\3.jpg" />
     <Content Include="Content\images\4.jpg" />
+    <Content Include="Content\images\5.jpg" />
+    <Content Include="Content\images\6.jpg" />
+    <Content Include="Content\images\7.jpg" />
+    <Content Include="Content\images\8.jpg" />
+    <Content Include="Content\images\9.JPG" />
     <Content Include="Content\images\blank.gif" />
     <Content Include="Content\images\blazon.png" />
     <Content Include="Content\images\Download.gif" />
@@ -369,6 +376,8 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
+    <None Include="Properties\PublishProfiles\participantsofwar - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\participantsofwar - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\participantsofwar.pubxml" />
     <Content Include="Scripts\angular-aria.min.js.map" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
