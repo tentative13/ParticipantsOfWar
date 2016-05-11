@@ -1,8 +1,9 @@
 ﻿(function () {
     var app = angular.module('pow_app');
 
-    app.controller('powCtrl', ['$rootScope', '$log', '$scope', 'ParticipantsService', 'participantsVM', '$state',
-        function ($rootScope, $log, $scope, participantsService, participantsVM, $state) {
+    app.controller('powCtrl', ['$rootScope', '$log', '$scope', 'ParticipantsService', 'participantsVM', '$state', 'photoSlider',
+        function ($rootScope, $log, $scope, participantsService, participantsVM, $state, photoSlider) {
+            $scope.showFirstPage = true;
             $scope.participantsVM = participantsVM;
             $scope.Participants = participantsVM.Participants;
             $scope.idSelectedRow = null;
@@ -11,6 +12,22 @@
             $scope.predicate = '-type.value';
 
             if ($rootScope.predicate_holder) $scope.predicate = $rootScope.predicate_holder;
+
+            $scope.photoSlider = photoSlider;
+            $scope.photoSlider.slides.push({ image: 'Content/images/1.jpg', description: '1' });
+            $scope.photoSlider.slides.push({ image: 'Content/images/2.jpg', description: '2' });
+            $scope.photoSlider.slides.push({ image: 'Content/images/3.jpg', description: '3' });
+            $scope.photoSlider.slides.push({ image: 'Content/images/4.jpg', description: '4' });
+            $scope.photoSlider.slides.push({ image: 'Content/images/5.jpg', description: '5' });
+            $scope.photoSlider.slides.push({ image: 'Content/images/6.jpg', description: '6' });
+            $scope.photoSlider.slides.push({ image: 'Content/images/7.jpg', description: '7' });
+            $scope.photoSlider.slides.push({ image: 'Content/images/8.jpg', description: '8' });
+            $scope.photoSlider.slides.push({ image: 'Content/images/9.jpg', description: '9' });
+            $scope.photoSlider.slides.push({ image: 'Content/images/10.jpg', description: '10' });
+            $scope.photoSlider.slides.push({ image: 'Content/images/11.jpg', description: '11' });
+            var timerId = setInterval(function () {
+                $rootScope.$apply(photoSlider.prevSlide());
+            }, 5000);
 
             $scope.handlers = {
                 LoadPage: function () { },
@@ -60,8 +77,12 @@
                     if (crlfCount && crlfCount.length > 5) return true;
 
                     return false;
+                },
+                onCancelClick: function () {
+                    $scope.photoSlider.clearSlides();
+                    clearInterval(timerId);
+                    $scope.showFirstPage = false;
                 }
-
             };
 
             $scope.grid = {

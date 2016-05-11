@@ -42,6 +42,7 @@
                     controller: 'powDetailsCtrl'
                 });
 
+                $compileProvider.debugInfoEnabled(false);
                 $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|unsafe|ftp|mailto|file):/);
                 $compileProvider.aHrefSanitizationWhitelist(/^\s*(|unsafe|http|blob|):/);
             }
@@ -49,7 +50,7 @@
        .run(['$log', '$rootScope', 'participantsVM', '$mdToast', '$mdDialog', 'ParticipantsService', '$state',
            function ($log, $rootScope, participantsVM, $mdToast, $mdDialog, participantsService, $state) {
 
-               function FirstPageDialogController($scope, $mdDialog, photoSlider) {
+            function FirstPageDialogController($scope, $mdDialog, photoSlider) {
                    $scope.photoSlider = photoSlider;
                    $scope.photoSlider.slides.push({ image: 'Content/images/1.jpg', description: '1' });
                    $scope.photoSlider.slides.push({ image: 'Content/images/2.jpg', description: '2' });
@@ -72,16 +73,13 @@
                    };
                }
 
-            FirstPageDialogController.$inject = ['$scope', '$mdDialog', 'photoSlider'];
-
-            $mdDialog.show({
-                templateUrl: '/App_Front/views/first_page.html',
-                clickOutsideToClose: true,
-                escapeToClose: true,
-                controller: FirstPageDialogController
-            });
-
-
+            //FirstPageDialogController.$inject = ['$scope', '$mdDialog', 'photoSlider'];
+            //$mdDialog.show({
+            //    templateUrl: '/App_Front/views/first_page.html',
+            //    clickOutsideToClose: true,
+            //    escapeToClose: true,
+            //    controller: FirstPageDialogController
+            //});
 
             $rootScope.loadingClass = '';
             $rootScope.loader_text = '';
@@ -124,7 +122,6 @@
                     $log.info('SignalR The server is online');
                 }
             });
-
             $.connection.hub.reconnected(function () {
                 $rootScope.signalrConnectionId = $.connection.hub.id;
                 $log.info('Now Reconnected, connection ID=' + $.connection.hub.id);
@@ -132,12 +129,11 @@
                     participantsVM.SendGuidsCache();
                 }
             });
-
             $.connection.hub.disconnected(function () {
 
-                if ($.connection.hub.lastError){ $log.error("Disconnected. Reason: ", $.connection.hub.lastError.message); }
+            if ($.connection.hub.lastError){ $log.error("Disconnected. Reason: ", $.connection.hub.lastError.message); }
 
-                setTimeout(function () {
+            setTimeout(function () {
                     $.connection.hub.start()
                         .done(function () {
                             $rootScope.signalrConnectionId = $.connection.hub.id;
@@ -163,7 +159,6 @@
                     .hideDelay(3000)
                 );
             };
-
 
             $rootScope.dateOptions = {
                 changeYear: true,

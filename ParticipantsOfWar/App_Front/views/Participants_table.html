@@ -1,152 +1,184 @@
 ﻿<div class="mainContainer" ui-view>
-    <div>
-        <md-button class="md-raised md-primary" ng-if="authentication.isAuthorized" ng-cloak ng-click="handlers.onCreateClick()" style="float: right; margin-top: 20px;">&nbsp;&nbsp;Создать новую запись&nbsp;&nbsp;</md-button>
+    <div ng-if="showFirstPage">
+        <div layout="column">
+            <div class="mainFirstPageContainer">
+                <img class="slide slide-animation nonDraggableImage"
+                     ng-repeat="slide in photoSlider.slides"
+                     ng-src="{{slide.image}}"
+                     ng-hide="!photoSlider.isCurrentSlideIndex($index)">
+                <nav class="nav" ng-hide="photoSlider.slides.length <= 1">
+                    <div class="wrapper">
+                        <ul class="dots">
+                            <li class="dot" ng-repeat="slide in photoSlider.slides">
+                                <a ng-class="{'active':photoSlider.isCurrentSlideIndex($index)}"
+                                   ng-click="photoSlider.setCurrentSlideIndex($index);">{{slide.description}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div style="padding-top:25px;">
+                <p style="text-align: center;font-size: x-large;margin:0;">
+                    Электронная Книга Памяти Кудымкарского района
+                </p>
+                <textarea readonly style="width: 100%;min-height:200px;border:none;height:auto;text-align: justify;">
+                    Этот проект начат в 2015 году к 70-тилетию победы в Великой Отечественной Войне. Книга создается в память о наших героических земляках, трудившихся в тылу, сражавшихся и погибших на фронтах самой страшной войны в истории человечества, выполнявших в разные годы свой гражданский долг в «горячих» точках, пострадавших от репрессий… В знак уважения к ним здесь собраны документы, фотографии, информация об этих людях, чтобы потомки могли найти фамилии своих предков, узнать и рассказать о них. Это наш посильный вклад в то, чтобы увековечить в памяти будущих поколений беспримерный подвиг солдат и народа, совершенный в годы Великой Отечественной Войны.
+                    Электронная Книга Памяти Кудымкарского района - результат усилий многих людей, которые собирали и вносили в нее информацию. Создание Книги Памяти не быстрый процесс, работа ведется постоянно, база пополняется. Если в базе нет искомых Вами имён, или у Вас есть информация для Книги, Вы можете связаться с нами: адрес электронной почты, тел.
+                </textarea>
+            </div>
+            <md-button ng-click="handlers.onCancelClick()" class="md-raised md-primary" style="position: absolute;bottom:20px;right:50%;">Продолжить</md-button>
+        </div>
     </div>
-    <div class="tableDiv tableDiv-header">
-        <table class="objList">
-            <col width="12%" />
-            <col width="26%" />
-            <col width="25%" />
-            <col width="25%" />
-            <col width="12%" />
+    <div ng-if="!showFirstPage">
+        <div>
+            <md-button class="md-raised md-primary" ng-if="authentication.isAuthorized" ng-cloak ng-click="handlers.onCreateClick()" style="float: right; margin-top: 20px;">&nbsp;&nbsp;Создать новую запись&nbsp;&nbsp;</md-button>
+        </div>
+        <div class="tableDiv tableDiv-header">
+            <table class="objList">
+                <col width="12%" />
+                <col width="26%" />
+                <col width="25%" />
+                <col width="25%" />
+                <col width="12%" />
 
-            <tr class="td-light-grey">
-                <td>
-                    <select class="selectpicker" ng-model="filter.ParticipantsTypes" ng-init="filter.ParticipantsTypes = filter.ParticipantsTypes  || participantsVM.ParticipantsTypes[0].value"
-                            ng-options="option.value as option.name for option in participantsVM.ParticipantsTypes"></select>
-                </td>
-                <td>
-                    <input class="input-filter" type="text" ng-model="filter.surname" />
-                    <div class="icon-delete" title="Очистить поле" ng-click="filter.surname=''">&times;</div>
-                </td>
-                <td>
-                    <input class="input-filter" type="text" ng-model="filter.firstname" />
-                    <div class="icon-delete" title="Очистить поле" ng-click="filter.firstname=''">&times;</div>
-                </td>
-                <td>
-                    <input class="input-filter" type="text" ng-model="filter.middlename" />
-                    <div class="icon-delete" title="Очистить поле" ng-click="filter.middlename=''">&times;</div>
-                </td>
-                <td>
-                    <input ui-date="dateOptions" class="input-filter" ng-model="filter.birthday" ng-change="handlers.onDateInputChange()">
-                    <div class="icon-delete" title="Очистить поле" ng-click="filter.birthday=undefined">&times;</div>
-                </td>
-                &nbsp;
-            </tr>
-
-            <tr class="td-dark-grey">
-                <td>
-                    Статус участника
-                    <div class="row-block">
-                        <div ng-class="{'selected': $parent.predicate == 'type.value'}" title="Сортировать по возрастанию" class="row-up" ng-click="$parent.predicate = 'type.value'; grid.closeAllRows()"></div>
-                        <div ng-class="{'selected': $parent.predicate == '-type.value'}" title="Сортировать по убыванию" class="row-down" ng-click="$parent.predicate = '-type.value'; grid.closeAllRows()"></div>
-                    </div>
-                </td>
-                <td>
-                    Фамилия
-                    <div class="row-block">
-                        <div ng-class="{'selected': $parent.predicate == 'surname'}" title="Сортировать по возрастанию" class="row-up" ng-click="$parent.predicate = 'surname'; grid.closeAllRows()"></div>
-                        <div ng-class="{'selected': $parent.predicate == '-surname'}" title="Сортировать по убыванию" class="row-down" ng-click="$parent.predicate = '-surname'; grid.closeAllRows()"></div>
-                    </div>
-                </td>
-                <td>
-                    Имя
-                    <div class="row-block">
-                        <div ng-class="{'selected': $parent.predicate == '-firstname'}" title="Сортировать по возрастанию" class="row-up" ng-click="$parent.predicate = '-firstname'; grid.closeAllRows()"></div>
-                        <div ng-class="{'selected': $parent.predicate == 'firstname'}" title="Сортировать по убыванию" class="row-down" ng-click="$parent.predicate = 'firstname'; grid.closeAllRows()"></div>
-                    </div>
-                </td>
-                <td>
-                    Отчество
-                    <div class="row-block">
-                        <div ng-class="{'selected': $parent.predicate == '-middlename'}" title="Сортировать по возрастанию" class="row-up" ng-click="$parent.predicate = '-middlename'; grid.closeAllRows()"></div>
-                        <div ng-class="{'selected': $parent.predicate == 'middlename'}" title="Сортировать по убыванию" class="row-down" ng-click="$parent.predicate = 'middlename'; grid.closeAllRows()"></div>
-                    </div>
-                </td>
-                <td>
-                    Дата рождения
-                    <div class="row-block">
-                        <div class="row-up" ng-class="{'selected': $parent.predicate == '-birthday'}" title="Сортировать по возрастанию" ng-click="$parent.predicate = '-birthday'; grid.closeAllRows()"></div>
-                        <div class="row-down" ng-class="{'selected': $parent.predicate == 'birthday'}" title="Сортировать по убыванию" ng-click="$parent.predicate = 'birthday'; grid.closeAllRows()"></div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-
-        <table class="Repeater">
-            <col width="12%" />
-            <col width="26%" />
-            <col width="25%" />
-            <col width="25%" />
-            <col width="12%" />
-            <tbody ng-repeat="item in filtered = ( Participants | participantsTableFilter:filter | orderBy : $parent.predicate : true)">
-
-                <tr ng-click="grid.expandRow(item, $index)" ng-class="{part_selected: item.guid === idSelectedRow}">
-
+                <tr class="td-light-grey">
                     <td>
-                        {{ item.type.name }}
+                        <select class="selectpicker" ng-model="filter.ParticipantsTypes" ng-init="filter.ParticipantsTypes = filter.ParticipantsTypes  || participantsVM.ParticipantsTypes[0].value"
+                                ng-options="option.value as option.name for option in participantsVM.ParticipantsTypes"></select>
                     </td>
                     <td>
-                        {{item.surname}}
+                        <input class="input-filter" type="text" ng-model="filter.surname" />
+                        <div class="icon-delete" title="Очистить поле" ng-click="filter.surname=''">&times;</div>
                     </td>
                     <td>
-                        {{ item.firstname }}
+                        <input class="input-filter" type="text" ng-model="filter.firstname" />
+                        <div class="icon-delete" title="Очистить поле" ng-click="filter.firstname=''">&times;</div>
                     </td>
                     <td>
-                        {{ item.middlename }}
+                        <input class="input-filter" type="text" ng-model="filter.middlename" />
+                        <div class="icon-delete" title="Очистить поле" ng-click="filter.middlename=''">&times;</div>
                     </td>
                     <td>
-                        {{item.birthday | date:'dd.MM.yyyy' }}
+                        <input ui-date="dateOptions" class="input-filter" ng-model="filter.birthday" ng-change="handlers.onDateInputChange()">
+                        <div class="icon-delete" title="Очистить поле" ng-click="filter.birthday=undefined">&times;</div>
                     </td>
+                    &nbsp;
                 </tr>
-                <tr ng-show="grid.showData($index)">
-                    <td colspan="5" style="border-bottom: 10px solid #f3f3f3;">
-                        <div layout="column">
-                            <div layout="row" layout-wrap>
-                                <div flex="30"><img ng-src="api/Documents/GetPhoto/{{item.photos[0].photoId}}" alt="Фотография" style="width:auto; height:auto; max-height:200px; " /></div>
-                                <div flex="70" style="white-space: pre-wrap;text-align: justify;text-justify:distribute;"><b>Биография:</b>&nbsp;{{ item.description | shortTextToLines:5 }}<p style="display : inline;" ng-show="handlers.shortedCheck(item.description)">(см. подробнее)...</p></div>
-                            </div>
-                            <div>&nbsp;</div>
-                            <div layout="row" layout-wrap>
-                                <div flex="86"></div>
-                                <div flex="15" style="margin-bottom:10px;">
-                                    <md-button class="md-raised md-primary" ng-click="handlers.onDocumentClick(item)">&nbsp;&nbsp;Подбробнее&nbsp;&nbsp;</md-button>
-                                </div>
-                            </div>
+
+                <tr class="td-dark-grey">
+                    <td>
+                        Статус участника
+                        <div class="row-block">
+                            <div ng-class="{'selected': $parent.predicate == 'type.value'}" title="Сортировать по возрастанию" class="row-up" ng-click="$parent.predicate = 'type.value'; grid.closeAllRows()"></div>
+                            <div ng-class="{'selected': $parent.predicate == '-type.value'}" title="Сортировать по убыванию" class="row-down" ng-click="$parent.predicate = '-type.value'; grid.closeAllRows()"></div>
+                        </div>
+                    </td>
+                    <td>
+                        Фамилия
+                        <div class="row-block">
+                            <div ng-class="{'selected': $parent.predicate == 'surname'}" title="Сортировать по возрастанию" class="row-up" ng-click="$parent.predicate = 'surname'; grid.closeAllRows()"></div>
+                            <div ng-class="{'selected': $parent.predicate == '-surname'}" title="Сортировать по убыванию" class="row-down" ng-click="$parent.predicate = '-surname'; grid.closeAllRows()"></div>
+                        </div>
+                    </td>
+                    <td>
+                        Имя
+                        <div class="row-block">
+                            <div ng-class="{'selected': $parent.predicate == '-firstname'}" title="Сортировать по возрастанию" class="row-up" ng-click="$parent.predicate = '-firstname'; grid.closeAllRows()"></div>
+                            <div ng-class="{'selected': $parent.predicate == 'firstname'}" title="Сортировать по убыванию" class="row-down" ng-click="$parent.predicate = 'firstname'; grid.closeAllRows()"></div>
+                        </div>
+                    </td>
+                    <td>
+                        Отчество
+                        <div class="row-block">
+                            <div ng-class="{'selected': $parent.predicate == '-middlename'}" title="Сортировать по возрастанию" class="row-up" ng-click="$parent.predicate = '-middlename'; grid.closeAllRows()"></div>
+                            <div ng-class="{'selected': $parent.predicate == 'middlename'}" title="Сортировать по убыванию" class="row-down" ng-click="$parent.predicate = 'middlename'; grid.closeAllRows()"></div>
+                        </div>
+                    </td>
+                    <td>
+                        Дата рождения
+                        <div class="row-block">
+                            <div class="row-up" ng-class="{'selected': $parent.predicate == '-birthday'}" title="Сортировать по возрастанию" ng-click="$parent.predicate = '-birthday'; grid.closeAllRows()"></div>
+                            <div class="row-down" ng-class="{'selected': $parent.predicate == 'birthday'}" title="Сортировать по убыванию" ng-click="$parent.predicate = 'birthday'; grid.closeAllRows()"></div>
                         </div>
                     </td>
                 </tr>
-            </tbody>
-        </table>
-        
-        <div ng-hide="table_loader">
-            &nbsp;
-            <div layout="row" layout-sm="column" layout-align="space-around">
-                <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+            </table>
+
+            <table class="Repeater">
+                <col width="12%" />
+                <col width="26%" />
+                <col width="25%" />
+                <col width="25%" />
+                <col width="12%" />
+                <tbody ng-repeat="item in filtered = ( Participants | participantsTableFilter:filter | orderBy : $parent.predicate : true)">
+
+                    <tr ng-click="grid.expandRow(item, $index)" ng-class="{part_selected: item.guid === idSelectedRow}">
+
+                        <td>
+                            {{ item.type.name }}
+                        </td>
+                        <td>
+                            {{item.surname}}
+                        </td>
+                        <td>
+                            {{ item.firstname }}
+                        </td>
+                        <td>
+                            {{ item.middlename }}
+                        </td>
+                        <td>
+                            {{item.birthday | date:'dd.MM.yyyy' }}
+                        </td>
+                    </tr>
+                    <tr ng-show="grid.showData($index)">
+                        <td colspan="5" style="border-bottom: 10px solid #f3f3f3;">
+                            <div layout="column">
+                                <div layout="row" layout-wrap>
+                                    <div flex="30"><img ng-src="api/Documents/GetPhoto/{{item.photos[0].photoId}}" alt="Фотография" style="width:auto; height:auto; max-height:200px; " /></div>
+                                    <div flex="70" style="white-space: pre-wrap;text-align: justify;text-justify:distribute;"><b>Биография:</b>&nbsp;{{ item.description | shortTextToLines:5 }}<p style="display : inline;" ng-show="handlers.shortedCheck(item.description)">(см. подробнее)...</p></div>
+                                </div>
+                                <div>&nbsp;</div>
+                                <div layout="row" layout-wrap>
+                                    <div flex="86"></div>
+                                    <div flex="15" style="margin-bottom:10px;">
+                                        <md-button class="md-raised md-primary" ng-click="handlers.onDocumentClick(item)">&nbsp;&nbsp;Подбробнее&nbsp;&nbsp;</md-button>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div ng-hide="table_loader">
+                &nbsp;
+                <div layout="row" layout-sm="column" layout-align="space-around">
+                    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+                </div>
+                &nbsp;
             </div>
-            &nbsp;
-        </div>
 
-        <div layout="row">
-            <p style="width:100%; text-align:center; margin:0 auto;">
-                <a ng-repeat="letter in alphabet" ng-click="handlers.letterFilter(letter)">&nbsp;<b>{{letter}}</b>&nbsp;</a>
-            </p>
-        </div>
+            <div layout="row">
+                <p style="width:100%; text-align:center; margin:0 auto;">
+                    <a ng-repeat="letter in alphabet" ng-click="handlers.letterFilter(letter)">&nbsp;<b>{{letter}}</b>&nbsp;</a>
+                </p>
+            </div>
 
-        <div class="paging" ng-show="Participants.length">
-            <div class="showMoreBtn">
-                <span>
-                    Показано записей {{filtered.length}} из {{participantsVM.TotalParticipants}}
-                </span>
-                <md-button class="md-raised md-primary"
-                           ng-show="participantsVM.TotalParticipants > filtered.length"
-                           ng-click="paging.showMore(filter)">
-                    &nbsp;&nbsp; Показать ещё {{remains = (paging.getLastCount(filter, filtered.length) || participantsVM.TotalParticipants - filtered.length || '')}} &nbsp;&nbsp;
-                </md-button>
-                <a ng-show="participantsVM.TotalParticipants > Participants.length" ng-click="paging.showAll(filter)" style="cursor: pointer;">
-                    Показать все
-                </a>
+            <div class="paging" ng-show="Participants.length">
+                <div class="showMoreBtn">
+                    <span>
+                        Показано записей {{filtered.length}} из {{participantsVM.TotalParticipants}}
+                    </span>
+                    <md-button class="md-raised md-primary"
+                               ng-show="participantsVM.TotalParticipants > filtered.length"
+                               ng-click="paging.showMore(filter)">
+                        &nbsp;&nbsp; Показать ещё {{remains = (paging.getLastCount(filter, filtered.length) || participantsVM.TotalParticipants - filtered.length || '')}} &nbsp;&nbsp;
+                    </md-button>
+                    <a ng-show="participantsVM.TotalParticipants > Participants.length" ng-click="paging.showAll(filter)" style="cursor: pointer;">
+                        Показать все
+                    </a>
 
+                </div>
             </div>
         </div>
     </div>
