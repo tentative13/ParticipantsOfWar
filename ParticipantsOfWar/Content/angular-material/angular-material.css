@@ -13,6 +13,7 @@
 html, body {
   height: 100%;
   color: rgba(0, 0, 0, 0.87);
+  background-color: rgba(161, 217, 173, 0.48);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-touch-callout: none;
   -webkit-text-size-adjust: 100%;
