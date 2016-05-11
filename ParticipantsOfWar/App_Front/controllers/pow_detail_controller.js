@@ -24,8 +24,6 @@
         if ($scope.participant && $scope.participant.birthday) {$scope.birthday_str = DateToStr($scope.participant.birthday);}
         if ($scope.participant && $scope.participant.deathday) {$scope.death_str = DateToStr($scope.participant.deathday);}
 
-
-
         $scope.dropFiles = function (participant) {
             if ($scope.docForDelete && $scope.docForDelete.length && participant && participant.guid) {
                 for (var i = 0; i < $scope.docForDelete.length; i++) {
