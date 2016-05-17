@@ -85,6 +85,19 @@
             }
         };
 
+        self.deleteParticipant = function (guid) {
+            if (guid) {
+                participantsService.deleteParticipant(guid, function () {
+                    for (var i = 0; i < self.Participants.length; i++) {
+                        if (guid === self.Participants[i].guid) {
+                            self.Participants.splice(i, 1);
+                            break;
+                        }
+                    }
+                });
+            }
+        };
+
         self.AddToCacheParticipants = function (newitem) {
             var check = $.grep(self.Participants, function (f) { return f.guid == newitem.guid; });
             if (check.length === 0) {

@@ -82,6 +82,13 @@
                     $scope.photoSlider.clearSlides();
                     clearInterval(timerId);
                     $scope.showFirstPage = false;
+                },
+                onDeleteClick: function (guid) {
+                    if (window.confirm("Уверены, что хотите удалить запись?")) {
+                        $scope.participantsVM.deleteParticipant(guid);
+                        $scope.grid.closeAllRows();
+                    }
+                    
                 }
             };
 
