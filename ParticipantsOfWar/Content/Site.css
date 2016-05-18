@@ -575,7 +575,8 @@ NAV
 .mainFirstPageContainer {
     min-height: 420px;
     display: block;
-    margin-top:20px;
+    margin-top:5px;
+    margin-bottom:5px;
     padding: 5px;
     align-content: center;
     position: relative;
