@@ -140,9 +140,12 @@
                                 </div>
                                 <div>&nbsp;</div>
                                 <div layout="row" layout-wrap>
-                                    <div flex="86"></div>
-                                    <div flex="15" style="margin-bottom:10px;">
+                                    <div flex="80"></div>
+                                    <div flex="10" style="margin-bottom:10px;">
                                         <md-button class="md-raised md-primary" ng-click="handlers.onDocumentClick(item)">&nbsp;&nbsp;Подбробнее&nbsp;&nbsp;</md-button>
+                                    </div>
+                                    <div flex="10" style="margin-bottom:10px;" >
+                                        <md-button ng-if="authentication.isAuthorized" class="md-raised md-primary" ng-click="handlers.onDeleteClick(item.guid)">&nbsp;&nbsp;Удалить&nbsp;&nbsp;</md-button>
                                     </div>
                                 </div>
                             </div>

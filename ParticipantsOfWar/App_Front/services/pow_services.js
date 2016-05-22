@@ -52,6 +52,21 @@
                 $rootScope.showSimpleToast('Ошибка получения данных!');
             });
         };
+        this.deleteParticipant = function (id, callback) {
+            $rootScope.loader_text = 'Удаляем запись...';
+            $http({
+                method: 'DELETE',
+                url: url + '/' + id
+            }).
+            success(function (data, status, headers, config) {
+                $log.info('deleteParticipant', status);
+                callback();
+            }).
+            error(function (data, status, headers, config) {
+                $log.error('deleteParticipant', status, data);
+                $rootScope.showSimpleToast('Ошибка получения данных!');
+            });
+        };
         this.createParticipant = function (item, callback) {
             $rootScope.loader_text = 'Сохраняем запись...';
             $http({
@@ -74,7 +89,6 @@
         this.downloadPhoto = function (photoId) {
             window.location.href = 'api/Documents/DownloadPhoto/' + photoId;
         };
-
         this.getParticipants = function (filter, number) {
             return $rootScope.powHub.server.getParticipants(filter, number);
         };
@@ -87,7 +101,6 @@
         this.sendGuidsCache = function (guids) {
             $rootScope.powHub.server.guidscache(guids);
         };
-
         this.UploadDocument = function (file, guid, callback) {
             $rootScope.loader_text = 'Загружаем документы...';
             this.UploadFile('api/Documents/UploadDocument', file, guid, callback);

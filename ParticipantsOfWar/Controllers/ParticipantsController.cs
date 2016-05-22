@@ -161,6 +161,46 @@ namespace ParticipantsOfWar.Controllers
             return CreatedAtRoute("DefaultApi", new { id = response.guid }, response);
         }
 
+        [HttpDelete]
+        [Authorize]
+        public IHttpActionResult DeleteParticipant(Guid id)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+            if (id == null) return BadRequest();
+
+            try
+            {
+                Participant participant = _archiveRepo.Get<Participant>(id);
+                if (participant == null) return NotFound();
+
+                if(participant.Documents.Any())
+                {
+                    var docs_ids = participant.Documents.Select(x => x.DocumentId).ToList();
+                    for (int i=0; i < docs_ids.Count; i++ )
+                    {
+                        _archiveRepo.Delete<Document>(docs_ids[i]);
+                    }
+                }
+
+                if (participant.Photos.Any())
+                {
+                    var photo_ids = participant.Photos.Select(x => x.PhotoId).ToList();
+                    for (int i = 0; i < photo_ids.Count; i++)
+                    {
+                        _archiveRepo.Delete<Photo>(photo_ids[i]);
+                    }
+                }
+                _archiveRepo.Delete<Participant>(id);
+                _archiveRepo.Commit();
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+            return Ok();
+        }
+
         private bool ParticipantExists(Guid id)
         {
             return _archiveRepo.List<Participant>(e => e.ParticipantId == id).Count > 0;
